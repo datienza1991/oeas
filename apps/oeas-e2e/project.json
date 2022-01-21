@@ -1,0 +1,28 @@
+{
+  "root": "apps/oeas-e2e",
+  "sourceRoot": "apps/oeas-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/oeas-e2e/cypress.json",
+        "devServerTarget": "oeas:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "oeas:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/oeas-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["oeas"]
+}
