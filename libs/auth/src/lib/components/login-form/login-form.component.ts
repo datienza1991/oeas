@@ -9,7 +9,7 @@ import { Authenticate } from '@batstateu/data-models';
 export class LoginFormComponent implements OnInit {
   constructor() {}
   @Output() submitForm = new EventEmitter<Authenticate>();
-
+  passwordVisible = false;
   ngOnInit(): void {}
 
   login(authenticate: Authenticate) {

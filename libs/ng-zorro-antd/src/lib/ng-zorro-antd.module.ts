@@ -65,10 +65,18 @@ import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzResizableModule } from 'ng-zorro-antd/resizable';
+import {
+  AccountBookFill,
+  AlertFill,
+  AlertOutline,
+  EyeInvisibleOutline,
+} from '@ant-design/icons-angular/icons';
+import { IconDefinition } from '@ant-design/icons-angular';
 
+const icons: IconDefinition[] = [AccountBookFill, AlertOutline, AlertFill, EyeInvisibleOutline];
 @NgModule({
-  imports: [CommonModule],
-  exports:[
+  imports: [CommonModule, NzIconModule.forRoot(icons)],
+  exports: [
     NzAffixModule,
     NzAlertModule,
     NzAnchorModule,
@@ -133,7 +141,7 @@ import { NzResizableModule } from 'ng-zorro-antd/resizable';
     NzTypographyModule,
     NzUploadModule,
     NzWaveModule,
-    NzResizableModule
-  ]
+    NzResizableModule,
+  ],
 })
 export class NgZorroAntdModule {}
