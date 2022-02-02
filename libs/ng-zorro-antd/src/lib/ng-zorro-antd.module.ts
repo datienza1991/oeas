@@ -70,10 +70,19 @@ import {
   AlertFill,
   AlertOutline,
   EyeInvisibleOutline,
+  UserOutline,
+  LockOutline,
 } from '@ant-design/icons-angular/icons';
 import { IconDefinition } from '@ant-design/icons-angular';
 
-const icons: IconDefinition[] = [AccountBookFill, AlertOutline, AlertFill, EyeInvisibleOutline];
+const icons: IconDefinition[] = [
+  AccountBookFill,
+  AlertOutline,
+  AlertFill,
+  EyeInvisibleOutline,
+  UserOutline,
+  LockOutline,
+];
 @NgModule({
   imports: [CommonModule, NzIconModule.forRoot(icons)],
   exports: [

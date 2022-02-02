@@ -1,24 +1,52 @@
-<input nz-input #username placeholder="username" type="text" />
-<nz-input-group [nzSuffix]="suffixTemplate">
-  <input
-    nz-input
-    [type]="passwordVisible ? 'text' : 'password'"
-    #password
-    placeholder="password"
-    type="text"
-  />
-</nz-input-group>
-<ng-template #suffixTemplate>
-  <i
-    nz-icon
-    [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
-    (click)="passwordVisible = !passwordVisible"
-  ></i>
+<nz-card nzTitle="Login" [nzExtra]="extraTemplate" class="login-form">
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="login()">
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your username">
+        <nz-input-group nzPrefixIcon="user">
+          <input
+            nz-input
+            formControlName="username"
+            placeholder="Username"
+            type="text"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your Password">
+        <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
+          <input
+            nz-input
+            [type]="passwordVisible ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="password"
+            type="text"
+          />
+          <ng-template #suffixTemplate>
+            <i
+              nz-icon
+              [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+              (click)="passwordVisible = !passwordVisible"
+            ></i>
+          </ng-template>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <div nz-row class="login-form-margin">
+      <div nz-col [nzSpan]="12">
+        <label nz-checkbox formControlName="remember">
+          <span>Remember me</span>
+        </label>
+      </div>
+      <div nz-col [nzSpan]="12" class="login-form-login">
+        <button nz-button nzType="primary">Login</button>
+      </div>
+    </div>
+    <a class="login-form-register" href="">Click here to register</a>
+  </form>
+</nz-card>
+<ng-template #extraTemplate>
+  <a>Forgot Password?</a>
 </ng-template>
-<button
-  nz-button
-  nzType="primary"
-  (click)="login({ username: username.value, password: password.value })"
->
-  Login
-</button>

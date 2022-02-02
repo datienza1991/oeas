@@ -1,22 +1,23 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth/auth.service';
+import { Authenticate } from '@batstateu/data-models';
+import { Store } from '@ngrx/store';
+import { AuthState } from '../../+state/auth.reducer';
+import * as authActions from './../../+state/auth.actions';
 
 @Component({
   selector: 'batstateu-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./login.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
-
-  constructor(private authService : AuthService) { }
+  constructor(private store: Store<AuthState>) {}
 
   ngOnInit(): void {
+    console.log('Login Init..');
   }
 
-  login(authenticate:any): void{
-    console.log(authenticate);
-    //this.authService.login(authenticate).subscribe();
+  login(authenticate: Authenticate): void {
+    this.store.dispatch(authActions.login({ payload: authenticate }));
   }
-
 }
