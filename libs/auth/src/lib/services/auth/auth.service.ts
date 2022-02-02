@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Authenticate, User } from '@batstateu/data-models';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AuthState } from '../../+state/auth.reducer';
+import * as fromAuth from '../../+state/auth.reducer';
 import * as authActions from './../../+state/auth.actions';
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class AuthService {
   private userSubject$ = new BehaviorSubject<User | null>(null);
   user$ = this.userSubject$.asObservable();
 
-  constructor(private httpClient: HttpClient, private store: Store<AuthState>) {
+  constructor(private httpClient: HttpClient, private store: Store<fromAuth.State>) {
     const user = localStorage.getItem('user');
     if (user) {
       this.userSubject$.next(JSON.parse(user));
@@ -25,7 +25,6 @@ export class AuthService {
       .pipe(
         tap((user: User) => {
           this.userSubject$.next(user);
-          localStorage.setItem('user', JSON.stringify(user));
         })
       );
   }

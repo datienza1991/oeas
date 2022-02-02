@@ -1,4 +1,5 @@
+import { User } from '@batstateu/data-models';
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { AuthData } from './auth.reducer';
-export const getAuthState = createFeatureSelector<AuthData>('auth');
-export const getUser = createSelector(getAuthState, state => state.user);
+import { State } from './auth.reducer';
+export const state = createFeatureSelector<State>('auth');
+export const selectUser = createSelector(state, (authState: State): User | null => authState.user);

@@ -1,29 +1,20 @@
-import { createReducer, on, Action, State } from '@ngrx/store';
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+import { createReducer, on, Action } from '@ngrx/store';
 import * as AuthActions from './auth.actions';
-import { AuthEntity } from './auth.models';
 import { User } from '@batstateu/data-models';
-
 export const AUTH_FEATURE_KEY = 'auth';
 
-export interface AuthData {
+export interface State {
   loading: boolean;
   user: User | null;
   error: '';
 }
 
-export interface AuthState {
-  readonly auth: AuthData;
-}
-
-const obj  = JSON.stringify({id: 3, username: "admin", country: "usa", role: "admin", token: "admin-token"})
-
-export const initialState: AuthData = {
+export const initialState: State = {
   error: '',
-  user: JSON.parse(obj),
+  user: null,
   loading: false,
 };
-
+//feature selector on index.ts
 const authReducer = createReducer(
   initialState,
   on(AuthActions.login, (state, action) => ({ ...state, auth: action.payload, loading: true })),
@@ -44,6 +35,6 @@ const authReducer = createReducer(
   })),
 );
 
-export function reducer(state: AuthData | undefined, action: Action) {
+export function reducer(state: State | undefined, action: Action) {
   return authReducer(state, action);
 }
