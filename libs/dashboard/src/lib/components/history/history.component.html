@@ -1,1 +1,14 @@
-<p>history works!</p>
+<nz-table style="margin-top: 24px;" #basicTable [nzData]="history">
+  <thead>
+    <tr>
+      <th style="width: 240px;">Date</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{data?.date}}</td>
+      <td>{{data?.details}}</td>
+    </tr>
+  </tbody>
+</nz-table>

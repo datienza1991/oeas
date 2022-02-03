@@ -1,4 +1,29 @@
-<nz-card style="width: 300px">
-  <p class="card-value">100</p>
-  <p class="card-title">Total Exam</p>
-</nz-card>
+<div class="container">
+  <div class="row" nz-row [nzGutter]="[16, 24]">
+    <div nz-col [nzSpan]="12" class="gutter-row">
+      <nz-card class="card">
+        <p class="card-value">100</p>
+        <p class="card-title">Total Exams</p>
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="12" class="gutter-row">
+      <nz-card class="card">
+        <p class="card-value">3</p>
+        <p class="card-title">Upcoming Exams</p>
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="12" class="gutter-row">
+      <nz-card class="card">
+        <p class="card-value">14</p>
+        <p class="card-title">Recent Exams</p>
+      </nz-card>
+    </div>
+    <div nz-col [nzSpan]="12" class="gutter-row">
+      <nz-card class="card">
+        <p class="card-value">8</p>
+        <p class="card-title">On-going Exams</p>
+      </nz-card>
+    </div>
+  </div>
+</div>
+

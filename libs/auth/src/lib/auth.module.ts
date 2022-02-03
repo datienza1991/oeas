@@ -31,6 +31,8 @@ export function getAuthConfig(
 
 export const authRoutes: Route[] = [
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: LoginComponent },
+  { path: 'forgot-password', component: LoginComponent },
 ];
 const COMPONENTS = [LoginComponent, LoginFormComponent];
 @NgModule({
