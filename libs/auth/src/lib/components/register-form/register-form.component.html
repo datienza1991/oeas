@@ -1,0 +1,179 @@
+<nz-divider nzText="Register"></nz-divider>
+<form
+  nz-form
+  [formGroup]="validateForm"
+  (ngSubmit)="submitForm()"
+  [nzLayout]="'vertical'"
+>
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="srcode">SR-Code</nz-form-label>
+        <nz-form-control nzErrorTip="The input is not valid Sr-Code!">
+          <input nz-input formControlName="srcode" id="srcode" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="email">Email</nz-form-label>
+        <nz-form-control nzErrorTip="The input is not valid E-mail!">
+          <input nz-input formControlName="email" id="email" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label nzFor="password" nzRequired>Password</nz-form-label>
+        <nz-form-control nzErrorTip="Please input your password!">
+          <input
+            nz-input
+            type="password"
+            id="password"
+            formControlName="password"
+            (ngModelChange)="updateConfirmValidator()"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label nzFor="checkPassword" nzRequired
+          >Retype Password</nz-form-label
+        >
+        <nz-form-control [nzErrorTip]="errorTpl">
+          <input
+            nz-input
+            type="password"
+            formControlName="checkPassword"
+            id="checkPassword"
+          />
+          <ng-template #errorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')"
+              >Please confirm your password!</ng-container
+            >
+            <ng-container *ngIf="control.hasError('confirm')">
+              Two passwords that you enter is inconsistent!
+            </ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label nzFor="firstname" nzRequired>
+          <span>First Name</span>
+        </nz-form-label>
+        <nz-form-control nzErrorTip="Please input your firstname!">
+          <input nz-input id="firstname" formControlName="firstname" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label nzFor="middlename" nzRequired>
+          <span>Middle Name</span>
+        </nz-form-label>
+        <nz-form-control nzErrorTip="Please input your middlename!">
+          <input nz-input id="middlename" formControlName="middlename" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label nzFor="lastname" nzRequired>
+          <span>Last Name</span>
+        </nz-form-label>
+        <nz-form-control nzErrorTip="Please input your lastname!">
+          <input nz-input id="lastname" formControlName="lastname" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label nzFor="contactNumber" nzRequired
+          >Contact Number</nz-form-label
+        >
+        <nz-form-control
+          [nzValidateStatus]="validateForm.controls['contactNumber']"
+          nzErrorTip="Please input your phone number!"
+        >
+          <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+            <ng-template #addOnBeforeTemplate>
+              <nz-select
+                formControlName="contactNumberPrefix"
+                class="phone-select"
+              >
+                <nz-option nzLabel="+63" nzValue="+63"></nz-option>
+              </nz-select>
+            </ng-template>
+            <input
+              formControlName="contactNumber"
+              id="'contactNumber'"
+              nz-input
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label
+          nzFor="address"
+          nzRequired
+        >
+          <span>Address</span>
+        </nz-form-label>
+        <nz-form-control nzErrorTip="Please input your address!">
+          <input nz-input id="address" formControlName="address" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label nzFor="department" nzRequired>Department</nz-form-label>
+        <nz-form-control nzErrorTip="Please input department!">
+          <nz-select
+            id="department"
+            formControlName="department"
+            nzPlaceHolder="Select department"
+            (ngModelChange)="genderChange($event)"
+          >
+            <nz-option nzValue="1" nzLabel="Grad School"></nz-option>
+            <nz-option nzValue="2" nzLabel="Others"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item>
+        <nz-form-label nzFor="section" nzRequired>Section</nz-form-label>
+        <nz-form-control nzErrorTip="Please input department!">
+          <nz-select
+            id="section"
+            formControlName="section"
+            nzPlaceHolder="Select section"
+            (ngModelChange)="genderChange($event)"
+          >
+            <nz-option nzValue="1" nzLabel="Grad-1101"></nz-option>
+            <nz-option nzValue="2" nzLabel="Grad-1102"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item nz-row class="register-area" style="display: flex; align-items: flex-end; margin-top: 30px;">
+        <nz-form-control [nzSpan]="24">
+          <button nz-button nzType="primary">
+            Register
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-form-item nz-row class="register-area" style="float: right;">
+        <a routerLink ="/auth/login" style="text-align: right;">Already registered?<br/> Click here to register</a>
+      </nz-form-item>
+    </div>
+  </div>
+</form>

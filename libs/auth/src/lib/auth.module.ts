@@ -15,6 +15,8 @@ import { AuthEffects } from './+state/auth.effects';
 import { LocalStorageService } from './services/local-storage.service';
 import { storageMetaReducer } from './storage-metareducer';
 import { AUTH_CONFIG_TOKEN, AUTH_LOCAL_STORAGE_KEY, AUTH_STORAGE_KEYS } from './auth.tokens';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { RegisterComponent } from './containers/register/register.component';
 
 export function getAuthConfig(
   saveKeys: string[],
@@ -31,10 +33,10 @@ export function getAuthConfig(
 
 export const authRoutes: Route[] = [
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: LoginComponent },
 ];
-const COMPONENTS = [LoginComponent, LoginFormComponent];
+const COMPONENTS = [LoginComponent, LoginFormComponent, RegisterComponent, RegisterFormComponent];
 @NgModule({
   imports: [
     CommonModule,
