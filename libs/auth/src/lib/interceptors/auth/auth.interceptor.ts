@@ -20,9 +20,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return this.store.select(getUser).pipe(
       first(),
-      mergeMap(token => {
-        const authReq = token ? req.clone({
-          setHeaders: { Authorization: 'Bearer ' + token },
+      mergeMap(user => {
+        const authReq = user ? req.clone({
+          setHeaders: { Authorization: 'Bearer ' + user.token },
         }) : req;
         return next.handle(authReq);
       }),

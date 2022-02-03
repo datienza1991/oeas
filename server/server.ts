@@ -63,7 +63,7 @@ function checkIfAdmin(user:any, bypassToken = false) {
 }
 
 function isAuthorized(req:any) {
-  return req.headers.authorization === 'admin-token' ? true : false;
+  return req.headers.authorization === 'Bearer admin-token' ? true : false;
 }
 
 function readUsers() {

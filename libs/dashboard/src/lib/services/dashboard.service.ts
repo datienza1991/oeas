@@ -1,9 +1,20 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { User } from '@batstateu/data-models';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
 
-  constructor() { }
+  constructor(
+    private httpClient: HttpClient
+  ) {}
+
+  getAllHistory(): Observable<User[]> {
+    return this.httpClient.get<User[]>(
+      'http://localhost:3000/users'
+    );
+  }
 }
