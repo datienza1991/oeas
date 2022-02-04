@@ -4,6 +4,7 @@
     "auth": "libs/auth",
     "dashboard": "libs/dashboard",
     "data-models": "libs/data-models",
+    "exams": "libs/exams",
     "layout": "libs/layout",
     "ng-zorro-antd": "libs/ng-zorro-antd",
     "oeas": "apps/oeas",
