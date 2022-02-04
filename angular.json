@@ -7,6 +7,7 @@
     "layout": "libs/layout",
     "ng-zorro-antd": "libs/ng-zorro-antd",
     "oeas": "apps/oeas",
-    "oeas-e2e": "apps/oeas-e2e"
+    "oeas-e2e": "apps/oeas-e2e",
+    "setting": "libs/setting"
   }
 }
