@@ -33,9 +33,15 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
           canActivate: [AuthGuard],
         },
         {
+<<<<<<< HEAD
           path: 'exams',
           loadChildren: () =>
             import('@batstateu/exams').then((module) => module.ExamsModule),
+=======
+          path: 'account',
+          loadChildren: () =>
+            import('@batstateu/account').then((module) => module.AccountModule),
+>>>>>>> feat/sprint-1-account-profile
             canActivate: [AuthGuard],
         },
       ],

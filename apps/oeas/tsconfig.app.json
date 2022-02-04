@@ -11,7 +11,8 @@
     "../../libs/products/src/index.ts",
     "../../libs/dashboard/src/index.ts",
     "../../libs/setting/src/index.ts",
-    "../../libs/exams/src/index.ts"
+    "../../libs/exams/src/index.ts",
+    "../../libs/account/src/index.ts"
   ],
   "exclude": ["**/*.test.ts", "**/*.spec.ts"]
 }
