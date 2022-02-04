@@ -3,7 +3,7 @@
   <ul *ngIf="user$ | async as user" nz-menu nzTheme="dark" nzMode="horizontal">
     <li nz-menu-item>Dashboard</li>
     <li nz-menu-item>Exams</li>
-    <li nz-menu-item>Settings</li>
+    <li routerLink="/setting" nz-menu-item>Settings</li>
     <li
       nz-menu-item
       class="user-menu"

@@ -26,6 +26,14 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
             ),
           canActivate: [AuthGuard],
         },
+        {
+          path: 'setting',
+          loadChildren: () =>
+            import('@batstateu/setting').then(
+              (module) => module.SettingModule
+            ),
+          canActivate: [AuthGuard],
+        },
       ],
       {
         initialNavigation: 'enabled',
