@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@batstateu/account": ["libs/account/src/index.ts"],
       "@batstateu/auth": ["libs/auth/src/index.ts"],
       "@batstateu/dashboard": ["libs/dashboard/src/index.ts"],
       "@batstateu/data-models": ["libs/data-models/src/index.ts"],

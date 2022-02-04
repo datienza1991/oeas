@@ -29,10 +29,13 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
         {
           path: 'setting',
           loadChildren: () =>
-            import('@batstateu/setting').then(
-              (module) => module.SettingModule
-            ),
+            import('@batstateu/setting').then((module) => module.SettingModule),
           canActivate: [AuthGuard],
+        },
+        {
+          path: 'account',
+          loadChildren: () =>
+            import('@batstateu/account').then((module) => module.AccountModule),
         },
       ],
       {
