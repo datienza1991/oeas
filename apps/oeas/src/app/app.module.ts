@@ -36,6 +36,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
           path: 'account',
           loadChildren: () =>
             import('@batstateu/account').then((module) => module.AccountModule),
+            canActivate: [AuthGuard],
         },
       ],
       {
