@@ -3,7 +3,14 @@
   <ul *ngIf="user$ | async as user" nz-menu nzTheme="dark" nzMode="horizontal">
     <li routerLink="dashboard" nz-menu-item>Dashboard</li>
     <li routerLink="exams" nz-menu-item>Exams</li>
-    <li nz-menu-item>Settings</li>
+    <li
+      nz-menu-item
+      nz-dropdown
+      [nzDropdownMenu]="settingMenu"
+      [nzPlacement]="'bottomRight'"
+    >
+      Settings
+    </li>
     <li
       nz-menu-item
       class="user-menu"
@@ -11,13 +18,21 @@
       [nzDropdownMenu]="menu"
       [nzPlacement]="'bottomRight'"
     >
-      <nz-avatar nzSize="large" nzText="{{(user$ | async)?.username?.substring(0,1)?.toUpperCase()}}"></nz-avatar>
+      <nz-avatar
+        nzSize="large"
+        nzText="{{ (user$ | async)?.username?.substring(0, 1)?.toUpperCase() }}"
+      ></nz-avatar>
     </li>
   </ul>
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
       <li nz-menu-item>Change Password</li>
       <li nz-menu-item (click)="logout()">Log out</li>
+    </ul>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #settingMenu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item>Users</li>
     </ul>
   </nz-dropdown-menu>
 </nz-header>
