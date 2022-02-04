@@ -1,7 +1,7 @@
 <nz-header>
   <nz-avatar class="logo" nzSize="large" nzText="L"></nz-avatar>
   <ul *ngIf="user$ | async as user" nz-menu nzTheme="dark" nzMode="horizontal">
-    <li nz-menu-item>Dashboard {{(user$ | async)?.username}}</li>
+    <li nz-menu-item>Dashboard</li>
     <li nz-menu-item>Exams</li>
     <li nz-menu-item>Settings</li>
     <li
@@ -11,7 +11,7 @@
       [nzDropdownMenu]="menu"
       [nzPlacement]="'bottomRight'"
     >
-      <nz-avatar nzSize="large" nzText="U"></nz-avatar>
+      <nz-avatar nzSize="large" nzText="{{(user$ | async)?.username?.substring(0,1)?.toUpperCase()}}"></nz-avatar>
     </li>
   </ul>
   <nz-dropdown-menu #menu="nzDropdownMenu">

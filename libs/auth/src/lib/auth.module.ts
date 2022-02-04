@@ -12,6 +12,22 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import * as fromAuth from './+state/auth.reducer';
 import { AuthEffects } from './+state/auth.effects';
+import { LocalStorageService } from './services/local-storage.service';
+import { storageMetaReducer } from './storage-metareducer';
+import { AUTH_CONFIG_TOKEN, AUTH_LOCAL_STORAGE_KEY, AUTH_STORAGE_KEYS } from './auth.tokens';
+
+export function getAuthConfig(
+  saveKeys: string[],
+  localStorageKey: string,
+  storageService: LocalStorageService
+) {
+  return {
+    metaReducers: [
+      storageMetaReducer(saveKeys, localStorageKey, storageService),
+    ],
+  };
+}
+
 
 export const authRoutes: Route[] = [
   { path: 'login', component: LoginComponent },
@@ -25,12 +41,23 @@ const COMPONENTS = [LoginComponent, LoginFormComponent];
     NgZorroAntdModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    StoreModule.forFeature(fromAuth.AUTH_FEATURE_KEY, fromAuth.reducer),
+    StoreModule.forFeature(fromAuth.AUTH_FEATURE_KEY, fromAuth.reducer, AUTH_CONFIG_TOKEN),
     EffectsModule.forFeature([AuthEffects]),
   ],
   declarations: COMPONENTS,
   exports: [COMPONENTS],
   providers: [
+    { provide: AUTH_LOCAL_STORAGE_KEY, useValue: '__auth_storage__' },
+    { provide: AUTH_STORAGE_KEYS, useValue: ['user'] },
+    {
+      provide: AUTH_CONFIG_TOKEN,
+      deps: [
+        AUTH_STORAGE_KEYS,
+        AUTH_LOCAL_STORAGE_KEY,
+        LocalStorageService,
+      ],
+      useFactory: getAuthConfig,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

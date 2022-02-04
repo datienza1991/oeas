@@ -28,3 +28,5 @@ export const loginFailure = createAction(
 export const logout = createAction(
   AuthActionTypes.Logout
 );
+
+export type AuthActions = typeof login | typeof loginSuccess | typeof loginFailure | typeof logout;

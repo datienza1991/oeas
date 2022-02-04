@@ -9,7 +9,7 @@ import { AuthService } from './../services/auth/auth.service';
 import { User } from '@batstateu/data-models';
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AuthData } from './auth.reducer';
+import { State } from './auth.reducer';
 
 @Injectable()
 export class AuthEffects {
@@ -49,7 +49,6 @@ export class AuthEffects {
         ofType(AuthActionTypes.Logout),
         tap(() => {
           this.router.navigate([`/auth/login`]);
-          localStorage.clear();
         })
       ),
     { dispatch: false }
@@ -59,6 +58,6 @@ export class AuthEffects {
     private actions$: Actions,
     private authService: AuthService,
     private router: Router,
-    private store: Store<AuthData>
+    private store: Store<State>
   ) {}
 }
