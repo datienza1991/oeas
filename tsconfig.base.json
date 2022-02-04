@@ -18,6 +18,7 @@
       "@batstateu/auth": ["libs/auth/src/index.ts"],
       "@batstateu/dashboard": ["libs/dashboard/src/index.ts"],
       "@batstateu/data-models": ["libs/data-models/src/index.ts"],
+      "@batstateu/exams": ["libs/exams/src/index.ts"],
       "@batstateu/layout": ["libs/layout/src/index.ts"],
       "@batstateu/ng-zorro-antd": ["libs/ng-zorro-antd/src/index.ts"],
       "@batstateu/products": ["libs/products/src/index.ts"],

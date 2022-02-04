@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/exams",
+  "sourceRoot": "libs/exams/src",
+  "prefix": "batstateu",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/exams"],
+      "options": {
+        "jestConfig": "libs/exams/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/exams/src/**/*.ts",
+          "libs/exams/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
