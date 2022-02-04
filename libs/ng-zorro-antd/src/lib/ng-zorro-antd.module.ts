@@ -72,6 +72,7 @@ import {
   EyeInvisibleOutline,
   UserOutline,
   LockOutline,
+  InfoCircleOutline
 } from '@ant-design/icons-angular/icons';
 import { IconDefinition } from '@ant-design/icons-angular';
 
@@ -82,6 +83,7 @@ const icons: IconDefinition[] = [
   EyeInvisibleOutline,
   UserOutline,
   LockOutline,
+  InfoCircleOutline
 ];
 @NgModule({
   imports: [CommonModule, NzIconModule.forRoot(icons)],

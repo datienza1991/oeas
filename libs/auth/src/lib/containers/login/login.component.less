@@ -1,5 +1,8 @@
+@layout-header-height: 64px;
+@layout-footer-height: 70px;
+
 .content-login{
-    height: 100%;
+    height: calc(100vh - (@layout-header-height + @layout-footer-height));
     display: flex;
     justify-content: center;
     align-items: center;
