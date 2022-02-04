@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/setting",
+  "sourceRoot": "libs/setting/src",
+  "prefix": "batstateu",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/setting"],
+      "options": {
+        "jestConfig": "libs/setting/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/setting/src/**/*.ts",
+          "libs/setting/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
