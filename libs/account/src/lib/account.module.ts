@@ -16,6 +16,7 @@ import { ChangePasswordFormComponent } from './components/change-password-form/c
     RouterModule.forChild([
       {path: '', pathMatch: 'full', redirectTo: 'profile'},
       { path: 'profile', component: ProfileComponent },
+      { path: 'change-password', component: ChangePasswordComponent },
     ]),
   ],
   declarations: [
