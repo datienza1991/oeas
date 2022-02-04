@@ -10,7 +10,7 @@ import { NgZorroAntdModule } from '@batstateu/ng-zorro-antd';
     CommonModule,
     NgZorroAntdModule,
     RouterModule.forChild([
-      { path: 'profile', component: ProfileComponent },
+      { path: '', component: ProfileComponent },
     ]),
   ],
   declarations: [
