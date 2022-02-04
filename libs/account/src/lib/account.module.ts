@@ -12,6 +12,7 @@ import { NgZorroAntdModule } from '@batstateu/ng-zorro-antd';
     ReactiveFormsModule,
     NgZorroAntdModule,
     RouterModule.forChild([
+      {path: '', pathMatch: 'full', redirectTo: 'profile'},
       { path: 'profile', component: ProfileComponent },
     ]),
   ],
