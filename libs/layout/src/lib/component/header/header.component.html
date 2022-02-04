@@ -1,0 +1,23 @@
+<nz-header>
+  <nz-avatar class="logo" nzSize="large" nzText="L"></nz-avatar>
+  <ul *ngIf="user$ | async as user" nz-menu nzTheme="dark" nzMode="horizontal">
+    <li nz-menu-item>Dashboard {{(user$ | async)?.username}}</li>
+    <li nz-menu-item>Exams</li>
+    <li nz-menu-item>Settings</li>
+    <li
+      nz-menu-item
+      class="user-menu"
+      nz-dropdown
+      [nzDropdownMenu]="menu"
+      [nzPlacement]="'bottomRight'"
+    >
+      <nz-avatar nzSize="large" nzText="U"></nz-avatar>
+    </li>
+  </ul>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item>Change Password</li>
+      <li nz-menu-item (click)="logout()">Log out</li>
+    </ul>
+  </nz-dropdown-menu>
+</nz-header>

@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/ng-zorro-antd",
+  "sourceRoot": "libs/ng-zorro-antd/src",
+  "prefix": "batstateu",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ng-zorro-antd"],
+      "options": {
+        "jestConfig": "libs/ng-zorro-antd/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ng-zorro-antd/src/**/*.ts",
+          "libs/ng-zorro-antd/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

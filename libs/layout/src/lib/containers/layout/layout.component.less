@@ -1,0 +1,12 @@
+@layout-header-height : 64px;
+@layout-footer-height : 70px;
+@nz-content-width: 1200px;
+@nz-content-margin: 0 auto;
+
+.container{
+    width: @nz-content-width;
+    margin: @nz-content-margin;
+} 
+nz-content{
+    height: calc(100vh - (@layout-header-height + @layout-footer-height));
+}
