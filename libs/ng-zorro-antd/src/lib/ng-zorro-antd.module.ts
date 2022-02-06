@@ -72,10 +72,19 @@ import {
   EyeInvisibleOutline,
   UserOutline,
   LockOutline,
-  InfoCircleOutline
+  InfoCircleOutline,
+  DownloadOutline,
+  PlusCircleFill,
+  PlusCircleOutline,
+  SmileTwoTone,
+  PlusCircleTwoTone,
+  EditTwoTone,
+  DeleteTwoTone,
+  MoreOutline
 } from '@ant-design/icons-angular/icons';
 import { IconDefinition } from '@ant-design/icons-angular';
-
+/** config ng-zorro-antd i18n **/
+import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 const icons: IconDefinition[] = [
   AccountBookFill,
   AlertOutline,
@@ -83,7 +92,15 @@ const icons: IconDefinition[] = [
   EyeInvisibleOutline,
   UserOutline,
   LockOutline,
-  InfoCircleOutline
+  InfoCircleOutline,
+  DownloadOutline,
+  PlusCircleFill,
+  PlusCircleOutline,
+  SmileTwoTone,
+  PlusCircleTwoTone,
+  EditTwoTone,
+  DeleteTwoTone,
+  MoreOutline
 ];
 @NgModule({
   imports: [CommonModule, NzIconModule.forRoot(icons)],
@@ -154,5 +171,6 @@ const icons: IconDefinition[] = [
     NzWaveModule,
     NzResizableModule,
   ],
+  providers: [{ provide: NZ_I18N, useValue: en_US }],
 })
 export class NgZorroAntdModule {}

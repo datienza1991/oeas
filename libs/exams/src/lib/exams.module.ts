@@ -14,18 +14,20 @@ import { ExamFormViewComponent } from './components/exam-form-view/exam-form-vie
 import { ExamFormComponent } from './containers/exam-form/exam-form.component';
 import { ExamItemPointsFormViewComponent } from './components/exam-item-points-form-view/exam-item-points-form-view.component';
 import { ExamsComponent } from './containers/exams/exams.component';
+import { NgZorroAntdModule } from '@batstateu/ng-zorro-antd';
 
 @NgModule({
   imports: [
     CommonModule,
-
+    NgZorroAntdModule,
     RouterModule.forChild([
       {path: '', component: ExamsComponent},
+      {path: ':id/form', component: ExamFormComponent},
       {path: 'form', component: ExamFormComponent},
       {path: 'item-points', component: ExamItemPointsComponent},
       {path: 'recording', component: ExamRecordingComponent},
       {path: 'result', component: ExamResultComponent},
-      {path: 'takers', component: ExamTakersComponent} 
+      {path: ':id/takers', component: ExamTakersComponent} 
     ]),
   ],
   declarations: [
