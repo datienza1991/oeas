@@ -15,11 +15,13 @@ import { ExamFormComponent } from './containers/exam-form/exam-form.component';
 import { ExamItemPointsFormViewComponent } from './components/exam-item-points-form-view/exam-item-points-form-view.component';
 import { ExamsComponent } from './containers/exams/exams.component';
 import { NgZorroAntdModule } from '@batstateu/ng-zorro-antd';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     NgZorroAntdModule,
+    ReactiveFormsModule,
     RouterModule.forChild([
       {path: '', component: ExamsComponent},
       {path: ':id/form', component: ExamFormComponent},

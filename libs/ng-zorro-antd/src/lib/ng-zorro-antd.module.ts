@@ -65,6 +65,7 @@ import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzResizableModule } from 'ng-zorro-antd/resizable';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 import {
   AccountBookFill,
   AlertFill,
@@ -105,6 +106,7 @@ const icons: IconDefinition[] = [
 @NgModule({
   imports: [CommonModule, NzIconModule.forRoot(icons)],
   exports: [
+    NzSpaceModule,
     NzAffixModule,
     NzAlertModule,
     NzAnchorModule,
