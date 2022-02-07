@@ -3,6 +3,6 @@ export interface ExamTakerList{
     name: string,
     section: string,
     department: string,
-    duration: string,
-    score: string
+    score: string,
+    hasRecording: boolean
 }

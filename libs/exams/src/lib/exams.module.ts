@@ -27,8 +27,8 @@ import { ReactiveFormsModule } from '@angular/forms';
       {path: ':id/form', component: ExamFormComponent},
       {path: 'form', component: ExamFormComponent},
       {path: 'item-points', component: ExamItemPointsComponent},
-      {path: 'recording', component: ExamRecordingComponent},
-      {path: 'result', component: ExamResultComponent},
+      {path: ':id/takers/:id/recording', component: ExamRecordingComponent},
+      {path: ':id/takers/:id/results', component: ExamResultComponent},
       {path: ':id/takers', component: ExamTakersComponent} 
     ]),
   ],

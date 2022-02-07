@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 export { Authenticate } from './authenticate';
 export { User } from './user';
 export { ExamList } from './exam-list';
+export { ExamTakerList } from './exam-taker-list';
 @NgModule({
   imports: [CommonModule],
 })
