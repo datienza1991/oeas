@@ -1,6 +1,6 @@
 <nz-breadcrumb>
   <nz-breadcrumb-item>Exams</nz-breadcrumb-item>
-  <nz-breadcrumb-item> Takers </nz-breadcrumb-item>
+  <nz-breadcrumb-item>Takers</nz-breadcrumb-item>
   <nz-breadcrumb-item>Results</nz-breadcrumb-item>
 </nz-breadcrumb>
 <div
@@ -28,6 +28,7 @@
     <tr>
       <th>Question</th>
       <th>Points</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -35,17 +36,31 @@
       <td>{{ data?.name }}</td>
       <td>{{ data?.points }}</td>
       <td>
-        <a *ngIf="data?.points === undefined"nz-button nzType="text" nz-tooltip nzTooltipTitle="Edit" routerLink="{{data?.id}}">
-            <i nz-icon [nzType]="'edit'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#faad14'"></i>
+        <a
+          *ngIf="data?.points === undefined"
+          nz-button
+          nzType="text"
+          nz-tooltip
+          nzTooltipTitle="Edit"
+          routerLink="{{ data?.id }}"
+        >
+          <i
+            nz-icon
+            [nzType]="'edit'"
+            [nzTheme]="'twotone'"
+            [nzTwotoneColor]="'#faad14'"
+          ></i>
         </a>
         <nz-dropdown-menu #menu="nzDropdownMenu">
-            <ul nz-menu>
-              <li nz-menu-item>
-                  <!--TODO: Add route parameters here for navigating to takers-->
-                <a style="color: #8c8c8c" routerLink="{{data?.id}}/takers">View Takers</a>
-              </li>
-            </ul>
-          </nz-dropdown-menu>
+          <ul nz-menu>
+            <li nz-menu-item>
+              <!--TODO: Add route parameters here for navigating to takers-->
+              <a style="color: #8c8c8c" routerLink="{{ data?.id }}/takers"
+                >View Takers</a
+              >
+            </li>
+          </ul>
+        </nz-dropdown-menu>
       </td>
     </tr>
   </tbody>

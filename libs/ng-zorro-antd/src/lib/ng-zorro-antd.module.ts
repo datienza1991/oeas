@@ -83,7 +83,8 @@ import {
   DeleteTwoTone,
   MoreOutline,
   FolderOpenTwoTone,
-  PlaySquareTwoTone
+  PlaySquareTwoTone,
+  WarningOutline
 } from '@ant-design/icons-angular/icons';
 import { IconDefinition } from '@ant-design/icons-angular';
 /** config ng-zorro-antd i18n **/
@@ -105,7 +106,8 @@ const icons: IconDefinition[] = [
   DeleteTwoTone,
   MoreOutline,
   FolderOpenTwoTone,
-  PlaySquareTwoTone
+  PlaySquareTwoTone,
+  WarningOutline
 ];
 @NgModule({
   imports: [CommonModule, NzIconModule.forRoot(icons)],
