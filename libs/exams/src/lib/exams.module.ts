@@ -24,12 +24,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     RouterModule.forChild([
       {path: '', component: ExamsComponent},
-      {path: ':id/form', component: ExamFormComponent},
+      {path: ':examId/form', component: ExamFormComponent},
       {path: 'form', component: ExamFormComponent},
       {path: 'item-points', component: ExamItemPointsComponent},
-      {path: ':id/takers/:id/recording', component: ExamRecordingComponent},
-      {path: ':id/takers/:id/results', component: ExamResultComponent},
-      {path: ':id/takers', component: ExamTakersComponent} 
+      {path: ':examId/takers/:takerId/recording', component: ExamRecordingComponent},
+      {path: ':examId/takers/:takerId/results', component: ExamResultComponent},
+      {path: ':examId/takers/:takerId/results/:resultId/item-points', component: ExamItemPointsComponent},
+      {path: ':examId/takers', component: ExamTakersComponent} 
     ]),
   ],
   declarations: [

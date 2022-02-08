@@ -1,1 +1,52 @@
-<p>exam-result-list works!</p>
+<nz-breadcrumb>
+  <nz-breadcrumb-item>Exams</nz-breadcrumb-item>
+  <nz-breadcrumb-item> Takers </nz-breadcrumb-item>
+  <nz-breadcrumb-item>Results</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div
+  style="
+    padding-left: 24px;
+    padding-right: 24px;
+    display: flex;
+    justify-content: flex-end;
+  "
+>
+  <nz-input-group style="width: 240px" [nzSuffix]="suffixIconSearch">
+    <input type="text" nz-input placeholder="Search" />
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <i nz-icon nzType="search"></i>
+  </ng-template>
+</div>
+
+<nz-table
+  style="margin-top: 24px; margin-left: 24px; margin-right: 24px"
+  #basicTable
+  [nzData]="examTakerResultList"
+>
+  <thead>
+    <tr>
+      <th>Question</th>
+      <th>Points</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data?.name }}</td>
+      <td>{{ data?.points }}</td>
+      <td>
+        <a nz-button nzType="text" nz-tooltip nzTooltipTitle="Edit" routerLink="{{data?.id}}/item-points">
+            <i nz-icon [nzType]="'edit'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#faad14'"></i>
+        </a>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>
+                  <!--TODO: Add route parameters here for navigating to takers-->
+                <a style="color: #8c8c8c" routerLink="{{data?.id}}/takers">View Takers</a>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
