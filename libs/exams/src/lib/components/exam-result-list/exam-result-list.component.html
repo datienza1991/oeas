@@ -35,7 +35,7 @@
       <td>{{ data?.name }}</td>
       <td>{{ data?.points }}</td>
       <td>
-        <a nz-button nzType="text" nz-tooltip nzTooltipTitle="Edit" routerLink="{{data?.id}}/item-points">
+        <a *ngIf="data?.points === undefined"nz-button nzType="text" nz-tooltip nzTooltipTitle="Edit" routerLink="{{data?.id}}">
             <i nz-icon [nzType]="'edit'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#faad14'"></i>
         </a>
         <nz-dropdown-menu #menu="nzDropdownMenu">

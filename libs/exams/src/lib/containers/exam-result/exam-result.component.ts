@@ -10,12 +10,12 @@ export class ExamResultComponent implements OnInit {
   examTakerResultList: ExamTakerResultList[] = [
     {
       id: 1,
-      name: 'Prelim exam on English',
-      points: 20
+      name: 'What is the most',
+      points: undefined
     },
     {
       id: 2,
-      name: 'Geometric Exams',
+      name: 'Enumerate the importance',
       points: 30
     },
   ];

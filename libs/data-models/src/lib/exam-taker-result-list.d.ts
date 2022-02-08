@@ -1,5 +1,5 @@
 export interface ExamTakerResultList{
     id : number,
     name: string,
-    points: number,
+    points: number | undefined,
 }
