@@ -16,6 +16,10 @@ import { ExamItemPointsFormViewComponent } from './components/exam-item-points-f
 import { ExamsComponent } from './containers/exams/exams.component';
 import { NgZorroAntdModule } from '@batstateu/ng-zorro-antd';
 import { ReactiveFormsModule } from '@angular/forms';
+import { QuestionsComponent } from './containers/questions/questions.component';
+import { QuestionFormComponent } from './containers/question-form/question-form.component';
+import { QuestionFormViewComponent } from './components/question-form-view/question-form-view.component';
+import { QuestionListComponent } from './components/question-list/question-list.component';
 
 @NgModule({
   imports: [
@@ -31,7 +35,10 @@ import { ReactiveFormsModule } from '@angular/forms';
       {path: ':examId/takers/:takerId/results', component: ExamResultComponent},
       {path: ':examId/takers/:takerId/results/:resultId', component: ExamItemPointsComponent},
       {path: ':examId/takers', component: ExamTakersComponent},
-      {path: ':examId/takers/:takerId/recording', component: ExamRecordingComponent} 
+      {path: ':examId/takers/:takerId/recording', component: ExamRecordingComponent},
+      {path: ':examId/questions', component: QuestionsComponent},
+      {path: ':examId/questions/:questionId/edit', component: QuestionFormComponent},
+      {path: ':examId/questions/add', component: QuestionFormComponent} 
     ]),
   ],
   declarations: [
@@ -47,7 +54,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     ExamItemPointsComponent,
     ExamFormViewComponent,
     ExamItemPointsFormViewComponent,
-    ExamsComponent
+    ExamsComponent,
+    QuestionsComponent,
+    QuestionFormComponent,
+    QuestionFormViewComponent,
+    QuestionListComponent
   ],
 })
 export class ExamsModule {}
