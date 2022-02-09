@@ -14,9 +14,12 @@ import { UserFormComponent } from './containers/user-form/user-form.component';
     CommonModule,
     ReactiveFormsModule,
     NgZorroAntdModule,
+
     RouterModule.forChild([
-      { path: '', pathMatch : 'full', redirectTo: "setting/users" },
+      { path: '', pathMatch : 'full', redirectTo: "users" },
       { path: 'users', component: UsersComponent},
+      { path: 'users/:id/edit', component: UserFormComponent},
+      { path: 'users/add', component: UserFormComponent},
     ]),
   ],
   declarations: [
