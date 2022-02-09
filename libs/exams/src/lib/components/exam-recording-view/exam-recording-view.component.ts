@@ -9,6 +9,7 @@ import * as RecordRTC from 'recordrtc';
 })
 export class ExamRecordingViewComponent implements OnInit, OnDestroy {
 
+  url = "https://collab-project.github.io/videojs-wavesurfer/demo/media/example.mp4";
   visible = true;
   // index to create unique ID for component
   idx = 'clip1';
@@ -30,52 +31,21 @@ export class ExamRecordingViewComponent implements OnInit, OnDestroy {
       autoplay: false,
       fluid: false,
       loop: false,
-      width: 320,
-      height: 240,
+      width: 640,
+      height: 560,
       bigPlayButton: true,
+      sources: {
+        src: this.url,
+        type: 'video/mp4'
+      },
       controlBar: {
         volumePanel: false
       },
       plugins: {
-        /*
-        // wavesurfer section is only needed when recording audio-only
-        wavesurfer: {
-            backend: 'WebAudio',
-            waveColor: '#36393b',
-            progressColor: 'black',
-            debug: true,
-            cursorWidth: 1,
-            displayMilliseconds: true,
-            hideScrollbar: true,
-            plugins: [
-                // enable microphone plugin
-                WaveSurfer.microphone.create({
-                    bufferSize: 4096,
-                    numberOfInputChannels: 1,
-                    numberOfOutputChannels: 1,
-                    constraints: {
-                        video: false,
-                        audio: true
-                    }
-                })
-            ]
-        },
-        */
-        // configure videojs-record plugin
-        record: {
-          screen: true,
-					video: false,
-					audio: true,
-					debug: true,
-					maxLength: 10,
-					videoMimeType: 'video/webm;codecs=H264',
-        }
       }
     };
   }
-  stopRecord(){
-    this.player.pause();
-  }
+ 
   ngOnInit() {}
 
   // use ngAfterViewInit to make sure we initialize the videojs element
