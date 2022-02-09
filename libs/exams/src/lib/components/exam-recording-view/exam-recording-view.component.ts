@@ -1,12 +1,7 @@
 import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
+import {Record,adapter} from '@batstateu/videojs-record'
 import videojs from 'video.js';
-import * as adapter from 'webrtc-adapter';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import * as Record from 'videojs-record/dist/videojs.record.js';
-//@ts-check
 import * as RecordRTC from 'recordrtc';
-
 @Component({
   selector: 'batstateu-exam-recording-view',
   templateUrl: './exam-recording-view.component.html',
@@ -14,7 +9,7 @@ import * as RecordRTC from 'recordrtc';
 })
 export class ExamRecordingViewComponent implements OnInit, OnDestroy {
 
-
+  visible = true;
   // index to create unique ID for component
   idx = 'clip1';
 
@@ -37,7 +32,7 @@ export class ExamRecordingViewComponent implements OnInit, OnDestroy {
       loop: false,
       width: 320,
       height: 240,
-      bigPlayButton: false,
+      bigPlayButton: true,
       controlBar: {
         volumePanel: false
       },
@@ -72,13 +67,15 @@ export class ExamRecordingViewComponent implements OnInit, OnDestroy {
 					video: false,
 					audio: true,
 					debug: true,
-					maxLength: 60,
+					maxLength: 10,
 					videoMimeType: 'video/webm;codecs=H264',
         }
       }
     };
   }
-
+  stopRecord(){
+    this.player.pause();
+  }
   ngOnInit() {}
 
   // use ngAfterViewInit to make sure we initialize the videojs element
@@ -105,6 +102,7 @@ export class ExamRecordingViewComponent implements OnInit, OnDestroy {
 
     // user clicked the record button and started recording
     this.player.on('startRecord', () => {
+      this.visible = false;
       console.log('started recording!');
     });
 
@@ -113,6 +111,7 @@ export class ExamRecordingViewComponent implements OnInit, OnDestroy {
       // recordedData is a blob object containing the recorded data that
       // can be downloaded by the user, stored on server etc.
       console.log('finished recording: ', this.player.recordedData);
+      this.visible = true;
     });
 
     // error handling

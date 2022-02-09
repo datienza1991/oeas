@@ -1,6 +1,16 @@
 <nz-breadcrumb>
-    <nz-breadcrumb-item>Exams</nz-breadcrumb-item>
-    <nz-breadcrumb-item> Takers </nz-breadcrumb-item>
-    <nz-breadcrumb-item>Recording</nz-breadcrumb-item>
-  </nz-breadcrumb>
-  <video id="video_{{idx}}" class="video-js vjs-default-skin" playsinline></video>
+  <nz-breadcrumb-item>Exams</nz-breadcrumb-item>
+  <nz-breadcrumb-item> Takers </nz-breadcrumb-item>
+  <nz-breadcrumb-item>Recording</nz-breadcrumb-item>
+</nz-breadcrumb>
+<video
+  [style.visibility]="visible ? 'visible' : 'hidden'"
+  style="width: 100%; height: 100vh"
+  id="video_{{ idx }}"
+  class="video-js vjs-default-skin"
+  playsinline
+></video>
+<div style="display: flex; justify-content: right">
+  <button nz-button nzType="default" (click)="stopRecord()">Back</button>
+  <a nz-button nzType="default" routerLink="../..">Back</a>
+</div>

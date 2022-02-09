@@ -10,6 +10,7 @@
     "ng-zorro-antd": "libs/ng-zorro-antd",
     "oeas": "apps/oeas",
     "oeas-e2e": "apps/oeas-e2e",
-    "setting": "libs/setting"
+    "setting": "libs/setting",
+    "videojs-record": "libs/videojs-record"
   }
 }
