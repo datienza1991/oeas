@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/videojs-record",
+  "sourceRoot": "libs/videojs-record/src",
+  "prefix": "batstateu",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/videojs-record"],
+      "options": {
+        "jestConfig": "libs/videojs-record/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/videojs-record/src/**/*.ts",
+          "libs/videojs-record/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

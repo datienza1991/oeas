@@ -1,1 +1,16 @@
-<p>exam-recording-view works!</p>
+<nz-breadcrumb>
+  <nz-breadcrumb-item>Exams</nz-breadcrumb-item>
+  <nz-breadcrumb-item> Takers </nz-breadcrumb-item>
+  <nz-breadcrumb-item>Recording</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div style="display: flex; justify-content: center;">
+  <video
+    id="video_{{ idx }}"
+    class="video-js vjs-default-skin vjs-big-play-centered"
+    playsinline
+  ></video>
+</div>
+
+<div style="display: flex; justify-content: right">
+  <a nz-button nzType="default" routerLink="../..">Back</a>
+</div>

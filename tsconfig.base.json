@@ -23,7 +23,8 @@
       "@batstateu/layout": ["libs/layout/src/index.ts"],
       "@batstateu/ng-zorro-antd": ["libs/ng-zorro-antd/src/index.ts"],
       "@batstateu/products": ["libs/products/src/index.ts"],
-      "@batstateu/setting": ["libs/setting/src/index.ts"]
+      "@batstateu/setting": ["libs/setting/src/index.ts"],
+      "@batstateu/videojs-record": ["libs/videojs-record/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

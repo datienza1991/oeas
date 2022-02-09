@@ -30,7 +30,8 @@ import { ReactiveFormsModule } from '@angular/forms';
       {path: ':examId/takers/:takerId/recording', component: ExamRecordingComponent},
       {path: ':examId/takers/:takerId/results', component: ExamResultComponent},
       {path: ':examId/takers/:takerId/results/:resultId', component: ExamItemPointsComponent},
-      {path: ':examId/takers', component: ExamTakersComponent} 
+      {path: ':examId/takers', component: ExamTakersComponent},
+      {path: ':examId/takers/:takerId/recording', component: ExamRecordingComponent} 
     ]),
   ],
   declarations: [
