@@ -27,7 +27,8 @@
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
       <li routerLink="account/profile" nz-menu-item>Profile</li>
-      <li routerLink="account/change-password" nz-menu-item>Change Password</li>
+      <!--TODO: Change color of anchor tag same with other -->
+      <li nz-menu-item><a  routerLink="account/change-password">Change Password</a></li>
       <li nz-menu-item (click)="logout()">Log out</li>
     </ul>
   </nz-dropdown-menu>
