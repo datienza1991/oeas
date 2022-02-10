@@ -1,1 +1,74 @@
-<p>question-form-view works!</p>
+<nz-breadcrumb>
+    <nz-breadcrumb-item>Exams</nz-breadcrumb-item>
+    <nz-breadcrumb-item> Takers </nz-breadcrumb-item>
+    <nz-breadcrumb-item>Results</nz-breadcrumb-item>
+    <nz-breadcrumb-item>Add Points</nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <!--TODO: Add info about the taker of the exam ie. Name department, etc-->
+  <form
+    nz-form
+    [formGroup]="validateForm"
+    nzLayout="vertical"
+    (ngSubmit)="submitForm()"
+  >
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="question"
+        >Question</nz-form-label
+      >
+      <nz-form-control
+        [nzSm]="14"
+        [nzXs]="24"
+        nzErrorTip="The input is not valid Question!"
+      >
+        <textarea
+          rows="4"
+          nz-input
+          formControlName="question"
+          id="question"
+        ></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  
+    <nz-form-item>
+        <p style="margin: 0;"><span style="color: red;"><b>Note:</b></span> This is not visible to students.<br /> This serves only as a reference on checking students answer.</p>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="correctAnswer"
+        >Correct Answer</nz-form-label
+      >
+      <nz-form-control
+        [nzSm]="14"
+        [nzXs]="24"
+        nzErrorTip="Please input correct Answer!"
+      >
+        <textarea
+          rows="4"
+          nz-input
+          id="correctAnswer"
+          formControlName="correctAnswer"
+        ></textarea>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="points">Max Points</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input points!">
+          <nz-input-number
+            style="width: 100%"
+            nz-input
+            id="points"
+            formControlName="points"
+          ></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control
+        style="display: flex; flex-direction: row; justify-content: flex-end"
+      >
+        <nz-space>
+          <a *nzSpaceItem nz-button nzType="default" routerLink="{{id === undefined ? '..' : '../..'}}">
+            Cancel
+          </a>
+          <button *nzSpaceItem nz-button nzType="primary">Save</button>
+        </nz-space>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  
