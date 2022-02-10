@@ -47,9 +47,9 @@
       <td>{{ data?.department }}</td>
       <td>{{ data?.status }}</td>
       <td>
-        <button nz-button nzType="text" nz-tooltip nzTooltipTitle="Take Exam" routerLink="{{data?.id}}/form">
+        <a nz-button nzType="text" nz-tooltip nzTooltipTitle="Take Exam" routerLink="{{data?.id}}/instruction">
           <i nz-icon [nzType]="'folder-open'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#fa541c'"></i>
-      </button>
+        </a>
         <button nz-button nzType="text" nz-tooltip nzTooltipTitle="Edit" routerLink="{{data?.id}}/form">
             <i nz-icon [nzType]="'edit'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#faad14'"></i>
         </button>

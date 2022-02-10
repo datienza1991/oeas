@@ -1,0 +1,19 @@
+<nz-page-header
+  class="site-page-header"
+  (nzBack)="onBack()"
+  nzBackIcon
+  nzTitle="Prelim on English"
+></nz-page-header>
+<textarea
+  style="padding: 24px"
+  rows="8"
+  nz-input
+  [(ngModel)]="instruction"
+></textarea>
+<div style="margin-top: 10px; display: flex; justify-content: center">
+    <nz-space>
+        <button  *nzSpaceItem nz-button (click)="onStartRecord()" [disabled]="isStartExam">Start Record</button>
+        <button *nzSpaceItem nz-button nzType="primary" [disabled]="isStartExam">Start Exam</button>
+    </nz-space>
+  
+</div>
