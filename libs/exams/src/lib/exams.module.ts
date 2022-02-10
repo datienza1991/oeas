@@ -16,6 +16,7 @@ import { ExamItemPointsFormViewComponent } from './components/exam-item-points-f
 import { ExamsComponent } from './containers/exams/exams.component';
 import { NgZorroAntdModule } from '@batstateu/ng-zorro-antd';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ExamInstructionComponent } from './containers/exam-instruction/exam-instruction.component';
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ExamItemPointsComponent,
     ExamFormViewComponent,
     ExamItemPointsFormViewComponent,
-    ExamsComponent
+    ExamsComponent,
+    ExamInstructionComponent
   ],
 })
 export class ExamsModule {}
