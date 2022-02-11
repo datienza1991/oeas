@@ -10,6 +10,7 @@
   nz-input
   [(ngModel)]="instruction"
 ></textarea>
+<video id="video_{{idx}}" class="video-js vjs-default-skin" playsinline ></video>
 <div style="margin-top: 10px; display: flex; justify-content: center">
     <nz-space>
         <button  *nzSpaceItem nz-button (click)="onStartRecord()" [disabled]="isStartExam">Start Record</button>
