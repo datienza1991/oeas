@@ -8,8 +8,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class ExamInstructionViewComponent implements OnInit {
   @Input() instruction?: string;
-  @Input() isStartExam?: boolean;
+  @Input() isStartExam = false;
   @Output() startRecord = new EventEmitter();
+  
   onBack() {
     this.location.back();
   }
