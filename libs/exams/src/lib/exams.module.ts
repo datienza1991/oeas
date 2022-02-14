@@ -16,14 +16,18 @@ import { ExamItemPointsFormViewComponent } from './components/exam-item-points-f
 import { ExamsComponent } from './containers/exams/exams.component';
 import { NgZorroAntdModule } from '@batstateu/ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ExamInstructionComponent } from './containers/exam-instruction/exam-instruction.component';
 import { ExamInstructionViewComponent } from './components/exam-instruction-view/exam-instruction-view.component';
+import { TakeExamComponent } from './containers/take-exam/take-exam.component';
+import { TakeExamControlComponent } from './components/take-exam-control/take-exam-control.component';
+import { TakeExamRecordingComponent } from './containers/take-exam-recording/take-exam-recording.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
     NgZorroAntdModule,
     ReactiveFormsModule,
+    HttpClientModule,
     FormsModule,
     RouterModule.forChild([
       {path: '', component: ExamsComponent},
@@ -35,7 +39,7 @@ import { ExamInstructionViewComponent } from './components/exam-instruction-view
       {path: ':examId/takers/:takerId/results/:resultId', component: ExamItemPointsComponent},
       {path: ':examId/takers', component: ExamTakersComponent},
       {path: ':examId/takers/:takerId/recording', component: ExamRecordingComponent},
-      {path: ':examId/instruction', component: ExamInstructionComponent} 
+      {path: ':examId/take-exam', component: TakeExamComponent} 
     ]),
   ],
   declarations: [
@@ -52,8 +56,10 @@ import { ExamInstructionViewComponent } from './components/exam-instruction-view
     ExamFormViewComponent,
     ExamItemPointsFormViewComponent,
     ExamsComponent,
-    ExamInstructionComponent,
-    ExamInstructionViewComponent
+    ExamInstructionViewComponent,
+    TakeExamComponent,
+    TakeExamRecordingComponent,
+    TakeExamControlComponent
   ],
 })
 export class ExamsModule {}

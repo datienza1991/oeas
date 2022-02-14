@@ -1,0 +1,17 @@
+<nz-page-header
+  class="site-page-header"
+  (nzBack)="onBack()"
+  nzBackIcon
+  nzTitle="Prelim on English"
+></nz-page-header>
+
+<batstateu-exam-instruction-view
+  [instruction]="instruction"
+></batstateu-exam-instruction-view>
+
+<batstateu-take-exam-control
+  [isStartExam]="isStartExam"
+  (startRecord)="onStartRecord()"
+></batstateu-take-exam-control>
+
+<batstateu-take-exam-recording></batstateu-take-exam-recording>
