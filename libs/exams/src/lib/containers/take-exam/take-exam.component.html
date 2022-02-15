@@ -1,17 +1,22 @@
 <nz-page-header
   class="site-page-header"
   (nzBack)="onBack()"
-  nzBackIcon
+  [nzBackIcon] = "takeExamState === TakeExamStateEnum.instructionView ? '' : null"
   nzTitle="Prelim on English"
 ></nz-page-header>
 
 <batstateu-exam-instruction-view
   [instruction]="instruction"
+  [hidden]="takeExamState !== TakeExamStateEnum.instructionView"
 ></batstateu-exam-instruction-view>
 
+<batstateu-take-exam-question-view [hidden]="takeExamState !== TakeExamStateEnum.takeExamQuestionView"></batstateu-take-exam-question-view>
+
 <batstateu-take-exam-control
+  [takeExamControlState] = "takeExamControlState"
+  [takeExamState] = "takeExamState"
   [isStartExam]="isStartExam"
-  (startRecord)="onStartRecord()"
+  (startRecord)="onStartRecord()" (startExam)= "onStartExam()" (nextQuestion)="onNexQuestion()" (prevQuestion)="onPrevQuestion()"
 ></batstateu-take-exam-control>
 
-<batstateu-take-exam-recording></batstateu-take-exam-recording>
+<batstateu-take-exam-recording style="display: none;" (startExam)="onExamReady()"></batstateu-take-exam-recording>

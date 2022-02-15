@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Record, TsEBMLEngine } from '@batstateu/videojs-record';
 import videojs from 'video.js';
 import * as RecordRTC from 'recordrtc';
@@ -12,12 +19,13 @@ import { TakeExamService } from '../../services/take-exam/take-exam.service';
 export class TakeExamRecordingComponent
   implements OnInit, OnDestroy, AfterViewInit
 {
+  @Output() startExam = new EventEmitter();
+
   idx = 'clip1';
 
   private config: any;
   private player: any;
   private plugin: any;
-  isVisible = false;
 
   onStartRecord() {
     this.player.record().getDevice();
@@ -43,10 +51,10 @@ export class TakeExamRecordingComponent
       plugins: {
         // configure videojs-record plugin
         record: {
-          audio: false,
+          audio: true,
           screen: true,
-          timeSlice:2000,
-          maxLength: 10000,
+          maxLength: 10,
+          convertEngine: 'ts-ebml',
           videoMimeType: 'video/webm;codecs=vp8',
           debug: true,
         },
@@ -88,20 +96,15 @@ export class TakeExamRecordingComponent
     this.player.on('deviceReady', () => {
       console.log('device is ready!');
       this.player.record().start();
-      this.isVisible = true;
-    });
-
-    // user clicked the record button and started recording
-    this.player.on('startRecord', () => {
-      console.log('started recording!');
+      this.startExam.emit();
     });
 
     // user completed recording and stream is available
-    this.player.on('finishRecord', () => {
+    this.player.on('finishConvert', () => {
       // recordedData is a blob object containing the recorded data that
       // can be downloaded by the user, stored on server etc.
-      console.log('finished recording: ', this.player.recordedData);
-      const data = this.player.recordedData;
+      console.log('finished convert: ', this.player.convertedData);
+      const data = this.player.convertedData;
 
       this.takeExamService.upload(data).subscribe({
         next: (value) => console.log(value),
@@ -115,7 +118,28 @@ export class TakeExamRecordingComponent
     });
 
     this.player.on('deviceError', () => {
-      console.error('device error:', this.player.deviceErrorCode);
+      const error = this.player.deviceErrorCode;
+      if (error.code > 0) {
+        console.error('device error:', this.player.deviceErrorCode);
+      }
     });
+
+    navigator.permissions
+      .query({ name: 'microphone' as PermissionName })
+      .then((permissionObj) => {
+        console.log(permissionObj.state);
+      })
+      .catch((error) => {
+        console.log('Got error :', error);
+      });
+
+    navigator.permissions
+      .query({ name: 'camera' as PermissionName })
+      .then((permissionObj) => {
+        console.log(permissionObj.state);
+      })
+      .catch((error) => {
+        console.log('Got error :', error);
+      });
   }
 }

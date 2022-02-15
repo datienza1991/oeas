@@ -21,6 +21,8 @@ import { TakeExamComponent } from './containers/take-exam/take-exam.component';
 import { TakeExamControlComponent } from './components/take-exam-control/take-exam-control.component';
 import { TakeExamRecordingComponent } from './containers/take-exam-recording/take-exam-recording.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TakeExamQuestionViewComponent } from './components/take-exam-question-view/take-exam-question-view.component';
+import { DataModelsModule } from '@batstateu/data-models';
 
 @NgModule({
   imports: [
@@ -28,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     NgZorroAntdModule,
     ReactiveFormsModule,
     HttpClientModule,
+    DataModelsModule,
     FormsModule,
     RouterModule.forChild([
       {path: '', component: ExamsComponent},
@@ -59,7 +62,8 @@ import { HttpClientModule } from '@angular/common/http';
     ExamInstructionViewComponent,
     TakeExamComponent,
     TakeExamRecordingComponent,
-    TakeExamControlComponent
+    TakeExamControlComponent,
+    TakeExamQuestionViewComponent
   ],
 })
 export class ExamsModule {}

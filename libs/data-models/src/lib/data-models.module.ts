@@ -5,6 +5,8 @@ export { User } from './user';
 export { ExamList } from './exam-list';
 export { ExamTakerList } from './exam-taker-list';
 export { ExamTakerResultList } from './exam-taker-result-list';
+export { ExamState } from './exam-state';
+export { TakeExamControlState } from './take-exam-control-state';
 @NgModule({
   imports: [CommonModule],
 })
