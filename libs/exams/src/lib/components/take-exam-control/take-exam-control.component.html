@@ -1,0 +1,52 @@
+<div style="margin-top: 10px; display: flex; justify-content: center">
+  <div [hidden]="takeExamState === TakeExamStateEnum.takeExamQuestionView">
+    <nz-space>
+      <button
+        *nzSpaceItem
+        nz-button
+        (click)="onStartRecord()"
+        [disabled]="
+          takeExamControlState === TakeExamControlStateEnum.startExamView
+        "
+      >
+        Start Record
+      </button>
+      <button
+        *nzSpaceItem
+        nz-button
+        nzType="primary"
+        [disabled]="
+          takeExamControlState === TakeExamControlStateEnum.startRecordView
+        "
+        (click)="onStartExam()"
+      >
+        Start Exam
+      </button>
+    </nz-space>
+  </div>
+  <div [hidden]="takeExamState === TakeExamStateEnum.instructionView">
+    <nz-space>
+      <button
+        *nzSpaceItem
+        nz-button
+        (click)="onPrevQuestion()"
+        [disabled]="
+          takeExamControlState === TakeExamControlStateEnum.firstQuestion
+        "
+      >
+        Prev
+      </button>
+      <button
+        *nzSpaceItem
+        nz-button
+        nzType="primary"
+        [disabled]="
+          takeExamControlState === TakeExamControlStateEnum.lastQuestion
+        "
+        (click)="onNexQuestion()"
+      >
+        Next
+      </button>
+    </nz-space>
+  </div>
+</div>

@@ -9,7 +9,7 @@ import * as RecordRTC from 'recordrtc';
 })
 export class ExamRecordingViewComponent implements OnInit, OnDestroy {
 
-  url = "https://collab-project.github.io/videojs-wavesurfer/demo/media/example.mp4";
+  url = "http://localhost:8080/uploads/1644920446526.webm";
   visible = true;
   // index to create unique ID for component
   idx = 'clip1';
@@ -36,7 +36,7 @@ export class ExamRecordingViewComponent implements OnInit, OnDestroy {
       bigPlayButton: true,
       sources: {
         src: this.url,
-        type: 'video/mp4'
+        type: 'video/webm'
       },
       controlBar: {
         volumePanel: false

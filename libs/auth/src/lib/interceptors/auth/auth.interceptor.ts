@@ -22,7 +22,9 @@ export class AuthInterceptor implements HttpInterceptor {
       first(),
       mergeMap(user => {
         const authReq = user ? req.clone({
-          setHeaders: { Authorization: 'Bearer ' + user.token },
+          //Since dbAuth is the authentication method, no need to set header
+          // session will be use for authentication
+          // setHeaders: { Authorization: 'Bearer ' + user.token },
         }) : req;
         return next.handle(authReq);
       }),

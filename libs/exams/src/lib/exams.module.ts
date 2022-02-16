@@ -15,17 +15,27 @@ import { ExamFormComponent } from './containers/exam-form/exam-form.component';
 import { ExamItemPointsFormViewComponent } from './components/exam-item-points-form-view/exam-item-points-form-view.component';
 import { ExamsComponent } from './containers/exams/exams.component';
 import { NgZorroAntdModule } from '@batstateu/ng-zorro-antd';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuestionsComponent } from './containers/questions/questions.component';
 import { QuestionFormComponent } from './containers/question-form/question-form.component';
 import { QuestionFormViewComponent } from './components/question-form-view/question-form-view.component';
 import { QuestionListComponent } from './components/question-list/question-list.component';
+import { ExamInstructionViewComponent } from './components/exam-instruction-view/exam-instruction-view.component';
+import { TakeExamComponent } from './containers/take-exam/take-exam.component';
+import { TakeExamControlComponent } from './components/take-exam-control/take-exam-control.component';
+import { TakeExamRecordingComponent } from './containers/take-exam-recording/take-exam-recording.component';
+import { HttpClientModule } from '@angular/common/http';
+import { TakeExamQuestionViewComponent } from './components/take-exam-question-view/take-exam-question-view.component';
+import { DataModelsModule } from '@batstateu/data-models';
 
 @NgModule({
   imports: [
     CommonModule,
     NgZorroAntdModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    DataModelsModule,
+    FormsModule,
     RouterModule.forChild([
       {path: '', component: ExamsComponent},
       {path: ':examId/form', component: ExamFormComponent},
@@ -36,9 +46,10 @@ import { QuestionListComponent } from './components/question-list/question-list.
       {path: ':examId/takers/:takerId/results/:resultId', component: ExamItemPointsComponent},
       {path: ':examId/takers', component: ExamTakersComponent},
       {path: ':examId/takers/:takerId/recording', component: ExamRecordingComponent},
+      {path: ':examId/take-exam', component: TakeExamComponent},
       {path: ':examId/questions', component: QuestionsComponent},
       {path: ':examId/questions/:questionId/edit', component: QuestionFormComponent},
-      {path: ':examId/questions/add', component: QuestionFormComponent} 
+      {path: ':examId/questions/add', component: QuestionFormComponent},
     ]),
   ],
   declarations: [
@@ -58,7 +69,12 @@ import { QuestionListComponent } from './components/question-list/question-list.
     QuestionsComponent,
     QuestionFormComponent,
     QuestionFormViewComponent,
-    QuestionListComponent
+    QuestionListComponent,
+    ExamInstructionViewComponent,
+    TakeExamComponent,
+    TakeExamRecordingComponent,
+    TakeExamControlComponent,
+    TakeExamQuestionViewComponent
   ],
 })
 export class ExamsModule {}
