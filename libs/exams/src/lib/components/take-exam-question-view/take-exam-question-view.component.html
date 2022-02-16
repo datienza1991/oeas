@@ -1,1 +1,44 @@
-<p>take-exam-question-view works!</p>
+<!--TODO: Add info about the taker of the exam ie. Name department, etc-->
+<form
+  nz-form
+  [formGroup]="validateForm"
+  nzLayout="vertical"
+  (ngSubmit)="submitForm()"
+>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="question"
+      >Question</nz-form-label
+    >
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      nzErrorTip="The input is not valid E-mail!"
+    >
+      <textarea
+        rows="4"
+        nz-input
+        formControlName="question"
+        id="question"
+        readonly
+      ></textarea>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="answer">
+      <span>Answer</span>
+    </nz-form-label>
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      nzErrorTip="Please input your answer!"
+    >
+      <textarea
+        rows="4"
+        nz-input
+        id="answer"
+        formControlName="answer"
+      ></textarea>
+    </nz-form-control>
+  </nz-form-item>
+</form>
