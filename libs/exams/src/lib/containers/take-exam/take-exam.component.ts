@@ -16,9 +16,10 @@ export class TakeExamComponent implements OnInit {
   instruction = 'This is long instruction...';
   TakeExamStateEnum = ExamState;
   TakeExamControlStateEnum = TakeExamControlState;
-  takeExamState = ExamState.instructionView;
+  takeExamState = ExamState.takeExamQuestionView;
   takeExamControlState = TakeExamControlState.startRecordView;
   isStartExam = false;
+
   ngOnInit(): void {
   }
   
@@ -46,5 +47,9 @@ export class TakeExamComponent implements OnInit {
   onBack(){
 
   }
+  onFinishExamination(){
+    this.location.back();
+  }
+  constructor(private location : Location) { }
 
 }

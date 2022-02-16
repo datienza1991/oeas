@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ExamState, TakeExamControlState } from '@batstateu/data-models';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'batstateu-take-exam-control',
@@ -12,6 +13,7 @@ export class TakeExamControlComponent implements OnInit {
   @Output() startExam = new EventEmitter();
   @Output() nextQuestion = new EventEmitter();
   @Output() prevQuestion = new EventEmitter();
+  @Output() finishExam = new EventEmitter();
   @Input() takeExamControlState = TakeExamControlState.startRecordView;
   @Input() takeExamState = ExamState.instructionView;
   TakeExamControlStateEnum = TakeExamControlState;
@@ -29,8 +31,14 @@ export class TakeExamControlComponent implements OnInit {
   onPrevQuestion(){
     this.prevQuestion.emit();
   }
-
-  constructor() { }
+  onFinishExam(){
+    this.modal.confirm({
+      nzTitle: 'Finish Examination',
+      nzContent: 'Are you sure you want to finish this examination?',
+      nzOnOk: () => this.finishExam.emit()
+    });
+  }
+  constructor( private modal: NzModalService) { }
 
   ngOnInit(): void {
   }

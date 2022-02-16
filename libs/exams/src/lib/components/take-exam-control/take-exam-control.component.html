@@ -50,3 +50,13 @@
     </nz-space>
   </div>
 </div>
+<div style="margin-top: 12px; display: flex; justify-content: center" [hidden]="takeExamState === TakeExamStateEnum.instructionView">
+  <button
+  style="color: #1890ff;"
+        nz-button
+        nzType="text"
+        (click)="onFinishExam()"
+      >
+        Finish
+      </button>
+</div>

@@ -27,6 +27,8 @@ import { TakeExamRecordingComponent } from './containers/take-exam-recording/tak
 import { HttpClientModule } from '@angular/common/http';
 import { TakeExamQuestionViewComponent } from './components/take-exam-question-view/take-exam-question-view.component';
 import { DataModelsModule } from '@batstateu/data-models';
+import { TakeExamResultComponent } from './containers/take-exam-result/take-exam-result.component';
+import { TakeExamResultViewComponent } from './components/take-exam-result-view/take-exam-result-view.component';
 
 @NgModule({
   imports: [
@@ -74,7 +76,9 @@ import { DataModelsModule } from '@batstateu/data-models';
     TakeExamComponent,
     TakeExamRecordingComponent,
     TakeExamControlComponent,
-    TakeExamQuestionViewComponent
+    TakeExamQuestionViewComponent,
+    TakeExamResultComponent,
+    TakeExamResultViewComponent
   ],
 })
 export class ExamsModule {}
