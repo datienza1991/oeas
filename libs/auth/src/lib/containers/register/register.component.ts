@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Authenticate } from '@batstateu/data-models';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AuthService } from '../../services/auth/auth.service';
@@ -10,21 +11,32 @@ import { AuthService } from '../../services/auth/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent implements OnInit {
-  onRegister(value: any) {
-    const reg = { username: value.username, password: value.password };
+  onRegister(reg: any) {
     this.authService.register(reg).subscribe({
-      error: (e) => console.log(e.error),
+      next: () => this.showSuccessMessage(),
+      error: (e) => this.showErrorMessage(e.error.message),
     });
+  }
+  showSuccessMessage() {
     this.modal.success({
       nzTitle: 'Success Registration',
       nzContent:
         'Your Sr code will be your user name. <br/> Please wait for your account activation.',
-      nzOkText: 'Ok',
+      nzOnOk: () => {
+        this.router.navigate(['/auth/login']);
+      },
+    });
+  }
+  showErrorMessage(message: string) {
+    this.modal.error({
+      nzTitle: 'Error Registration',
+      nzContent: message,
     });
   }
   constructor(
     private modal: NzModalService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}

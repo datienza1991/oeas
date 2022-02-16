@@ -76,6 +76,6 @@ export class DashboardComponent implements OnInit {
   constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
-    this.dashboardService.getAllHistory().subscribe();
+    this.dashboardService.getAllHistory().subscribe({next: (val) => console.log(val)});
   }
 }

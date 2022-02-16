@@ -14,7 +14,7 @@ export class DashboardService {
 
   getAllHistory(): Observable<User[]> {
     return this.httpClient.get<User[]>(
-      'http://localhost:3000/users'
+      'http://localhost:8080/records/users'
     );
   }
 }
