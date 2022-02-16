@@ -21,6 +21,13 @@ export class AuthService {
     );
   }
 
+  register(authenticate: any): Observable<Authenticate> {
+    return this.httpClient.post<Authenticate>(
+      'http://localhost:8080/register',
+      authenticate
+    );
+  }
+
   logout() {
     this.store.dispatch(fromAuth.logout());
   }

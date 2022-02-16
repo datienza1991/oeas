@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { User } from '@batstateu/data-models';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -9,26 +15,22 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   styleUrls: ['./register-form.component.less'],
 })
 export class RegisterFormComponent implements OnInit {
-
+  @Output() register = new EventEmitter();
+  user! : User;
   validateForm!: FormGroup;
   captchaTooltipIcon: NzFormTooltipIcon = {
     type: 'info-circle',
-    theme: 'twotone'
+    theme: 'twotone',
   };
-  
+
   genderChange(value: string): void {
     // this.validateForm.get('note')?.setValue(value === 'male' ? 'Hi, man!' : 'Hi, lady!');
   }
   submitForm(): void {
     if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
-      this.modal.success({
-        nzTitle: 'Success Registration',
-        nzContent: 'Your Sr code will be your user name. <br/> Please wait for your account activation.',
-        nzOkText: "Ok"
-      });
+      this.register.emit(this.validateForm.value);
     } else {
-      Object.values(this.validateForm.controls).forEach(control => {
+      Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {
           control.markAsDirty();
           control.updateValueAndValidity({ onlySelf: true });
@@ -39,7 +41,9 @@ export class RegisterFormComponent implements OnInit {
 
   updateConfirmValidator(): void {
     /** wait for refresh value */
-    Promise.resolve().then(() => this.validateForm.controls['checkPassword'].updateValueAndValidity());
+    Promise.resolve().then(() =>
+      this.validateForm.controls['checkPassword'].updateValueAndValidity()
+    );
   }
 
   confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
@@ -55,12 +59,15 @@ export class RegisterFormComponent implements OnInit {
     e.preventDefault();
   }
 
-  constructor(private fb: FormBuilder, private modal: NzModalService) {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      srcode: ['12-3456', [Validators.required]],
-      email: ['user@g.batstate-u.edu.ph', [Validators.email, Validators.required]],
+      username: ['12-3456', [Validators.required]],
+      email: [
+        'user@g.batstate-u.edu.ph',
+        [Validators.email, Validators.required],
+      ],
       password: ['123', [Validators.required]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]],
       firstname: ['John', [Validators.required]],
@@ -71,8 +78,7 @@ export class RegisterFormComponent implements OnInit {
       contactNumber: ['920123456', [Validators.required]],
       agree: [false],
       department: ['1', [Validators.required]],
-      section: ['1', [Validators.required]]
+      section: ['1', [Validators.required]],
     });
   }
-
 }
