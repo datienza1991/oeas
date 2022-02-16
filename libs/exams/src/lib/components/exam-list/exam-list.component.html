@@ -59,6 +59,10 @@
         <nz-dropdown-menu #menu="nzDropdownMenu">
             <ul nz-menu>
               <li nz-menu-item>
+                <!--TODO: Add route parameters here for navigating to takers-->
+              <a style="color: #8c8c8c" routerLink="{{data?.id}}/questions">Add Questions</a>
+            </li>
+              <li nz-menu-item>
                   <!--TODO: Add route parameters here for navigating to takers-->
                 <a style="color: #8c8c8c" routerLink="{{data?.id}}/takers">View Takers</a>
               </li>
