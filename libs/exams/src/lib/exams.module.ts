@@ -52,6 +52,7 @@ import { TakeExamResultViewComponent } from './components/take-exam-result-view/
       {path: ':examId/questions', component: QuestionsComponent},
       {path: ':examId/questions/:questionId/edit', component: QuestionFormComponent},
       {path: ':examId/questions/add', component: QuestionFormComponent},
+      {path: ':examId/result', component: TakeExamResultComponent},
     ]),
   ],
   declarations: [

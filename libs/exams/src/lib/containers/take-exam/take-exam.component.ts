@@ -3,6 +3,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/
 import { Location } from '@angular/common';
 import { TakeExamRecordingComponent } from '../take-exam-recording/take-exam-recording.component';
 import { ExamState, TakeExamControlState } from '@batstateu/data-models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'batstateu-take-exam',
@@ -16,9 +17,11 @@ export class TakeExamComponent implements OnInit {
   instruction = 'This is long instruction...';
   TakeExamStateEnum = ExamState;
   TakeExamControlStateEnum = TakeExamControlState;
-  takeExamState = ExamState.takeExamQuestionView;
+  takeExamState = ExamState.instructionView;
   takeExamControlState = TakeExamControlState.startRecordView;
   isStartExam = false;
+  
+  id = 2;
 
   ngOnInit(): void {
   }
@@ -45,11 +48,11 @@ export class TakeExamComponent implements OnInit {
     this.takeExamControlState = this.TakeExamControlStateEnum.firstQuestion;
   }
   onBack(){
-
-  }
-  onFinishExamination(){
     this.location.back();
   }
-  constructor(private location : Location) { }
+  onFinishExamination(){
+    this.router.navigate([`exams/${this.id}/result`]);
+  }
+  constructor(private location : Location, private router : Router) { }
 
 }
