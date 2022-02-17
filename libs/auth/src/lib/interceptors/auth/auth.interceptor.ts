@@ -4,15 +4,17 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
+  HttpResponse,
 } from '@angular/common/http';
-import { first, mergeMap, Observable } from 'rxjs';
+import { first, map, mergeMap, Observable, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State } from '../../+state/auth.reducer';
 import { getUser } from '../../+state/auth.selectors';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private store: Store<State>) {}
+  constructor(private router : Router) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -20,18 +22,13 @@ export class AuthInterceptor implements HttpInterceptor {
     req = req.clone({
       withCredentials: true,
     });
-    return next.handle(req);
-
-    // return this.store.select(getUser).pipe(
-    //   first(),
-    //   mergeMap(user => {
-    //     const authReq = user ? req.clone({
-    //       //Since dbAuth is the authentication method, no need to set header
-    //       // session will be use for authentication
-    //       // setHeaders: { Authorization: 'Bearer ' + user.token },
-    //     }) : req;
-    //     return next.handle(authReq);
-    //   }),
-    // );
+    return next.handle(req).pipe(tap(
+      {
+        error:(err) => {
+          console.log(err.error.code);
+          this.router.navigate(['/auth/login']);
+        }
+      }
+    ));
   }
 }
