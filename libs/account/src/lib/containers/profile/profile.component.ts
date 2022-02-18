@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as fromAuth from '@batstateu/auth';
+
 import { Observable } from 'rxjs';
 import { User } from '@batstateu/data-models';
 @Component({
@@ -9,8 +9,8 @@ import { User } from '@batstateu/data-models';
   styleUrls: ['./profile.component.less']
 })
 export class ProfileComponent implements OnInit {
-  user$: Observable<User | null>;
-  constructor(private store: Store<fromAuth.State>) {this.user$ = this.store.select(fromAuth.getUser); }
+
+  constructor() { }
 
   ngOnInit(): void {
     console.log("profile init..")
