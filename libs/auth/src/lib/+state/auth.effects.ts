@@ -10,7 +10,6 @@ import { User } from '@batstateu/data-models';
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State } from './auth.reducer';
-import { CookieService } from 'ngx-cookie-service';
 import { UserService } from '@batstateu/account';
 
 @Injectable()
@@ -67,8 +66,6 @@ export class AuthEffects {
         ofType(AuthActionTypes.Logout),
         tap(() => {
           this.router.navigate([`/auth/login`]);
-          //Note: php session cookie cant delete on development
-          this.cookieService.deleteAll();
         })
       ),
     { dispatch: false }
@@ -80,6 +77,5 @@ export class AuthEffects {
     private userService: UserService,
     private router: Router,
     private store: Store<State>,
-    private cookieService: CookieService
   ) {}
 }
