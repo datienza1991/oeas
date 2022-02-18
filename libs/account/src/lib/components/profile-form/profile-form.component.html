@@ -101,8 +101,8 @@
             nzPlaceHolder="Select department"
             (ngModelChange)="genderChange($event)"
           >
-            <nz-option nzValue="1" nzLabel="Grad School"></nz-option>
-            <nz-option nzValue="2" nzLabel="Others"></nz-option>
+            <nz-option [nzValue]="1" nzLabel="Grad School"></nz-option>
+            <nz-option [nzValue]="2" nzLabel="Others"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -117,8 +117,8 @@
             nzPlaceHolder="Select section"
             (ngModelChange)="genderChange($event)"
           >
-            <nz-option nzValue="1" nzLabel="Grad-1101"></nz-option>
-            <nz-option nzValue="2" nzLabel="Grad-1102"></nz-option>
+            <nz-option [nzValue]="1" nzLabel="Grad-1101"></nz-option>
+            <nz-option [nzValue]="2" nzLabel="Grad-1102"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
