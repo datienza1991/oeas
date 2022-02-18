@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { APP_CONFIG } from '@batstateu/app-config';
 import { Authenticate } from '@batstateu/data-models';
 import { Store } from '@ngrx/store';
 import * as fromAuth from '../../+state/auth.reducer';
@@ -11,6 +12,7 @@ import * as authActions from './../../+state/auth.actions';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
+  
   constructor(private store: Store<fromAuth.State>) {}
 
   ngOnInit(): void {

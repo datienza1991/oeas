@@ -9,6 +9,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { APP_CONFIG } from '@batstateu/app-config';
 
 @NgModule({
   declarations: [AppComponent],
@@ -65,7 +66,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule.forRoot(),
   ],
-  providers: [],
+  providers: [{ provide: APP_CONFIG, useValue: environment}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
