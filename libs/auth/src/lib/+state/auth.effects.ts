@@ -24,25 +24,18 @@ export class AuthEffects {
         run: (action) => {
           const store = this.store;
           const userService = this.userService;
-          const modal = this.modal;
           this.authService.login(action['payload']).subscribe({
             next(user: User) {
               userService.get(user.id).subscribe({
                 next: (userDetail) => {
                   if(userDetail !== undefined){
-                    store.dispatch(authActions.loginSuccess({ payload: {id: userDetail.id, isActive: true, username: user.username, firstName: userDetail.firstName} }))
-                  }else{
-                    modal.warning({
-                      nzTitle: 'Update your profile now!',
-                      nzContent: `Please update your profile now so administrator can review and activate it!`,
-                    });
-                    store.dispatch(authActions.loginSuccessNewAccount({ payload: user }));
+                    store.dispatch(authActions.loginSuccess({ payload: {id: user.id, isActive: true, username: user.username, firstName: userDetail.firstName} }))
                   }
                 },
                 error: () => store.dispatch(authActions.loginSuccessNewAccount({ payload: user })),
               });
             },
-            error: (er) =>{ console.log(er)}
+            error: (er) =>{ console.log("[Auth Effects] Login user error",er)}
           });
         },
         onError: (action, error) => {
@@ -68,6 +61,10 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(AuthActionTypes.LoginSuccessNewAccount),
         tap(() => {
+          this.modal.warning({
+            nzTitle: 'Update your profile now!',
+            nzContent: `Please update your profile now so administrator can review and activate it!`,
+          });
           this.router.navigate([`/account/profile`]);
         })
       ),

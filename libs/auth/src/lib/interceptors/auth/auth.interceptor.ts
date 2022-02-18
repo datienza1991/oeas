@@ -37,6 +37,11 @@ export class AuthInterceptor implements HttpInterceptor {
               nzTitle: 'Update your profile now!',
               nzContent: `Please update your profile now so administrator can review and activate it!`,
             });
+          }else if(err.status === 0){
+            this.modal.error({
+              nzTitle: 'Error',
+              nzContent: `Can't connect to server!`,
+            });
           } else {
             this.modal.error({
               nzTitle: 'Error',

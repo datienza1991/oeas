@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { User } from '@batstateu/data-models';
+import { User, UserDetail } from '@batstateu/data-models';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Observable } from 'rxjs';
@@ -17,49 +17,43 @@ import { UserService } from '../../account.module';
   styleUrls: ['./profile-form.component.less'],
 })
 export class ProfileFormComponent implements OnInit {
-  @Input() user$!: Observable<User | null>;
-
+  @Output() save = new EventEmitter<UserDetail>();
+  id! : number;
   validateForm!: FormGroup;
   captchaTooltipIcon: NzFormTooltipIcon = {
     type: 'info-circle',
     theme: 'twotone',
   };
 
-  setValue() {
-    this.user$.subscribe({
-      next: (val) => {
-        this.userService.get(val?.id).subscribe({next : (val2) =>{
-          if(val2 !== undefined){
-            console.log(val2)
-            this.validateForm.patchValue({
-              code: val?.username,
-              email: val2.email,
-              firstname: val2.firstName,
-              middlename: val2.middleName,
-              lastname: val2.lastName,
-              address: val2.address,
-              department: val2.departmentId,
-              section: val2.sectionId,
-              contactNumber: val2.contactNumber
-              //TODO: set more field values
-            });
-          }
-        }})
-      },
-    });
-  }
   genderChange(value: string): void {
     // this.validateForm.get('note')?.setValue(value === 'male' ? 'Hi, man!' : 'Hi, lady!');
   }
 
+  setValue(userDetail : UserDetail) {
+    this.id = userDetail.id;
+      this.validateForm.patchValue({
+        code: userDetail.username,
+        email: userDetail.email,
+        firstName: userDetail.firstName,
+        middleName: userDetail.middleName,
+        lastName: userDetail.lastName,
+        address: userDetail.address,
+        departmentId: userDetail.departmentId,
+        sectionId: userDetail.sectionId,
+        contactNumber: userDetail.contactNumber.substring(3),
+    });
+  }
   submitForm(): void {
     if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
-      this.modal.success({
-        nzTitle: 'Success',
-        nzContent: 'Record has been saved',
-        nzOkText: 'Ok',
-      });
+      const userDetail : UserDetail = {...this.validateForm.value }
+      this.save.emit(userDetail);
+      
+      //TODO:Modal must on container
+      // this.modal.success({
+      //   nzTitle: 'Success',
+      //   nzContent: 'Record has been saved',
+      //   nzOkText: 'Ok',
+      // });
     } else {
       Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {
@@ -90,24 +84,20 @@ export class ProfileFormComponent implements OnInit {
     e.preventDefault();
   }
 
-  constructor(private fb: FormBuilder, private modal: NzModalService, private userService: UserService) {}
+  constructor(private fb: FormBuilder, private modal: NzModalService) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       code: [{ value: '12-3456', disabled: true }, [Validators.required]],
-      email: [
-        null,
-        [Validators.email, Validators.required],
-      ],
-      firstname: [null, [Validators.required]],
-      middlename: [null, [Validators.required]],
-      lastname: [null, [Validators.required]],
+      email: [null, [Validators.email, Validators.required]],
+      firstName: [null, [Validators.required]],
+      middleName: [null, [Validators.required]],
+      lastName: [null, [Validators.required]],
       address: [null, [Validators.required]],
       contactNumberPrefix: ['+63'],
       contactNumber: ['920123456', [Validators.required]],
-      department: [null, [Validators.required]],
-      section: [null, [Validators.required]],
+      departmentId: [null, [Validators.required]],
+      sectionId: [null, [Validators.required]],
     });
-    this.setValue();
   }
 }
