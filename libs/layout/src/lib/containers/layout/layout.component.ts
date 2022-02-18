@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import * as fromAuth from '@batstateu/auth';
 import { User } from '@batstateu/data-models';
-import { Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { getUser } from '@batstateu/auth';
 import { Store } from '@ngrx/store';
+import { UserService } from '@batstateu/account';
 
 @Component({
   selector: 'batstateu-layout',
@@ -13,12 +14,14 @@ import { Store } from '@ngrx/store';
 export class LayoutComponent implements OnInit {
   user$: Observable<User | null>;
 
-  constructor(private store: Store<fromAuth.State>) {
+  constructor(
+    private store: Store<fromAuth.State>,
+    private userService: UserService
+  ) {
     this.user$ = this.store.select(getUser);
-    this.user$.subscribe((x) => console.log(x?.token));
   }
 
   ngOnInit(): void {
-    console.log('Layout init..');
+    console.log('layout init');
   }
 }

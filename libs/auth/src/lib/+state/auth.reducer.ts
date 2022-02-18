@@ -23,6 +23,11 @@ const authReducer = createReducer(
     user: action.payload,
     loading: false,
   })),
+  on(AuthActions.loginSuccessNewAccount, (state,action) => ({
+    ...state,
+    user: action.payload,
+    loading: false,
+  })),
   on(AuthActions.loginFailure, (state) => ({
     ...state,
     user: null,

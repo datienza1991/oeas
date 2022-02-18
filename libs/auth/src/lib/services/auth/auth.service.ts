@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Authenticate, User } from '@batstateu/data-models';
 import { Store } from '@ngrx/store';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import * as fromAuth from '@batstateu/auth';
 import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root',
 })

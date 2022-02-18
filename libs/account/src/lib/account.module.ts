@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from '@batstateu/ng-zorro-antd';
 import { ChangePasswordComponent } from './containers/change-password/change-password.component';
 import { ChangePasswordFormComponent } from './components/change-password-form/change-password-form.component';
+export { UserService } from './services/user/user.service';
 
 @NgModule({
   imports: [

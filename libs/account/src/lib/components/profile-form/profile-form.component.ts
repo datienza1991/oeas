@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { User } from '@batstateu/data-models';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'batstateu-profile-form',
@@ -9,7 +11,8 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   styleUrls: ['./profile-form.component.less']
 })
 export class ProfileFormComponent implements OnInit {
-
+  @Input() user$!: Observable<User | null>;
+  
   validateForm!: FormGroup;
   captchaTooltipIcon: NzFormTooltipIcon = {
     type: 'info-circle',
@@ -60,7 +63,7 @@ export class ProfileFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      code: ['12-3456', [Validators.required]],
+      code: [{value: '12-3456', disabled: true}, [Validators.required]],
       email: ['user@g.batstate-u.edu.ph', [Validators.email, Validators.required]],
       firstname: ['John', [Validators.required]],
       middlename: ['Luke', [Validators.required]],

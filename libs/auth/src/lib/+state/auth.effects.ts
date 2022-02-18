@@ -11,6 +11,7 @@ import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State } from './auth.reducer';
 import { CookieService } from 'ngx-cookie-service';
+import { UserService } from '@batstateu/account';
 
 @Injectable()
 export class AuthEffects {
@@ -20,9 +21,14 @@ export class AuthEffects {
       fetch({
         run: (action) => {
           const store = this.store;
+          const userService = this.userService;
           this.authService.login(action['payload']).subscribe({
             next(user: User) {
-              store.dispatch(authActions.loginSuccess({ payload: user }));
+              userService.get(user.id).subscribe({
+                next: (userDetail) =>
+                  store.dispatch(authActions.loginSuccess({ payload: userDetail })),
+                error: () => store.dispatch(authActions.loginSuccessNewAccount({ payload: user })),
+              });
             },
           });
         },
@@ -33,12 +39,23 @@ export class AuthEffects {
     )
   );
 
-  navigateToProfile$ = createEffect(
+  navigateToDashboard$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(AuthActionTypes.LoginSuccess),
         tap(() => {
           this.router.navigate([`/dashboard`]);
+        })
+      ),
+    { dispatch: false }
+  );
+
+  navigateToProfile$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActionTypes.LoginSuccessNewAccount),
+        tap(() => {
+          this.router.navigate([`/account/profile`]);
         })
       ),
     { dispatch: false }
@@ -60,6 +77,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
+    private userService: UserService,
     private router: Router,
     private store: Store<State>,
     private cookieService: CookieService
