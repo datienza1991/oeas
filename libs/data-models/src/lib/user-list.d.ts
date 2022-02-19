@@ -1,7 +1,7 @@
 export interface UserList{
     id: number,
     name: string,
-    department: string,
+    departmentName: string,
     type: string,
     status: string
 }

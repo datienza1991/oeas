@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserList } from '@batstateu/data-models';
+import { UserDetail, UserList } from '@batstateu/data-models';
+import { UserService } from '@batstateu/shared';
 
 @Component({
   selector: 'batstateu-users',
@@ -7,26 +8,15 @@ import { UserList } from '@batstateu/data-models';
   styleUrls: ['./users.component.less'],
 })
 export class UsersComponent implements OnInit {
-  userList: UserList[] = [
-    {
-      id: 1,
-      name: 'John Alex',
-      department: 'Grad School',
-      type: 'Faculty',
-      status: 'Inactive',
-    },
-    {
-      id: 2,
-      name: 'Smith Blue',
-      department: 'Grad School',
-      type: 'Student',
-      status: 'Inactive'
-    },
-  ];
+  userList!: UserDetail[];
   delete(id: number) {
     alert(id);
   }
-  constructor() {}
+  constructor(private userService : UserService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userService.getAll("").subscribe((val: any)=>{
+      this.userList = val;
+    })
+  }
 }

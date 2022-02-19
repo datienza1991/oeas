@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { UserList } from '@batstateu/data-models';
+import { UserDetail, UserList } from '@batstateu/data-models';
 @Component({
   selector: 'batstateu-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.less'],
 })
 export class UserListComponent implements OnInit {
-  @Input() userList: UserList[] = [];
+  @Input() userList!: UserDetail[];
   @Output() deleteRecord = new EventEmitter<number>();
   constructor(private modal: NzModalService) {}
 
