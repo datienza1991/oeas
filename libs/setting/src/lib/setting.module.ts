@@ -8,13 +8,13 @@ import { UsersComponent } from './containers/users/users.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UserFormViewComponent } from './components/user-form-view/user-form-view.component';
 import { UserFormComponent } from './containers/user-form/user-form.component';
+import { StatusPipe } from '@batstateu/shared';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     NgZorroAntdModule,
-
     RouterModule.forChild([
       { path: '', pathMatch : 'full', redirectTo: "users" },
       { path: 'users', component: UsersComponent},
@@ -26,7 +26,8 @@ import { UserFormComponent } from './containers/user-form/user-form.component';
     UsersComponent,
     UserListComponent,
     UserFormViewComponent,
-    UserFormComponent
+    UserFormComponent,
+    StatusPipe
   ],
 })
 export class SettingModule {}

@@ -13,4 +13,5 @@ export interface UserDetail extends User {
   contactNumberPrefix: string;
   sectionName: string;
   departmentName: string;
+  userType: string;
 }

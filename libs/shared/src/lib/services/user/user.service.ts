@@ -4,10 +4,14 @@ import { APP_CONFIG } from '@batstateu/app-config';
 import { ResponseWrapper, User, UserDetail } from '@batstateu/data-models';
 import { Store } from '@ngrx/store';
 import { map, Observable, tap, throwError } from 'rxjs';
+import  * as fromAuth  from "@batstateu/auth";
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  user$! : Observable<User | null>;
+  userId! : number;
+
   save(userDetail: UserDetail): Observable<number> {
     if (userDetail.id > 0) {
       return this.httpClient
@@ -49,8 +53,9 @@ export class UserService {
       );
   }
   getAll(criteria: string): Observable<UserDetail[]> {
+    
     const params = new HttpParams({
-      fromString: `filter=firstName,cs,${criteria}&filter=middleName,cs,${criteria}&filter=lastName,cs,${criteria}&join=departments&join=sections`,
+      fromString: `filter=user_id,neq,${this.userId}&firstName,cs,${criteria}&filter=middleName,cs,${criteria}&filter=lastName,cs,${criteria}&join=departments&join=sections`,
     });
     return this.httpClient
       .get<ResponseWrapper<UserDetail>>(
@@ -63,8 +68,22 @@ export class UserService {
         })
       );
   }
+
+  deleteUser(user_id: number): Observable<number> {
+    return this.httpClient.delete<number>(
+      `${this.appConfig.API_URL}/records/users/${user_id}`
+    );
+  }
+
+  private getUserId (){
+    this.user$.subscribe((val)=> this.userId = val?.id || 0);
+  }
   constructor(
     private httpClient: HttpClient,
-    @Inject(APP_CONFIG) private appConfig: any
-  ) {}
+    @Inject(APP_CONFIG) private appConfig: any,
+    private store: Store<fromAuth.State>
+  ) {
+    this.user$ = store.select(fromAuth.getUser);
+    this.getUserId();
+  }
 }

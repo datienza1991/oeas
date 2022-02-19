@@ -8,16 +8,16 @@ import { UserDetail, UserList } from '@batstateu/data-models';
 })
 export class UserListComponent implements OnInit {
   @Input() userList!: UserDetail[];
-  @Output() deleteRecord = new EventEmitter<number>();
+  @Output() deleteRecord = new EventEmitter<UserDetail>();
   constructor(private modal: NzModalService) {}
 
   ngOnInit(): void {}
 
-  delete(userListDetail: UserList) {
+  delete(userdDetail: UserDetail) {
     this.modal.warning({
       nzTitle: 'Delete Record',
-      nzContent: `Are you sure you want to delete user with name <b>${userListDetail.name}</b>?`,
-      nzOkText: 'Ok',
+      nzContent: `Are you sure you want to delete user with name <b>${userdDetail.firstName} ${userdDetail.lastName}</b>?`,
+      nzOnOk: () =>{ this.deleteRecord.emit(userdDetail)}
     });
   }
   deleteConfirm() {}

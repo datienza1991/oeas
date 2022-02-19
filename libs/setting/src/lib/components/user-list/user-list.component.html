@@ -39,10 +39,10 @@
   </thead>
   <tbody>
     <tr *ngFor="let data of basicTable.data">
-      <td>{{ data?.firstName }}</td>
+      <td>{{ data?.firstName }} {{ data?.lastName }}</td>
       <td>{{ data?.departmentName }}</td>
-      <td>{{ data?.type }}</td>
-      <td>{{ data?.status }}</td>
+      <td>{{ data?.userType }}</td>
+      <td>{{ data?.isActive || false | status }}</td>
       <td>
         <a
           nz-button

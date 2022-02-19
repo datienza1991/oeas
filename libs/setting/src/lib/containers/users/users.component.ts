@@ -9,12 +9,18 @@ import { UserService } from '@batstateu/shared';
 })
 export class UsersComponent implements OnInit {
   userList!: UserDetail[];
-  delete(id: number) {
-    alert(id);
+  onDelete(userDetail : UserDetail) {
+    this.userService.deleteUser(userDetail.user_id).subscribe(()=>{
+     this.getAll();
+    })
   }
   constructor(private userService : UserService) {}
 
   ngOnInit(): void {
+    this.getAll();
+  }
+  
+  getAll(){
     this.userService.getAll("").subscribe((val: any)=>{
       this.userList = val;
     })

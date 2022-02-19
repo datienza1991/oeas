@@ -15,7 +15,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 export class ProfileComponent implements OnInit {
   user$!: Observable<User | null>;
   userId!: number;
-  id! : number;
+  id!: number;
 
   @ViewChild(ProfileFormComponent) profileFormComponent!: ProfileFormComponent;
   constructor(
@@ -31,16 +31,19 @@ export class ProfileComponent implements OnInit {
     this.getValues();
   }
   onSave(userDetail: UserDetail) {
-    this.userService
-      .save({ ...userDetail, id: this.id, user_id: this.userId })
-      .subscribe(() =>
-        //TODO:Modal must on container
-        this.modal.success({
-          nzTitle: 'Success',
-          nzContent: 'Record has been saved',
-          nzOkText: 'Ok',
-        })
-      );
+    userDetail =
+      this.id != undefined || this.id > 0
+        ? { ...userDetail, id: this.id, user_id: this.userId }
+        : { ...userDetail, user_id: this.userId, isActive: false };
+
+    this.userService.save(userDetail).subscribe(() =>
+      //TODO:Modal must on container
+      this.modal.success({
+        nzTitle: 'Success',
+        nzContent: 'Record has been saved',
+        nzOkText: 'Ok',
+      })
+    );
   }
   getValues() {
     this.user$.subscribe({
