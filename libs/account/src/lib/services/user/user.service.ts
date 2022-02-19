@@ -40,7 +40,7 @@ export class UserService {
   get(userId: number | undefined): Observable<UserDetail> {
     return this.httpClient
       .get<ResponseWrapper<UserDetail>>(
-        `${this.appConfig.API_URL}/records/userDetails?filter=userid,eq,${userId}`
+        `${this.appConfig.API_URL}/records/userDetails?filter=user_id,eq,${userId}`
       )
       .pipe(
         map((res: ResponseWrapper<UserDetail>) => {

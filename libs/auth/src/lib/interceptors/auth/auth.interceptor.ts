@@ -26,7 +26,9 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       tap({
         error: (err) => {
+          //TODO: If error 1011, dispatch logout action from auto store
           if (err.error.code === 1011) {
+
             this.router.navigate(['/auth/login']);
           } else if (
             (this.router.url === '/auth/login' && err.error.code === 1003) ||

@@ -18,42 +18,20 @@ import { UserService } from '../../account.module';
 })
 export class ProfileFormComponent implements OnInit {
   @Output() save = new EventEmitter<UserDetail>();
-  id! : number;
+
   validateForm!: FormGroup;
   captchaTooltipIcon: NzFormTooltipIcon = {
     type: 'info-circle',
     theme: 'twotone',
   };
 
-  genderChange(value: string): void {
-    // this.validateForm.get('note')?.setValue(value === 'male' ? 'Hi, man!' : 'Hi, lady!');
-  }
-
   setValue(userDetail : UserDetail) {
-    this.id = userDetail.id;
-      this.validateForm.patchValue({
-        code: userDetail.username,
-        email: userDetail.email,
-        firstName: userDetail.firstName,
-        middleName: userDetail.middleName,
-        lastName: userDetail.lastName,
-        address: userDetail.address,
-        departmentId: userDetail.departmentId,
-        sectionId: userDetail.sectionId,
-        contactNumber: userDetail.contactNumber.substring(3),
-    });
+    this.validateForm.patchValue(userDetail);
   }
   submitForm(): void {
     if (this.validateForm.valid) {
-      const userDetail : UserDetail = {...this.validateForm.value }
+      const userDetail: UserDetail = { ...this.validateForm.value };
       this.save.emit(userDetail);
-      
-      //TODO:Modal must on container
-      // this.modal.success({
-      //   nzTitle: 'Success',
-      //   nzContent: 'Record has been saved',
-      //   nzOkText: 'Ok',
-      // });
     } else {
       Object.values(this.validateForm.controls).forEach((control) => {
         if (control.invalid) {
@@ -88,16 +66,17 @@ export class ProfileFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      code: [{ value: '12-3456', disabled: true }, [Validators.required]],
+      code: [{ value: null, disabled: true }, [Validators.required]],
       email: [null, [Validators.email, Validators.required]],
       firstName: [null, [Validators.required]],
       middleName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
       address: [null, [Validators.required]],
       contactNumberPrefix: ['+63'],
-      contactNumber: ['920123456', [Validators.required]],
+      contactNumber: [null, [Validators.required]],
       departmentId: [null, [Validators.required]],
       sectionId: [null, [Validators.required]],
+      isActive: [{ value: false, disabled: true }],
     });
   }
 }
