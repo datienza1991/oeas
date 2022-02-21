@@ -9,7 +9,7 @@ export class TakeExamService {
   constructor(private httpClient: HttpClient) {}
 
   upload(data: any): Observable<any> {
-    const serverUrl = 'http://localhost:8080/file-upload';
+    const serverUrl = 'http://localhost:8081/file-upload';
     const formData = new FormData();
     formData.append('file', data, data.name);
 

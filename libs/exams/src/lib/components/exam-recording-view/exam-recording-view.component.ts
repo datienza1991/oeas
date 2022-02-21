@@ -9,7 +9,7 @@ import * as RecordRTC from 'recordrtc';
 })
 export class ExamRecordingViewComponent implements OnInit, OnDestroy {
 
-  url = "http://localhost:8080/uploads/1644982888109.webm";
+  url = "http://localhost:8081/uploads/1645357095460.webm";
   visible = true;
   // index to create unique ID for component
   idx = 'clip1';

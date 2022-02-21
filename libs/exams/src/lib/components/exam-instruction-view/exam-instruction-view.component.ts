@@ -7,6 +7,5 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ExamInstructionViewComponent implements OnInit {
   @Input() instruction?: string;
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
   }
 }
