@@ -11,6 +11,10 @@ export { ExamState } from './exam-state';
 export { TakeExamControlState } from './take-exam-control-state';
 export { UserDetail } from './user-detail';
 export { ResponseWrapper } from './response-wrapper';
+export { Department } from './department';
+export { Section} from './section';
+export { UserFormType } from './user-form-type';
+export { UserType } from './user-type';
 @NgModule({
   imports: [CommonModule],
 })

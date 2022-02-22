@@ -1,1 +1,5 @@
-<batstateu-user-list [userList]="userList" (deleteRecord)="onDelete($event)"></batstateu-user-list>
+<batstateu-user-list
+  [userList]="userList"
+  (deleteRecord)="onDelete($event)"
+  (search)="onSearch($event)"
+></batstateu-user-list>

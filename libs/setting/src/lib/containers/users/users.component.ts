@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { UserDetail, UserList } from '@batstateu/data-models';
+import { UserDetail } from '@batstateu/data-models';
 import { UserService } from '@batstateu/shared';
+import {
+  BehaviorSubject,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  Observable,
+} from 'rxjs';
 
 @Component({
   selector: 'batstateu-users',
@@ -9,20 +17,34 @@ import { UserService } from '@batstateu/shared';
 })
 export class UsersComponent implements OnInit {
   userList!: UserDetail[];
-  onDelete(userDetail : UserDetail) {
-    this.userService.deleteUser(userDetail.user_id).subscribe(()=>{
-     this.getAll();
-    })
+  private searchSubject$ = new BehaviorSubject<string>('');
+  test!: Observable<string>;
+  onDelete(userDetail: UserDetail) {
+    this.userService.deleteUser(userDetail.user_id).subscribe(() => {
+      this.getAll('');
+    });
   }
-  constructor(private userService : UserService) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.getAll();
+    this.getAll('');
+
+    this.searchSubject$
+      .asObservable()
+      .pipe(
+        map((val) => val.trim()),
+        debounceTime(1000),
+        distinctUntilChanged()
+      )
+      .subscribe((val) => this.getAll(val));
   }
-  
-  getAll(){
-    this.userService.getAll("").subscribe((val: any)=>{
+
+  getAll(criteria: string) {
+    this.userService.getAll(criteria).subscribe((val: UserDetail[]) => {
       this.userList = val;
-    })
+    });
+  }
+  onSearch(val: string) {
+    this.searchSubject$.next(val);
   }
 }

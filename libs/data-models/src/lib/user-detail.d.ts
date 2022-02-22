@@ -1,6 +1,7 @@
 import { User } from './user';
 
 export interface UserDetail extends User {
+  code: string;
   email: string;
   isActive: boolean;
   middleName: string;
@@ -14,4 +15,5 @@ export interface UserDetail extends User {
   sectionName: string;
   departmentName: string;
   userType: string;
+  userTypeId: number
 }

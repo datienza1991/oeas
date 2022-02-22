@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
   user$!: Observable<User | null>;
   userId!: number;
   id!: number;
-
+  isActiveEnable = false;
   @ViewChild(ProfileFormComponent) profileFormComponent!: ProfileFormComponent;
   constructor(
     private store: Store<fromAuth.State>,

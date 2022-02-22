@@ -1,16 +1,22 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { APP_CONFIG } from '@batstateu/app-config';
-import { ResponseWrapper, User, UserDetail } from '@batstateu/data-models';
+import {
+  ResponseWrapper,
+  User,
+  UserDetail,
+  UserList,
+  UserType,
+} from '@batstateu/data-models';
 import { Store } from '@ngrx/store';
 import { map, Observable, tap, throwError } from 'rxjs';
-import  * as fromAuth  from "@batstateu/auth";
+import * as fromAuth from '@batstateu/auth';
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  user$! : Observable<User | null>;
-  userId! : number;
+  user$!: Observable<User | null>;
+  userId!: number;
 
   save(userDetail: UserDetail): Observable<number> {
     if (userDetail.id > 0) {
@@ -52,10 +58,27 @@ export class UserService {
         })
       );
   }
+  getUserDetail(id: number): Observable<UserDetail> {
+    return this.httpClient
+      .get<UserDetail>(
+        `${this.appConfig.API_URL}/records/userDetails/${id}?join=users&join=user_types`
+      )
+      .pipe(
+        map((val: any) => {
+          return {
+            ...val,
+            code: val.user_id.username,
+            userType: val.user_type_id.name,
+            userTypeId: val.user_type_id.id
+          };
+        })
+      );
+  }
+
   getAll(criteria: string): Observable<UserDetail[]> {
     //FIXME: Others users are not listed on the list
     const params = new HttpParams({
-      fromString: `filter=user_id,neq,${this.userId}&filter=firstName,cs,${criteria}&filter=middleName,cs,${criteria}&filter=lastName,cs,${criteria}&join=departments&join=sections`,
+      fromString: `filter=user_id,neq,${this.userId}&filter1=firstName,cs,${criteria}&filter2=middleName,cs,${criteria}&filter3=lastName,cs,${criteria}`,
     });
     return this.httpClient
       .get<ResponseWrapper<UserDetail>>(
@@ -68,15 +91,26 @@ export class UserService {
         })
       );
   }
+  getAllUserTypes(): Observable<UserType[]> {
 
+    return this.httpClient
+      .get<ResponseWrapper<UserType>>(
+        `${this.appConfig.API_URL}/records/user_types`,
+      )
+      .pipe(
+        map((res: ResponseWrapper<UserType>) => {
+          return res.records;
+        })
+      );
+  }
   deleteUser(user_id: number): Observable<number> {
     return this.httpClient.delete<number>(
       `${this.appConfig.API_URL}/records/users/${user_id}`
     );
   }
 
-  private getUserId (){
-    this.user$.subscribe((val)=> this.userId = val?.id || 0);
+  private getUserId() {
+    this.user$.subscribe((val) => (this.userId = val?.id || 0));
   }
   constructor(
     private httpClient: HttpClient,
