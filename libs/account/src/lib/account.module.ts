@@ -7,12 +7,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from '@batstateu/ng-zorro-antd';
 import { ChangePasswordComponent } from './containers/change-password/change-password.component';
 import { ChangePasswordFormComponent } from './components/change-password-form/change-password-form.component';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { SharedModule } from '@batstateu/shared';
+
 export { UserService } from './services/user/user.service';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    SharedModule,
     NgZorroAntdModule,
     RouterModule.forChild([
       {path: '', pathMatch: 'full', redirectTo: 'profile'},
@@ -24,7 +28,7 @@ export { UserService } from './services/user/user.service';
     ProfileFormComponent,
     ProfileComponent,
     ChangePasswordComponent,
-    ChangePasswordFormComponent
+    ChangePasswordFormComponent,
   ],
 })
 export class AccountModule {}

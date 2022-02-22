@@ -6,9 +6,9 @@ import { NgZorroAntdModule } from '@batstateu/ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsersComponent } from './containers/users/users.component';
 import { UserListComponent } from './components/user-list/user-list.component';
-import { DepartmentListComponent, UserFormViewComponent } from '@batstateu/shared';
+
 import { UserFormComponent } from './containers/user-form/user-form.component';
-import { StatusPipe } from '@batstateu/shared';
+import { SharedModule, StatusPipe } from '@batstateu/shared';
 
 @NgModule({
   imports: [
@@ -16,6 +16,7 @@ import { StatusPipe } from '@batstateu/shared';
     ReactiveFormsModule,
     FormsModule,
     NgZorroAntdModule,
+    SharedModule,
     RouterModule.forChild([
       { path: '', pathMatch : 'full', redirectTo: "users" },
       { path: 'users', component: UsersComponent},
@@ -26,9 +27,7 @@ import { StatusPipe } from '@batstateu/shared';
   declarations: [
     UsersComponent,
     UserListComponent,
-    UserFormViewComponent,
     UserFormComponent,
-    DepartmentListComponent,
     StatusPipe
   ],
 })
