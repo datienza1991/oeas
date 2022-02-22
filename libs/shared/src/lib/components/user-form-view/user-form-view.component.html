@@ -129,7 +129,7 @@
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col [nzSpan]="12">
+    <div *ngIf="!isHideUserTypeList" nz-col [nzSpan]="12">
       <nz-form-item>
         <nz-form-label nzFor="userTypeId" nzRequired
           >User Type</nz-form-label
@@ -139,6 +139,7 @@
             id="userTypeId"
             formControlName="userTypeId"
             nzPlaceHolder="Select user type"
+            (ngModelChange)="onChange($event)"
           >
             <nz-option
               *ngFor="let usr of userTypes"
@@ -149,11 +150,12 @@
         </nz-form-control>
       </nz-form-item>
     </div>
+    <!-- FIXME: Check box push on left for faculty admin profile view -->
     <div
       nz-col
       [nzSpan]="12"
       [style]="
-        userFormType === UserFormTypeEnum.STUDENT
+        userFormType === UserFormTypeEnum.STUDENT && !isHideUserTypeList
           ? 'display:flex; justify-content: flex-end; align-items: center'
           : 'display:flex; align-items: center'
       "

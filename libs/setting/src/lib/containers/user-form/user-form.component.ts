@@ -32,7 +32,7 @@ export class UserFormComponent implements OnInit {
   departments!: Department[];
   sections!: Section[];
   userTypes!: UserType[];
-
+  code! : string;
   userFormType = UserFormType.FACULTY_ADMIN;
   constructor(
     private store: Store<fromAuth.State>,
@@ -82,6 +82,7 @@ export class UserFormComponent implements OnInit {
 
     this.userService.getUserDetail(id).subscribe((val) => {
       this.id = val.id;
+      this.code = val.code;
       this.userDetail = val;
       this.userFormType =
         val.userType === 'Faculty' || val.userType === 'Admin'

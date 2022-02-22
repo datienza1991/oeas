@@ -1,6 +1,7 @@
 import { ThisReceiver } from '@angular/compiler';
 import {
   Component,
+  DoCheck,
   EventEmitter,
   Input,
   OnChanges,
@@ -14,7 +15,14 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Department, Section, UserDetail, UserFormType, UserType } from '@batstateu/data-models';
+import {
+  Department,
+  Section,
+  UserDetail,
+  UserFormLocation,
+  UserFormType,
+  UserType,
+} from '@batstateu/data-models';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -23,16 +31,22 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   templateUrl: './user-form-view.component.html',
   styleUrls: ['./user-form-view.component.css'],
 })
-export class UserFormViewComponent implements OnInit, OnChanges {
+export class UserFormViewComponent implements OnInit, OnChanges, DoCheck {
   @Output() save = new EventEmitter<UserDetail>();
   @Input() userDetail!: UserDetail;
   @Input() isActiveEnable = false;
   validateForm!: FormGroup;
   @Input() departments!: Department[];
   @Input() sections!: Section[];
-  @Input() userFormType!: UserFormType
+  @Input() userFormType!: UserFormType;
   @Input() userTypes!: UserType[];
+  @Input() code!: string;
+  @Input() userFormLocation!: UserFormLocation;
+  @Input() isHideUserTypeList!: boolean;
+  
   UserFormTypeEnum = UserFormType;
+  UserFormLocationEnum = UserFormLocation;
+
   captchaTooltipIcon: NzFormTooltipIcon = {
     type: 'info-circle',
     theme: 'twotone',
@@ -57,8 +71,14 @@ export class UserFormViewComponent implements OnInit, OnChanges {
       });
     }
   }
-
+  onChange(val: number) {
+    this.userFormType = val === 3 ? this.UserFormTypeEnum.STUDENT : this.UserFormTypeEnum.FACULTY_ADMIN;
+  }
   constructor(private fb: FormBuilder, private modal: NzModalService) {}
+
+  ngDoCheck(): void {
+    this.validateForm.controls['code'].setValue(this.code);
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userDetail']) {
@@ -69,15 +89,13 @@ export class UserFormViewComponent implements OnInit, OnChanges {
     }
   }
   setSectionValidator() {
-    if(this.userFormType === UserFormType.FACULTY_ADMIN){
+    if (this.userFormType === UserFormType.FACULTY_ADMIN) {
       this.validateForm.controls['sectionId'].clearValidators();
       this.validateForm.controls['sectionId'].updateValueAndValidity();
-      
     }
   }
 
   ngOnInit(): void {
-   
     this.validateForm = this.fb.group({
       code: [{ value: null, disabled: true }, [Validators.required]],
       email: [null, [Validators.email, Validators.required]],
@@ -90,7 +108,7 @@ export class UserFormViewComponent implements OnInit, OnChanges {
       departmentId: [null, [Validators.required]],
       sectionId: [null, [Validators.required]],
       isActive: [{ value: false, disabled: true }],
-      userTypeId: [null,[Validators.required]]
+      userTypeId: [null, [Validators.required]],
     });
   }
 }

@@ -15,6 +15,7 @@ export { Department } from './department';
 export { Section} from './section';
 export { UserFormType } from './user-form-type';
 export { UserType } from './user-type';
+export { UserFormLocation } from './user-form-location-enum';
 @NgModule({
   imports: [CommonModule],
 })

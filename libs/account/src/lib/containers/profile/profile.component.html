@@ -1,5 +1,14 @@
 <div class="profile-container">
-  <batstateu-profile-form
+  <batstateu-user-form-view
+    [userDetail]="userDetail"
+    [departments]="departments"
+    [sections]="sections"
+    [isActiveEnable]="isActiveEnable"
+    [userFormType]="userFormType"
+    [code]="code"
+    [userTypes]="userTypes"
+    [userFormLocation]="userFormLocation"
+    [isHideUserTypeList] = "isHideUserTypeList"
     (save)="onSave($event)"
-  ></batstateu-profile-form>
+  ></batstateu-user-form-view>
 </div>

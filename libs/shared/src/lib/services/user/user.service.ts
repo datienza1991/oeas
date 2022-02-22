@@ -46,15 +46,20 @@ export class UserService {
   get(userId: number | undefined): Observable<UserDetail> {
     return this.httpClient
       .get<ResponseWrapper<UserDetail>>(
-        `${this.appConfig.API_URL}/records/userDetails?filter=user_id,eq,${userId}`
+        `${this.appConfig.API_URL}/records/userDetails?filter=user_id,eq,${userId}&join=users&join=user_types`
       )
       .pipe(
-        map((res: ResponseWrapper<UserDetail>) => {
+        map((res: ResponseWrapper<any>) => {
           const user = res.records[0];
           if (user === undefined) {
             throw Error('User Detail not found!');
           }
-          return user;
+          return {
+            ...user,
+            code: user.user_id.username,
+            userType: user.user_type_id.name,
+            userTypeId: user.user_type_id.id,
+          };
         })
       );
   }
@@ -69,7 +74,7 @@ export class UserService {
             ...val,
             code: val.user_id.username,
             userType: val.user_type_id.name,
-            userTypeId: val.user_type_id.id
+            userTypeId: val.user_type_id.id,
           };
         })
       );
@@ -92,10 +97,9 @@ export class UserService {
       );
   }
   getAllUserTypes(): Observable<UserType[]> {
-
     return this.httpClient
       .get<ResponseWrapper<UserType>>(
-        `${this.appConfig.API_URL}/records/user_types`,
+        `${this.appConfig.API_URL}/records/user_types`
       )
       .pipe(
         map((res: ResponseWrapper<UserType>) => {
