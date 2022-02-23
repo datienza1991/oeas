@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { APP_CONFIG } from '@batstateu/app-config';
 import {
+  ForgotPassword,
   ResponseWrapper,
   User,
   UserDetail,
@@ -16,9 +17,37 @@ import * as fromAuth from '@batstateu/auth';
   providedIn: 'root',
 })
 export class UserService {
-  user$!: Observable<User | null>;
-  userId!: number;
+  
+  requestReset(id: number): Observable<number> {
+    return this.httpClient
+      .put<number>(`${this.appConfig.API_URL}/records/userDetails/${id}`, {
+        isResetPassword: true,
+        isActive: false
+      })
+      .pipe(
+        map((res: number) => {
+          return res;
+        })
+      );
+  }
 
+  validateForgotPassword(forgotPassword : ForgotPassword): Observable<UserDetail> {
+    return this.httpClient
+      .get<ResponseWrapper<UserDetail>>(
+        `${this.appConfig.API_URL}/records/userDetails?join=users&filter=email,eq,${forgotPassword.email}`
+      )
+      .pipe(
+        map((res: ResponseWrapper<any>) => {
+          const user = res.records[0];
+          if (user === undefined || user.user_id.username !== forgotPassword.username) {
+            throw Error('User not found');
+          }else if (user.isResetPassword){
+            throw Error('User already requested password reset');
+          }
+          return user;
+        })
+      );
+  }
   save(userDetail: UserDetail): Observable<number> {
     if (userDetail.id > 0) {
       return this.httpClient
@@ -129,6 +158,10 @@ export class UserService {
   private getUserId() {
     this.user$.subscribe((val) => (this.userId = val?.id || 0));
   }
+
+  user$!: Observable<User | null>;
+  userId!: number;
+
   constructor(
     private httpClient: HttpClient,
     @Inject(APP_CONFIG) private appConfig: any,

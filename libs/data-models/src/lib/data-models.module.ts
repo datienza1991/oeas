@@ -12,11 +12,12 @@ export { TakeExamControlState } from './take-exam-control-state';
 export { UserDetail } from './user-detail';
 export { ResponseWrapper } from './response-wrapper';
 export { Department } from './department';
-export { Section} from './section';
+export { Section } from './section';
 export { UserFormType } from './user-form-type';
 export { UserType } from './user-type';
 export { UserFormLocation } from './user-form-location-enum';
-export {ChangePassword} from './change-password';
+export { ChangePassword } from './change-password';
+export { ForgotPassword } from './forgot-password';
 @NgModule({
   imports: [CommonModule],
 })
