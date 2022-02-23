@@ -10,6 +10,7 @@ import {
 } from '@batstateu/data-models';
 import { Store } from '@ngrx/store';
 import { map, Observable, tap, throwError } from 'rxjs';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import * as fromAuth from '@batstateu/auth';
 @Injectable({
   providedIn: 'root',
@@ -41,6 +42,18 @@ export class UserService {
           return res;
         })
       );
+  }
+
+  changePassword(
+    username: string,
+    oldPass: string,
+    newPass: string
+  ): Observable<User> {
+    return this.httpClient.post<User>(`${this.appConfig.API_URL}/password`, {
+      username: username,
+      password: oldPass,
+      newPassword: newPass,
+    });
   }
 
   get(userId: number | undefined): Observable<UserDetail> {

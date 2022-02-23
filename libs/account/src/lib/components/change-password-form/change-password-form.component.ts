@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ChangePassword } from '@batstateu/data-models';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -10,7 +11,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 })
 export class ChangePasswordFormComponent implements OnInit {
 
-  
+  @Output() save = new EventEmitter<ChangePassword>();
   validateForm!: FormGroup;
   captchaTooltipIcon: NzFormTooltipIcon = {
     type: 'info-circle',
@@ -19,12 +20,8 @@ export class ChangePasswordFormComponent implements OnInit {
   
   submitForm(): void {
     if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
-      this.modal.success({
-        nzTitle: 'Success Password Changed',
-        nzContent: 'Your password has been changed.',
-        nzOkText: "Ok"
-      });
+      const formData = this.validateForm.value
+      this.save.emit({newPass: formData.newpassword, oldPass: formData.oldpassword})
     } else {
       Object.values(this.validateForm.controls).forEach(control => {
         if (control.invalid) {
@@ -57,8 +54,8 @@ export class ChangePasswordFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      newpassword: ['123', [Validators.required]],
-      oldpassword: ['123', [Validators.required]],
+      newpassword: [null, [Validators.required]],
+      oldpassword: [null, [Validators.required]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]],
     });
   }
