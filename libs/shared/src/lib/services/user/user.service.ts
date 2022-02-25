@@ -34,7 +34,7 @@ export class UserService {
   validateForgotPassword(forgotPassword : ForgotPassword): Observable<UserDetail> {
     return this.httpClient
       .get<ResponseWrapper<UserDetail>>(
-        `${this.appConfig.API_URL}/records/userDetails?join=users&filter=email,eq,${forgotPassword.email}`
+        `${this.appConfig.API_URL}/records/userDetails?filter=email,eq,${forgotPassword.email}&join=users`
       )
       .pipe(
         map((res: ResponseWrapper<any>) => {
