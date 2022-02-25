@@ -8,7 +8,7 @@ import { UsersComponent } from './containers/users/users.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 
 import { UserFormComponent } from './containers/user-form/user-form.component';
-import { SharedModule, StatusPipe } from '@batstateu/shared';
+import { SharedModule } from '@batstateu/shared';
 
 @NgModule({
   imports: [
@@ -28,7 +28,6 @@ import { SharedModule, StatusPipe } from '@batstateu/shared';
     UsersComponent,
     UserListComponent,
     UserFormComponent,
-    StatusPipe
   ],
 })
 export class SettingModule {}

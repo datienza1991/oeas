@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ExamList } from '@batstateu/data-models';
-
+import { Exam, ExamList } from '@batstateu/data-models';
+import { ExamsService } from '@batstateu/shared';
 @Component({
   selector: 'batstateu-exams',
   templateUrl: './exams.component.html',
@@ -8,32 +8,17 @@ import { ExamList } from '@batstateu/data-models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamsComponent implements OnInit {
-  examList: ExamList[] = [
-    {
-      id: 1,
-      name: 'Prelim exam on English',
-      subject: 'English',
-      startOn: '16/02/2022 12:00pm',
-      duration: '60 mins',
-      passers: '10/20',
-      department: 'Grad school',
-      status: 'Inactive',
-    },
-    {
-      id: 2,
-      name: 'Geometric Exams',
-      subject: 'Math',
-      startOn: '16/05/2022 12:00pm',
-      duration: '90 mins',
-      passers: '10/20',
-      department: 'Grad school',
-      status: 'Active',
-    },
-  ];
+  examList! : Exam[];
+
+  getAll(criteria: string) {
+    this.examService.getAll(criteria).subscribe((val: Exam[]) => {
+      this.examList = val;
+    });
+  }
   delete(id : number){
     alert(id);
   }
-  constructor() {}
+  constructor(private examService : ExamsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {this.getAll("");}
 }

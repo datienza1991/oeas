@@ -4,13 +4,14 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { NgZorroAntdModule } from "@batstateu/ng-zorro-antd";
 import { UserFormViewComponent } from "./components/user-form-view/user-form-view.component";
+import { StatusPipe } from "./pipes/status/status.pipe";
 
 export * from './shared';
 export * from './services/user/user.service';
-export * from './pipes/status/status.pipe';
 export * from './services/section/section.service';
 export * from './services/department/department.service';
 export * from './services/user-type/user-type.service';
+export * from './services/exams/exams.service';
 @NgModule({
     imports: [
       CommonModule,
@@ -19,10 +20,12 @@ export * from './services/user-type/user-type.service';
       RouterModule
     ],
     declarations: [
-        UserFormViewComponent
+        UserFormViewComponent,
+        StatusPipe
     ],
     exports:[
-      UserFormViewComponent
+      UserFormViewComponent,
+      StatusPipe
     ]
   })
   export class SharedModule {}

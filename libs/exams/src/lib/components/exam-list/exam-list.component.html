@@ -42,10 +42,10 @@
       <td>{{ data?.name }}</td>
       <td>{{ data?.subject }}</td>
       <td>{{ data?.startOn }}</td>
-      <td>{{ data?.duration }}</td>
+      <td>{{ data?.duration }} mins</td>
       <td>{{ data?.passers }}</td>
       <td>{{ data?.department }}</td>
-      <td>{{ data?.status }}</td>
+      <td>{{ data?.isActive || false | status }}</td>
       <td>
         <a nz-button nzType="text" nz-tooltip nzTooltipTitle="Take Exam" routerLink="{{data?.id}}/take-exam">
           <i nz-icon [nzType]="'folder-open'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#fa541c'"></i>

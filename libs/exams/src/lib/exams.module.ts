@@ -29,6 +29,7 @@ import { TakeExamQuestionViewComponent } from './components/take-exam-question-v
 import { DataModelsModule } from '@batstateu/data-models';
 import { TakeExamResultComponent } from './containers/take-exam-result/take-exam-result.component';
 import { TakeExamResultViewComponent } from './components/take-exam-result-view/take-exam-result-view.component';
+import { SharedModule } from '@batstateu/shared';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { TakeExamResultViewComponent } from './components/take-exam-result-view/
     HttpClientModule,
     DataModelsModule,
     FormsModule,
+    SharedModule,
     RouterModule.forChild([
       {path: '', component: ExamsComponent},
       {path: ':examId/form', component: ExamFormComponent},
@@ -79,7 +81,7 @@ import { TakeExamResultViewComponent } from './components/take-exam-result-view/
     TakeExamControlComponent,
     TakeExamQuestionViewComponent,
     TakeExamResultComponent,
-    TakeExamResultViewComponent
+    TakeExamResultViewComponent,
   ],
 })
 export class ExamsModule {}
