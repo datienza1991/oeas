@@ -1,19 +1,29 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Exam, ExamList } from '@batstateu/data-models';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'batstateu-exam-list',
   templateUrl: './exam-list.component.html',
   styleUrls: ['./exam-list.component.less'],
 })
-export class ExamListComponent implements OnInit {
+export class ExamListComponent {
   @Input() examList!: Exam[];
   @Output() deleteRecord = new EventEmitter<number>();
-
+  @Output() search = new EventEmitter<string>();
+  searchText = '';
   constructor(private modal: NzModalService) {}
 
-  ngOnInit(): void {}
+
 
   delete(examListDetail: Exam) {
     this.modal.warning({
@@ -23,4 +33,7 @@ export class ExamListComponent implements OnInit {
     });
   }
   deleteConfirm() {}
+  onSearchChange(criteria: string) {
+    this.search.emit(criteria);
+  }
 }

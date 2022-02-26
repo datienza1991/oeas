@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { APP_CONFIG } from '@batstateu/app-config';
 import { Exam, ResponseWrapper } from '@batstateu/data-models';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class ExamsService {
   getAll(criteria: string): Observable<Exam[]> {
     return this.httpClient
       .get<ResponseWrapper<Exam>>(
-        `${this.appConfig.API_URL}/records/exams?join=sections,departments`
+        `${this.appConfig.API_URL}/records/exams?join=sections,departments&filter=name,cs,${criteria}`
       )
       .pipe(
         map((res: ResponseWrapper<any>) => {

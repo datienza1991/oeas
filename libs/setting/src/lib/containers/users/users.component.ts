@@ -18,7 +18,7 @@ import {
 export class UsersComponent implements OnInit {
   userList!: UserDetail[];
   private searchSubject$ = new BehaviorSubject<string>('');
-  test!: Observable<string>;
+
   onDelete(userDetail: UserDetail) {
     this.userService.deleteUser(userDetail.user_id).subscribe(() => {
       this.getAll('');
