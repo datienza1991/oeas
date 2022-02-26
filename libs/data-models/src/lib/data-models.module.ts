@@ -18,6 +18,7 @@ export { UserType } from './user-type';
 export { UserFormLocation } from './user-form-location-enum';
 export { ChangePassword } from './change-password';
 export { Exam } from './exam';
+export { ForgotPassword } from './forgot-password';
 @NgModule({
   imports: [CommonModule],
 })
