@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { Exam, ExamList } from '@batstateu/data-models';
 import { ExamsService } from '@batstateu/shared';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import {
   BehaviorSubject,
   debounceTime,
@@ -20,6 +21,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamsComponent implements OnInit {
+  criteria = "";
   examList: Exam[] = [];
   private searchSubject$ = new BehaviorSubject<string>('');
 
@@ -29,15 +31,23 @@ export class ExamsComponent implements OnInit {
       this.cd.detectChanges();
     });
   }
-  delete(id: number) {
-    alert(id);
+  onDelete(id: number) {
+    this.examService.delete(id).subscribe(() => {
+      this.modal.success({
+        nzTitle: 'Delete Success',
+        nzContent: `Record has been deleted`,
+      });
+      this.getAll(this.criteria);
+    });
   }
   onSearch(criteria: string) {
+    this.criteria = criteria;
     this.searchSubject$.next(criteria);
   }
   constructor(
     private examService: ExamsService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private modal: NzModalService
   ) {}
 
   ngOnInit(): void {

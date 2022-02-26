@@ -23,16 +23,15 @@ export class ExamListComponent {
   searchText = '';
   constructor(private modal: NzModalService) {}
 
-
-
   delete(examListDetail: Exam) {
-    this.modal.warning({
+    this.modal.confirm({
       nzTitle: 'Delete Record',
       nzContent: `Are you sure you want to delete exam with name <b>${examListDetail.name}</b>?`,
-      nzOkText: 'Ok',
+      nzOnOk: () => {
+        this.deleteRecord.emit(examListDetail.id);
+      },
     });
   }
-  deleteConfirm() {}
   onSearchChange(criteria: string) {
     this.search.emit(criteria);
   }
