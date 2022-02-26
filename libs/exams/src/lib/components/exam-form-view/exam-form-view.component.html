@@ -33,7 +33,11 @@
           <span>Start On</span>
         </nz-form-label>
         <nz-form-control nzErrorTip="Please input your startOn!">
-            <nz-date-picker style="width: 100%;" nzShowTime formControlName="startOn"></nz-date-picker>
+          <nz-date-picker
+            style="width: 100%"
+            nzShowTime
+            formControlName="startOn"
+          ></nz-date-picker>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -43,34 +47,38 @@
           <span>Duration</span>
         </nz-form-label>
         <nz-form-control nzErrorTip="Please input your duration!">
-          <input nz-input id="duration" formControlName="duration" />
+          <nz-input-group nzAddOnAfter="mins">
+            <nz-input-number
+              style="width: 100%"
+              nz-input
+              id="duration"
+              formControlName="duration"
+            ></nz-input-number>
+          </nz-input-group>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col [nzSpan]="12">
       <nz-form-item>
-        <nz-form-label nzFor="section" nzRequired>Section</nz-form-label>
-        <nz-form-control nzErrorTip="Please input department!">
+        <nz-form-label nzFor="sectionId" nzRequired>Section</nz-form-label>
+        <nz-form-control nzErrorTip="Please input section!">
           <nz-select
-            id="section"
-            formControlName="section"
+            id="sectionId"
+            formControlName="sectionId"
             nzPlaceHolder="Select section"
-            (ngModelChange)="genderChange($event)"
           >
-            <nz-option nzValue="1" nzLabel="Grad-1101"></nz-option>
-            <nz-option nzValue="2" nzLabel="Grad-1102"></nz-option>
+            <nz-option
+              *ngFor="let sec of sections"
+              [nzValue]="sec?.id"
+              nzLabel="{{ sec?.name }}"
+            ></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col [nzSpan]="24">
       <nz-form-item>
-        <label formControlName="active" nz-checkbox>Active</label>
-      </nz-form-item>
-    </div>
-    <div nz-col [nzSpan]="24">
-      <nz-form-item>
-        <nz-form-label  nzFor="address" nzRequired>
+        <nz-form-label nzFor="address" nzRequired>
           <span>Instructions</span>
         </nz-form-label>
         <nz-form-control nzErrorTip="Please input your instruction!">

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Exam, Section } from '@batstateu/data-models';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -9,24 +10,19 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   styleUrls: ['./exam-form-view.component.less']
 })
 export class ExamFormViewComponent implements OnInit {
-
+  @Output() save = new EventEmitter<Exam>();
+  @Input() sections!: Section[];
   validateForm!: FormGroup;
   captchaTooltipIcon: NzFormTooltipIcon = {
     type: 'info-circle',
     theme: 'twotone'
   };
   
-  genderChange(value: string): void {
-    // this.validateForm.get('note')?.setValue(value === 'male' ? 'Hi, man!' : 'Hi, lady!');
-  }
+
   submitForm(): void {
     if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
-      this.modal.success({
-        nzTitle: 'Success Registration',
-        nzContent: 'Your Sr code will be your user name. <br/> Please wait for your account activation.',
-        nzOkText: "Ok"
-      });
+      this.save.emit(this.validateForm.value);
+      
     } else {
       Object.values(this.validateForm.controls).forEach(control => {
         if (control.invalid) {
@@ -42,14 +38,16 @@ export class ExamFormViewComponent implements OnInit {
     Promise.resolve().then(() => this.validateForm.controls['checkPassword'].updateValueAndValidity());
   }
 
-  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
+  durationValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
-    } else if (control.value !== this.validateForm.controls['password'].value) {
+    } else if (control.value <= 0) {
       return { confirm: true, error: true };
     }
     return {};
   };
+
+  
 
   getCaptcha(e: MouseEvent): void {
     e.preventDefault();
@@ -59,13 +57,12 @@ export class ExamFormViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      name: ['Exam on Science', [Validators.required]],
-      subject: ['Science', [Validators.required]],
+      name: [null, [Validators.required]],
+      subject: [null, [Validators.required]],
       startOn: [new Date(), [Validators.required]],
-      duration: ['60 mins', [Validators.required]],
-      active: [true],
-      section: ['1', [Validators.required]],
-      instructions: ['Long instruction ...', [Validators.required]]
+      duration: [60, [Validators.required, this.durationValidator]],
+      sectionId: [null, [Validators.required]],
+      instructions: [null, [Validators.required]]
     });
   }
 
