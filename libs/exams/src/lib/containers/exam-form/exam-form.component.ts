@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Exam, Section } from '@batstateu/data-models';
 import { ExamsService, SectionService } from '@batstateu/shared';
@@ -17,26 +17,24 @@ export class ExamFormComponent implements OnInit {
     const date = format(new Date(val.startOn), 'yyyy-MM-dd kk:mm:ss');
     if (this.examDetail && this.examDetail.id > 0) {
       this.examService
-      .edit({ ...val,id: this.examDetail.id, startOn: date })
-      .subscribe(() =>
-        this.modal.success({
-          nzTitle: 'Success Registration',
-          nzContent:
-            'Your Sr code will be your user name. <br/> Please wait for your account activation.',
-          nzOkText: 'Ok',
-        })
-      );
-    } else {
-      this.examService
-        .add({ ...val, startOn: date, isActive: true })
+        .edit({ ...val, id: this.examDetail.id, startOn: date })
         .subscribe(() =>
           this.modal.success({
-            nzTitle: 'Success Registration',
-            nzContent:
-              'Your Sr code will be your user name. <br/> Please wait for your account activation.',
+            nzTitle: 'Success',
+            nzContent: 'Exam has been saved',
             nzOkText: 'Ok',
           })
         );
+    } else {
+      this.examService
+        .add({ ...val, startOn: date, isActive: true })
+        .subscribe(() => {
+          this.modal.success({
+            nzTitle: 'Success',
+            nzContent: 'Exam has been saved',
+            nzOnOk: () => this.location.back(),
+          });
+        });
     }
   }
   getSections() {
@@ -56,7 +54,8 @@ export class ExamFormComponent implements OnInit {
     private modal: NzModalService,
     private examService: ExamsService,
     private sectionService: SectionService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
