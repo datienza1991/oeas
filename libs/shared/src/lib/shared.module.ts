@@ -12,6 +12,7 @@ export * from './services/section/section.service';
 export * from './services/department/department.service';
 export * from './services/user-type/user-type.service';
 export * from './services/exams/exams.service';
+export * from './services/question/question.service';
 @NgModule({
     imports: [
       CommonModule,
