@@ -25,6 +25,16 @@ export class QuestionService {
       .post<number>(`${this.appConfig.API_URL}/records/questions`, val)
       .pipe(map((res: number) => res));
   }
+  get(id: number): Observable<QuestionDetail> {
+    return this.httpClient.get<QuestionDetail>(
+      `${this.appConfig.API_URL}/records/questions/${id}`
+    );
+  }
+  edit(val: QuestionDetail) : Observable<number> {
+    return this.httpClient
+      .put<number>(`${this.appConfig.API_URL}/records/questions/${val.id}`, val)
+      .pipe(map((res: number) => res));
+  }
   constructor(
     private httpClient: HttpClient,
     @Inject(APP_CONFIG) private appConfig: any

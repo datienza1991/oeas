@@ -2,7 +2,7 @@
     <nz-breadcrumb-item>Exams</nz-breadcrumb-item>
     <nz-breadcrumb-item> Takers </nz-breadcrumb-item>
     <nz-breadcrumb-item>Results</nz-breadcrumb-item>
-    <nz-breadcrumb-item>Add Points</nz-breadcrumb-item>
+    <nz-breadcrumb-item>{{title}}</nz-breadcrumb-item>
   </nz-breadcrumb>
   <!--TODO: Add info about the taker of the exam ie. Name department, etc-->
   <form
@@ -48,13 +48,13 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="points">Max Points</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input points!">
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="maxpoints">Max points</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input maxpoints!">
           <nz-input-number
             style="width: 100%"
             nz-input
-            id="points"
-            formControlName="points"
+            id="maxpoints"
+            formControlName="maxpoints"
           ></nz-input-number>
       </nz-form-control>
     </nz-form-item>
@@ -63,7 +63,7 @@
         style="display: flex; flex-direction: row; justify-content: flex-end"
       >
         <nz-space>
-          <a *nzSpaceItem nz-button nzType="default" routerLink="{{id === undefined ? '..' : '../..'}}">
+          <a *nzSpaceItem nz-button nzType="default" routerLink="{{questionDetail === undefined ? '..' : '../..'}}">
             Cancel
           </a>
           <button *nzSpaceItem nz-button nzType="primary">Save</button>

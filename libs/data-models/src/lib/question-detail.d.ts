@@ -3,4 +3,5 @@ export interface QuestionDetail{
     question: string,
     correctAnswer: string,
     maxpoints: number,
+    examId: number,
 }
