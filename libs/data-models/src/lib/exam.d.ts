@@ -6,5 +6,6 @@ export interface Exam{
     duration: string,
     passers: string,
     department: string,
-    isActive: boolean
+    isActive: boolean,
+    instructions : string
 }

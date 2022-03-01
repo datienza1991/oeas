@@ -2,11 +2,11 @@
   class="site-page-header"
   (nzBack)="onBack()"
   [nzBackIcon]="takeExamState === TakeExamStateEnum.instructionView ? '' : null"
-  nzTitle="Prelim on English"
+  nzTitle="{{examDetail.name}}"
 ></nz-page-header>
 
 <batstateu-exam-instruction-view
-  [instruction]="instruction"
+  [examDetail]="examDetail"
   [hidden]="takeExamState !== TakeExamStateEnum.instructionView"
 ></batstateu-exam-instruction-view>
 
