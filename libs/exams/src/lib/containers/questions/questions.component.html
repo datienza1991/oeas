@@ -1,1 +1,5 @@
-<batstateu-question-list [questionList]="questionList"></batstateu-question-list>
+<batstateu-question-list
+  [questionList]="questionList"
+  (search)="onSearch($event)"
+  (deleteRecord)="onDelete($event)"
+></batstateu-question-list>

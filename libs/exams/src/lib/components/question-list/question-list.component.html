@@ -14,7 +14,7 @@
   >
     <a style="width: 72px" nz-button nzType="primary" routerLink="add" >Add</a>
     <nz-input-group style="width: 240px" [nzSuffix]="suffixIconSearch">
-      <input type="text" nz-input placeholder="Search" />
+      <input type="text" nz-input placeholder="Search" [(ngModel)]="searchText" (ngModelChange)="onSearchChange($event)"/>
     </nz-input-group>
     <ng-template #suffixIconSearch>
       <i nz-icon nzType="search"></i>
@@ -35,8 +35,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of basicTable.data">
-        <td>{{ data?.name }}</td>
-        <td>{{ data?.maxPoints }}</td>
+        <td>{{ data?.question }}</td>
+        <td>{{ data?.maxpoints }}</td>
         <td>
           <a nz-button nzType="text" nz-tooltip nzTooltipTitle="Edit" routerLink="{{data?.id}}/edit">
               <i nz-icon [nzType]="'edit'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#faad14'"></i>

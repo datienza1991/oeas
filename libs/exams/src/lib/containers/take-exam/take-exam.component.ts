@@ -2,8 +2,9 @@ import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/
 
 import { Location } from '@angular/common';
 import { TakeExamRecordingComponent } from '../take-exam-recording/take-exam-recording.component';
-import { ExamState, TakeExamControlState } from '@batstateu/data-models';
-import { Router } from '@angular/router';
+import { Exam, ExamState, TakeExamControlState } from '@batstateu/data-models';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ExamsService } from '@batstateu/shared';
 
 @Component({
   selector: 'batstateu-take-exam',
@@ -14,16 +15,16 @@ import { Router } from '@angular/router';
 export class TakeExamComponent implements OnInit {
 
   @ViewChild(TakeExamRecordingComponent) takeExamRecording? : TakeExamRecordingComponent;
-  instruction = 'This is long instruction...';
+  examDetail!: Exam;
   TakeExamStateEnum = ExamState;
   TakeExamControlStateEnum = TakeExamControlState;
   takeExamState = ExamState.instructionView;
   takeExamControlState = TakeExamControlState.startRecordView;
   isStartExam = false;
-  
   id = 2;
 
   ngOnInit(): void {
+    this.getExamInstruction();
   }
   
   onStartRecord(){
@@ -53,6 +54,10 @@ export class TakeExamComponent implements OnInit {
   onFinishExamination(){
     this.router.navigate([`exams/${this.id}/result`]);
   }
-  constructor(private location : Location, private router : Router) { }
+  getExamInstruction(){
+    const id = Number(this.route.snapshot.paramMap.get('examId'));
+    this.examService.get(id).subscribe((val) => this.examDetail = val)
+  }
+  constructor(private location : Location, private router : Router, private route : ActivatedRoute, private examService: ExamsService) { }
 
 }

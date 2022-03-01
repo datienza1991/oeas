@@ -1,5 +1,5 @@
 export interface QuestionList{
     id : number,
-    name: string,
-    maxPoints: number,
+    question: string,
+    maxpoints: number,
 }
