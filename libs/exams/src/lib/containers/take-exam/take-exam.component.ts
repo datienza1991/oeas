@@ -1,20 +1,28 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ViewChild,
+  Inject,
+} from '@angular/core';
 
 import { Location } from '@angular/common';
 import { TakeExamRecordingComponent } from '../take-exam-recording/take-exam-recording.component';
 import { Exam, ExamState, TakeExamControlState } from '@batstateu/data-models';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ExamsService } from '@batstateu/shared';
+import { ExamsService, TakeExamService } from '@batstateu/shared';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { APP_CONFIG } from '@batstateu/app-config';
 
 @Component({
   selector: 'batstateu-take-exam',
   templateUrl: './take-exam.component.html',
   styleUrls: ['./take-exam.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TakeExamComponent implements OnInit {
-
-  @ViewChild(TakeExamRecordingComponent) takeExamRecording? : TakeExamRecordingComponent;
+  @ViewChild(TakeExamRecordingComponent)
+  takeExamRecording!: TakeExamRecordingComponent;
   examDetail!: Exam;
   TakeExamStateEnum = ExamState;
   TakeExamControlStateEnum = TakeExamControlState;
@@ -26,38 +34,54 @@ export class TakeExamComponent implements OnInit {
   ngOnInit(): void {
     this.getExamInstruction();
   }
-  
-  onStartRecord(){
-    this.takeExamRecording?.onStartRecord();
+
+  onStartRecord() {
+    const id = Number(this.route.snapshot.paramMap.get('examId'));
+    this.modal.confirm({
+      nzTitle: 'Start Examination',
+      nzContent: `Starting the examination will record your screen. Do you want to continue?`,
+      nzOnOk: () => {
+        this.takeExamService.addTakerExam({userDetailId: 23, examId: id, recUrl: `${this.appConfig.UPLOADS_URL}/uploads`})
+        this.takeExamRecording.onStartRecord();
+        this.onStartExam();
+      },
+    });
+   
   }
-  onExamReady(){
-    this.takeExamControlState = this.TakeExamControlStateEnum.startExamView;
-  }
-  onStartExam(){
-    //TODO: Hide Header Back Button
-    // Hide Instruction Input
-    // Hide Start Record Button
-    // Hide Start Exam Button
-    // Show Exam Question View
+
+  onStartExam() {
     this.takeExamState = ExamState.takeExamQuestionView;
     this.takeExamControlState = this.TakeExamControlStateEnum.firstQuestion;
   }
-  onNexQuestion(){
+  onNexQuestion() {
     this.takeExamControlState = this.TakeExamControlStateEnum.lastQuestion;
   }
-  onPrevQuestion(){
+  onPrevQuestion() {
     this.takeExamControlState = this.TakeExamControlStateEnum.firstQuestion;
   }
-  onBack(){
+  onBack() {
     this.location.back();
   }
-  onFinishExamination(){
+  onFinishExamination() {
     this.router.navigate([`exams/${this.id}/result`]);
   }
-  getExamInstruction(){
+  getExamInstruction() {
     const id = Number(this.route.snapshot.paramMap.get('examId'));
-    this.examService.get(id).subscribe((val) => this.examDetail = val)
+    this.examService.get(id).subscribe((val) => (this.examDetail = val));
   }
-  constructor(private location : Location, private router : Router, private route : ActivatedRoute, private examService: ExamsService) { }
-
+  onUploadRecord(data : any){
+    this.takeExamService.upload(data).subscribe({
+      next: (value) => console.log(value),
+      error: (err) => console.log(err),
+    });
+  }
+  constructor(
+    private location: Location,
+    private router: Router,
+    private route: ActivatedRoute,
+    private examService: ExamsService,
+    private modal : NzModalService,
+    private takeExamService: TakeExamService,
+    @Inject(APP_CONFIG) private appConfig: any
+  ) {}
 }

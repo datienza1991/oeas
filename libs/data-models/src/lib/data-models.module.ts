@@ -20,6 +20,7 @@ export { ChangePassword } from './change-password';
 export { Exam } from './exam';
 export { ForgotPassword } from './forgot-password';
 export { QuestionDetail } from './question-detail';
+export { AddTakerExamDetail as TakerExamDetail } from './taker-exam-detail';
 @NgModule({
   imports: [CommonModule],
 })

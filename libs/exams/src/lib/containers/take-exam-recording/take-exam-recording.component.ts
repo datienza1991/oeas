@@ -20,6 +20,7 @@ export class TakeExamRecordingComponent
   implements OnInit, OnDestroy, AfterViewInit
 {
   @Output() startExam = new EventEmitter();
+  @Output() uploadRecord = new EventEmitter();
 
   idx = 'clip1';
 
@@ -105,11 +106,7 @@ export class TakeExamRecordingComponent
       // can be downloaded by the user, stored on server etc.
       console.log('finished convert: ', this.player.convertedData);
       const data = this.player.convertedData;
-
-      this.takeExamService.upload(data).subscribe({
-        next: (value) => console.log(value),
-        error: (err) => console.log(err),
-      });
+      this.uploadRecord.emit(data);
     });
 
     // error handling

@@ -1,28 +1,11 @@
 <div style="margin-top: 10px; display: flex; justify-content: center">
   <div [hidden]="takeExamState === TakeExamStateEnum.takeExamQuestionView">
-    <nz-space>
-      <button
-        *nzSpaceItem
-        nz-button
-        (click)="onStartRecord()"
-        [disabled]="
-          takeExamControlState === TakeExamControlStateEnum.startExamView
-        "
-      >
-        Start Record
-      </button>
-      <button
-        *nzSpaceItem
-        nz-button
-        nzType="primary"
-        [disabled]="
-          takeExamControlState === TakeExamControlStateEnum.startRecordView
-        "
-        (click)="onStartExam()"
-      >
-        Start Exam
-      </button>
-    </nz-space>
+    <button
+      nz-button
+      (click)="onStartRecord()"
+    >
+      Start Exam
+    </button>
   </div>
   <div [hidden]="takeExamState === TakeExamStateEnum.instructionView">
     <nz-space>
@@ -50,13 +33,16 @@
     </nz-space>
   </div>
 </div>
-<div style="margin-top: 12px; display: flex; justify-content: center" [hidden]="takeExamState === TakeExamStateEnum.instructionView">
+<div
+  style="margin-top: 12px; display: flex; justify-content: center"
+  [hidden]="takeExamState === TakeExamStateEnum.instructionView"
+>
   <button
-  style="color: #1890ff;"
-        nz-button
-        nzType="text"
-        (click)="onFinishExam()"
-      >
-        Finish
-      </button>
+    style="color: #1890ff"
+    nz-button
+    nzType="text"
+    (click)="onFinishExam()"
+  >
+    Finish
+  </button>
 </div>
