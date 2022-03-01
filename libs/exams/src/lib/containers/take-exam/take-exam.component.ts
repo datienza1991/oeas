@@ -29,24 +29,29 @@ export class TakeExamComponent implements OnInit {
   takeExamState = ExamState.instructionView;
   takeExamControlState = TakeExamControlState.startRecordView;
   isStartExam = false;
-  id = 2;
+
+  userDetailId = 23;
+  takerExamId!: number;
+  examId!: number;
 
   ngOnInit(): void {
+    this.examId = Number(this.route.snapshot.paramMap.get('examId'));
     this.getExamInstruction();
   }
 
   onStartRecord() {
-    const id = Number(this.route.snapshot.paramMap.get('examId'));
     this.modal.confirm({
       nzTitle: 'Start Examination',
       nzContent: `Starting the examination will record your screen. Do you want to continue?`,
       nzOnOk: () => {
-        this.takeExamService.addTakerExam({userDetailId: 23, examId: id, recUrl: `${this.appConfig.UPLOADS_URL}/uploads`})
-        this.takeExamRecording.onStartRecord();
-        this.onStartExam();
+        this.takeExamService
+          .addTakerExam({ userDetailId: 23, examId: this.examId, recUrl: '' })
+          .subscribe((val) => {
+            this.takerExamId = val;
+            this.takeExamRecording.onStartRecord();
+          });
       },
     });
-   
   }
 
   onStartExam() {
@@ -63,15 +68,24 @@ export class TakeExamComponent implements OnInit {
     this.location.back();
   }
   onFinishExamination() {
-    this.router.navigate([`exams/${this.id}/result`]);
+    this.router.navigate([`exams/${this.examId}/result`]);
   }
   getExamInstruction() {
-    const id = Number(this.route.snapshot.paramMap.get('examId'));
-    this.examService.get(id).subscribe((val) => (this.examDetail = val));
+    this.examService
+      .get(this.examId)
+      .subscribe((val) => (this.examDetail = val));
   }
-  onUploadRecord(data : any){
+  onUploadRecord(data: any) {
     this.takeExamService.upload(data).subscribe({
-      next: (value) => console.log(value),
+      next: (value) =>
+        this.takeExamService
+          .get(this.takerExamId)
+          .subscribe((val) =>
+            this.takeExamService.updateTakerExam(this.takerExamId, {
+              ...val,
+              recUrl: `${this.appConfig.UPLOAD_URL}/uploads/${data.name}`,
+            }).subscribe()
+          ),
       error: (err) => console.log(err),
     });
   }
@@ -80,7 +94,7 @@ export class TakeExamComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private examService: ExamsService,
-    private modal : NzModalService,
+    private modal: NzModalService,
     private takeExamService: TakeExamService,
     @Inject(APP_CONFIG) private appConfig: any
   ) {}

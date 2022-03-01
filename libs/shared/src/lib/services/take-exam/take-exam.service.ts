@@ -5,13 +5,26 @@ import { TakerExamDetail } from '@batstateu/data-models';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TakeExamService {
+  get(takerExamId: number): Observable<TakerExamDetail> {
+    return this.httpClient.get<TakerExamDetail>(
+      `${this.appConfig.API_URL}/records/takerExams/${takerExamId}`
+    );
+  }
 
   addTakerExam(val: TakerExamDetail): Observable<number> {
-    return this.httpClient
-      .post<number>(`${this.appConfig.API_URL}/records/takerExams`, val);
+    return this.httpClient.post<number>(
+      `${this.appConfig.API_URL}/records/takerExams`,
+      val
+    );
+  }
+  updateTakerExam(takerExamId: number, val: TakerExamDetail): Observable<number> {
+    return this.httpClient.put<number>(
+      `${this.appConfig.API_URL}/records/takerExams/${takerExamId}`,
+      val
+    );
   }
   upload(data: any): Observable<any> {
     const serverUrl = `${this.appConfig.API_URL}/file-upload`;
@@ -20,7 +33,7 @@ export class TakeExamService {
 
     console.log('uploading recording:', data.name);
 
-    return this.httpClient.post<any>(serverUrl,formData);
+    return this.httpClient.post<any>(serverUrl, formData);
   }
   constructor(
     private httpClient: HttpClient,
