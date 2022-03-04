@@ -1,16 +1,31 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { TakerExamQuestion } from '@batstateu/data-models';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'batstateu-take-exam-question-view',
   templateUrl: './take-exam-question-view.component.html',
-  styleUrls: ['./take-exam-question-view.component.less']
+  styleUrls: ['./take-exam-question-view.component.less'],
 })
-export class TakeExamQuestionViewComponent implements OnInit {
-
+export class TakeExamQuestionViewComponent implements OnInit, OnChanges {
+  @Input() currentQuestion!: TakerExamQuestion;
+  @Input() question = "";
+  @Input() currentQuestion$!: Observable<TakerExamQuestion | null>;
   limit = 60;
   validateForm!: FormGroup;
   captchaTooltipIcon: NzFormTooltipIcon = {
@@ -55,14 +70,24 @@ export class TakeExamQuestionViewComponent implements OnInit {
     private modal: NzModalService,
     private location: Location
   ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    // if (changes['question']) {
+    //   // this.validateForm.patchValue({ question: this.question });
+    // }
+    // if (changes['currentQuestion'] && this.currentQuestion) {
+    //   this.validateForm.patchValue({ question: this.currentQuestion.question });
+    // }
+  }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       question: ['What is the ...'],
       answer: ['The answer is ...'],
-      correctAnswer: ['The correct answer is ...'],
-      points: [null, [Validators.required, this.confirmationValidator]],
+    });
+    this.currentQuestion$.subscribe((val) => {
+      if(val){
+        this.validateForm.patchValue({ question: val.question });
+      }
     });
   }
-
 }

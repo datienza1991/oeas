@@ -1,11 +1,6 @@
 <div style="margin-top: 10px; display: flex; justify-content: center">
   <div [hidden]="takeExamState === TakeExamStateEnum.takeExamQuestionView">
-    <button
-      nz-button
-      (click)="onStartRecord()"
-    >
-      Start Exam
-    </button>
+    <button nz-button (click)="onStartRecord()">Start Exam</button>
   </div>
   <div [hidden]="takeExamState === TakeExamStateEnum.instructionView">
     <nz-space>
@@ -13,9 +8,7 @@
         *nzSpaceItem
         nz-button
         (click)="onPrevQuestion()"
-        [disabled]="
-          takeExamControlState === TakeExamControlStateEnum.firstQuestion
-        "
+        [disabled]="enablePreviousButton"
       >
         Prev
       </button>
@@ -23,9 +16,7 @@
         *nzSpaceItem
         nz-button
         nzType="primary"
-        [disabled]="
-          takeExamControlState === TakeExamControlStateEnum.lastQuestion
-        "
+        [disabled]="enableNextButton"
         (click)="onNexQuestion()"
       >
         Next

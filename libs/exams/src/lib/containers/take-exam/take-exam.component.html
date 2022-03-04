@@ -2,7 +2,7 @@
   class="site-page-header"
   (nzBack)="onBack()"
   [nzBackIcon]="takeExamState === TakeExamStateEnum.instructionView ? '' : null"
-  nzTitle="{{examDetail.name}}"
+  nzTitle="{{ examTitle }}"
 ></nz-page-header>
 
 <batstateu-exam-instruction-view
@@ -10,14 +10,20 @@
   [hidden]="takeExamState !== TakeExamStateEnum.instructionView"
 ></batstateu-exam-instruction-view>
 
-<batstateu-take-exam-question-view
-  [hidden]="takeExamState !== TakeExamStateEnum.takeExamQuestionView"
-></batstateu-take-exam-question-view>
+<div *ngIf="takeExamState === TakeExamStateEnum.takeExamQuestionView">
+  <batstateu-take-exam-question-view
+    [currentQuestion]="currentQuestion"
+    [question]="question"
+    [currentQuestion$]="currentQuestion$"
+  ></batstateu-take-exam-question-view>
+</div>
 
 <batstateu-take-exam-control
   [takeExamControlState]="takeExamControlState"
   [takeExamState]="takeExamState"
   [isStartExam]="isStartExam"
+  [enableNextButton]="enableNextButton"
+  [enablePreviousButton]="enablePreviousButton"
   (startRecord)="onStartRecord()"
   (nextQuestion)="onNexQuestion()"
   (prevQuestion)="onPrevQuestion()"
