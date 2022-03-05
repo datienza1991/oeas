@@ -10,7 +10,6 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 export class TakeExamControlComponent implements OnInit {
   @Input() isStartExam = false;
   @Output() startRecord = new EventEmitter();
-  @Output() startExam = new EventEmitter();
   @Output() nextQuestion = new EventEmitter();
   @Output() prevQuestion = new EventEmitter();
   @Output() finishExam = new EventEmitter();
@@ -20,10 +19,6 @@ export class TakeExamControlComponent implements OnInit {
   TakeExamStateEnum = ExamState;
   onStartRecord() {
     this.startRecord.emit();
-  }
-
-  onStartExam(){
-    this.startExam.emit();
   }
   onNexQuestion(){
     this.nextQuestion.emit();

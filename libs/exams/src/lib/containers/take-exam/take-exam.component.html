@@ -19,7 +19,6 @@
   [takeExamState]="takeExamState"
   [isStartExam]="isStartExam"
   (startRecord)="onStartRecord()"
-  (startExam)="onStartExam()"
   (nextQuestion)="onNexQuestion()"
   (prevQuestion)="onPrevQuestion()"
   (finishExam)="onFinishExamination()"
@@ -27,5 +26,6 @@
 
 <batstateu-take-exam-recording
   style="display: none"
-  (startExam)="onExamReady()"
+  (startExam)="onStartExam()"
+  (uploadRecord)="onUploadRecord($event)"
 ></batstateu-take-exam-recording>
