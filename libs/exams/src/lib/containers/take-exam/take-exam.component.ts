@@ -19,7 +19,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ExamsService, TakeExamService } from '@batstateu/shared';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { APP_CONFIG } from '@batstateu/app-config';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'batstateu-take-exam',
@@ -39,6 +39,8 @@ export class TakeExamComponent implements OnInit {
   isStartExam = false;
   enableNextButton = false;
   enablePreviousButton = false;
+  examDetailSubject$ = new BehaviorSubject<Exam | null>(null);
+  examDetail$ = this.examDetailSubject$.asObservable();
 
   userDetailId = 23;
   takerExamId!: number;
@@ -79,28 +81,38 @@ export class TakeExamComponent implements OnInit {
       this.takeExamService
         .getQuestions(this.examId, answerArr)
         .subscribe((val2) => {
-          if (this.questionIdx < 0 || this.questionIdx > val2.length - 1) {
-            this.modal.error({
-              nzTitle: 'Fetching questions',
-              nzContent: `No more questions available`,
+          if(val2.length > 0){
+            if (this.questionIdx < 0 || this.questionIdx > val2.length - 1) {
+              this.modal.error({
+                nzTitle: 'Fetching questions',
+                nzContent: `No more questions available`,
+                nzOnOk: () => {
+                  //
+                  this.questionIdx =
+                    this.questionIdx > 0
+                      ? this.questionIdx >= val2.length - 1
+                        ? val2.length - 1
+                        : this.questionIdx
+                      : 0;
+                  this.questionCount = val2.length;
+                  this.currentQuestion = val2[this.questionIdx];
+                  this.questionId = val2[this.questionIdx].id;
+                  this.currentQuestionSubject$.next(this.currentQuestion);
+                },
+              });
+            } else {
+              this.currentQuestion = val2[this.questionIdx];
+              this.questionId = val2[this.questionIdx].id;
+              this.currentQuestionSubject$.next(this.currentQuestion);
+            }
+          }else{
+            this.modal.info({
+              nzTitle: 'Completed Exam',
+              nzContent: `You completed the exam, click Ok to finish the exam.`,
               nzOnOk: () => {
-                //
-                if( this.questionIdx > 0){
-                  if( this.questionIdx >= val2.length - 1){
-                    this.questionIdx = val2.length - 1
-                  }
-                }else{
-                  this.questionIdx = 0;
-                }
-                this.currentQuestion = val2[this.questionIdx];
-                this.questionId = val2[this.questionIdx].id;
-                this.currentQuestionSubject$.next(this.currentQuestion);
+                this.router.navigate([`exams/${this.examId}/result`])
               },
             });
-          } else {
-            this.currentQuestion = val2[this.questionIdx];
-            this.questionId = val2[this.questionIdx].id;
-            this.currentQuestionSubject$.next(this.currentQuestion);
           }
         });
     });
@@ -118,7 +130,7 @@ export class TakeExamComponent implements OnInit {
     };
 
     this.takeExamService.addAnswer(examAnswer).subscribe(() => {
-      this.questionIdx++;
+      //TODO: If 1 question available, dont
       this.getQuestions();
     });
   }
@@ -138,6 +150,7 @@ export class TakeExamComponent implements OnInit {
   }
   getExamInstruction() {
     this.examService.get(this.examId).subscribe((val) => {
+      this.examDetailSubject$.next(val);
       this.examDetail = val;
       this.examTitle = val.name;
     });

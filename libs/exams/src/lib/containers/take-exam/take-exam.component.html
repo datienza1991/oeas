@@ -2,7 +2,7 @@
   class="site-page-header"
   (nzBack)="onBack()"
   [nzBackIcon]="takeExamState === TakeExamStateEnum.instructionView ? '' : null"
-  nzTitle="{{ examTitle }}"
+  nzTitle="{{ (examDetail$ | async)?.name }}"
 ></nz-page-header>
 
 <batstateu-exam-instruction-view
