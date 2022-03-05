@@ -1,9 +1,11 @@
 import { Location } from '@angular/common';
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import {
@@ -22,16 +24,14 @@ import { Observable } from 'rxjs';
   templateUrl: './take-exam-question-view.component.html',
   styleUrls: ['./take-exam-question-view.component.less'],
 })
-export class TakeExamQuestionViewComponent implements OnInit, OnChanges {
+export class TakeExamQuestionViewComponent implements OnInit {
   @Input() currentQuestion!: TakerExamQuestion;
   @Input() question = "";
   @Input() currentQuestion$!: Observable<TakerExamQuestion | null>;
+  @Output() save = new EventEmitter();
   limit = 60;
   validateForm!: FormGroup;
-  captchaTooltipIcon: NzFormTooltipIcon = {
-    type: 'info-circle',
-    theme: 'twotone',
-  };
+
   confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
@@ -43,13 +43,12 @@ export class TakeExamQuestionViewComponent implements OnInit, OnChanges {
   };
   submitForm(): void {
     if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
       this.modal.confirm({
-        nzIconType: 'warning',
-        nzTitle: 'Submit Points',
-        nzContent: `Are you sure you want to submit points? <br/> Submitted points can't be reverted.`,
+        nzTitle: 'Submit Answer',
+        nzContent: `Are you sure you want to submit answer? <br/> Submitted answer can't be reverted.`,
         nzOnOk: () => {
-          this.location.back();
+          const answer = this.validateForm.controls['answer'].value;
+          this.save.emit(answer);
         },
       });
     } else {
@@ -64,30 +63,25 @@ export class TakeExamQuestionViewComponent implements OnInit, OnChanges {
   cancel() {
     this.location.back();
   }
-
+  setQuestion(){
+    this.currentQuestion$.subscribe((val) => {
+      if(val){
+        this.validateForm.patchValue({ answer: '', question: val.question });
+      }
+    });
+  }
   constructor(
     private fb: FormBuilder,
     private modal: NzModalService,
     private location: Location
   ) {}
-  ngOnChanges(changes: SimpleChanges): void {
-    // if (changes['question']) {
-    //   // this.validateForm.patchValue({ question: this.question });
-    // }
-    // if (changes['currentQuestion'] && this.currentQuestion) {
-    //   this.validateForm.patchValue({ question: this.currentQuestion.question });
-    // }
-  }
+ 
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      question: ['What is the ...'],
-      answer: ['The answer is ...'],
+      question: [null],
+      answer: [null, [Validators.required]],
     });
-    this.currentQuestion$.subscribe((val) => {
-      if(val){
-        this.validateForm.patchValue({ question: val.question });
-      }
-    });
+    this.setQuestion();
   }
 }

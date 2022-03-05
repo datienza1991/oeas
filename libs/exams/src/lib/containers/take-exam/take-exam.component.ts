@@ -10,6 +10,7 @@ import { Location } from '@angular/common';
 import { TakeExamRecordingComponent } from '../take-exam-recording/take-exam-recording.component';
 import {
   Exam,
+  ExamAnswer,
   ExamState,
   TakeExamControlState,
   TakerExamQuestion,
@@ -75,38 +76,59 @@ export class TakeExamComponent implements OnInit {
   getQuestions() {
     this.takeExamService.getAnswers(this.userDetailId).subscribe((val) => {
       const answerArr = val.map((item: any) => item['questionId']);
-      this.takeExamService.getQuestions(answerArr).subscribe((val2) => {
-        if (this.questionIdx < 0 || this.questionIdx > val2.length - 1) {
-          this.modal.error({
-            nzTitle: 'Fetching questions',
-            nzContent: `No more questions available`,
-            nzOnOk: () => {
-              this.questionIdx = 0;
-              this.currentQuestion = val2[0];
-              this.currentQuestionSubject$.next(this.currentQuestion);
-            },
-          });
-        } else {
-          this.currentQuestion = val2[this.questionIdx];
-          this.currentQuestionSubject$.next(this.currentQuestion);
-        }
-      });
+      this.takeExamService
+        .getQuestions(this.examId, answerArr)
+        .subscribe((val2) => {
+          if (this.questionIdx < 0 || this.questionIdx > val2.length - 1) {
+            this.modal.error({
+              nzTitle: 'Fetching questions',
+              nzContent: `No more questions available`,
+              nzOnOk: () => {
+                //
+                if( this.questionIdx > 0){
+                  if( this.questionIdx >= val2.length - 1){
+                    this.questionIdx = val2.length - 1
+                  }
+                }else{
+                  this.questionIdx = 0;
+                }
+                this.currentQuestion = val2[this.questionIdx];
+                this.questionId = val2[this.questionIdx].id;
+                this.currentQuestionSubject$.next(this.currentQuestion);
+              },
+            });
+          } else {
+            this.currentQuestion = val2[this.questionIdx];
+            this.questionId = val2[this.questionIdx].id;
+            this.currentQuestionSubject$.next(this.currentQuestion);
+          }
+        });
     });
   }
   onStartExam() {
     this.getQuestions();
     this.takeExamState = ExamState.takeExamQuestionView;
-    this.takeExamControlState = this.TakeExamControlStateEnum.firstQuestion;
+  }
+  onSubmitAnswer(answer: string) {
+    const examAnswer: ExamAnswer = {
+      userDetailId: this.userDetailId,
+      questionId: this.questionId,
+      answer: answer,
+      points: 0,
+    };
+
+    this.takeExamService.addAnswer(examAnswer).subscribe(() => {
+      this.questionIdx++;
+      this.getQuestions();
+    });
   }
   onNexQuestion() {
     this.questionIdx++;
     this.getQuestions();
-    // this.takeExamControlState = this.TakeExamControlStateEnum.lastQuestion;
   }
   onPrevQuestion() {
     this.questionIdx--;
     this.getQuestions();
-    // this.takeExamControlState = this.TakeExamControlStateEnum.firstQuestion;
   }
   onBack() {
     this.location.back();

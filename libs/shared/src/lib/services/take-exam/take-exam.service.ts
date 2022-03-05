@@ -14,10 +14,16 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TakeExamService {
-  getQuestions(answerArr: any[]) : Observable<TakerExamQuestion[]> {
+  addAnswer(val: ExamAnswer): Observable<number> {
+    return this.httpClient.post<number>(
+      `${this.appConfig.API_URL}/records/examAnswers`,
+      val
+    );
+  }
+  getQuestions(examId : number, answerArr: any[]) : Observable<TakerExamQuestion[]> {
     return this.httpClient
       .get<ResponseWrapper<TakerExamQuestion>>(
-        `${this.appConfig.API_URL}/records/questions?filter=id,nin,${answerArr}`
+        `${this.appConfig.API_URL}/records/questions?filter=examId,eq,${examId}&filter=id,nin,${answerArr}`
       )
       .pipe(map((res: ResponseWrapper<any>) => res.records));
   }
