@@ -13,10 +13,10 @@ export class QuestionService {
       `${this.appConfig.API_URL}/records/questions/${id}`
     );
   }
-  getAll(criteria: string): Observable<QuestionList[]> {
+  getAll(examId : number, criteria: string): Observable<QuestionList[]> {
     return this.httpClient
       .get<ResponseWrapper<QuestionList>>(
-        `${this.appConfig.API_URL}/records/questions?filter=question,cs,${criteria}`
+        `${this.appConfig.API_URL}/records/questions?filter=examId,cs,${examId}&filter=question,cs,${criteria}`
       )
       .pipe(map((res: ResponseWrapper<any>) => res.records));
   }
