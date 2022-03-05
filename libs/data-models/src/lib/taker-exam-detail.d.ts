@@ -1,4 +1,4 @@
-export interface AddTakerExamDetail{
+export interface TakerExamDetail{
     userDetailId: number,
     examId: number,
     recUrl: string
