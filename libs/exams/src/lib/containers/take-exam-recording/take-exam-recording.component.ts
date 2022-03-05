@@ -54,7 +54,7 @@ export class TakeExamRecordingComponent
         record: {
           audio: true,
           screen: true,
-          maxLength: 10,
+          maxLength: 100,
           convertEngine: 'ts-ebml',
           videoMimeType: 'video/webm;codecs=vp8',
           debug: true,

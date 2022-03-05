@@ -9,6 +9,8 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 })
 export class TakeExamControlComponent implements OnInit {
   @Input() isStartExam = false;
+  @Input() enableNextButton = false;
+  @Input() enablePreviousButton = false;
   @Output() startRecord = new EventEmitter();
   @Output() nextQuestion = new EventEmitter();
   @Output() prevQuestion = new EventEmitter();
