@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { QuestionList } from '@batstateu/data-models';
 import { QuestionService } from '@batstateu/shared';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -13,12 +14,14 @@ export class QuestionsComponent implements OnInit {
   private searchSubject$ = new BehaviorSubject<string>('');
   questionList!: QuestionList[];
   criteria = '';
+  examId!: number;
   delete(id : number){
     alert(id);
   }
-  constructor(private questionService : QuestionService, private modal : NzModalService) { }
+  constructor(private questionService : QuestionService, private modal : NzModalService, private route : ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.examId = Number(this.route.snapshot.paramMap.get('examId'));
     this.getAll('');
     this.searchSubject$
       .asObservable()
@@ -32,9 +35,8 @@ export class QuestionsComponent implements OnInit {
       });
   }
   getAll(criteria: string) {
-    this.questionService.getAll(criteria).subscribe((val) => {
+    this.questionService.getAll(this.examId,criteria).subscribe((val) => {
       this.questionList = val
-      // this.cd.detectChanges();
     });
   }
   onSearch(criteria : string){
