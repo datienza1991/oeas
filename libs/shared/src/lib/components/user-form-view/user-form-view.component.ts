@@ -73,6 +73,9 @@ export class UserFormViewComponent implements OnInit, OnChanges, DoCheck {
   }
   onChange(val: number) {
     this.userFormType = val === 3 ? this.UserFormTypeEnum.STUDENT : this.UserFormTypeEnum.FACULTY_ADMIN;
+    if(this.userFormType === this.UserFormTypeEnum.STUDENT){
+      this.setSectionValidator();
+    }
   }
   constructor(private fb: FormBuilder, private modal: NzModalService) {}
 
@@ -92,12 +95,15 @@ export class UserFormViewComponent implements OnInit, OnChanges, DoCheck {
     if (this.userFormType === UserFormType.FACULTY_ADMIN) {
       this.validateForm.controls['sectionId'].clearValidators();
       this.validateForm.controls['sectionId'].updateValueAndValidity();
+    }else{
+      this.validateForm.controls['sectionId'].addValidators(Validators.required);
+      this.validateForm.controls['sectionId'].updateValueAndValidity();
     }
   }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      code: [{ value: null, disabled: true }, [Validators.required]],
+      code: [{ value: null, disabled: true }],
       email: [null, [Validators.email, Validators.required]],
       firstName: [null, [Validators.required]],
       middleName: [null, [Validators.required]],
@@ -106,7 +112,7 @@ export class UserFormViewComponent implements OnInit, OnChanges, DoCheck {
       contactNumberPrefix: ['+63'],
       contactNumber: [null, [Validators.required]],
       departmentId: [null, [Validators.required]],
-      sectionId: [null, [Validators.required]],
+      sectionId: [null],
       isActive: [{ value: false, disabled: true }],
       userTypeId: [null, [Validators.required]],
     });

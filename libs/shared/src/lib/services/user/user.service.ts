@@ -125,16 +125,20 @@ export class UserService {
   getAll(criteria: string): Observable<UserDetail[]> {
     //FIXME: Others users are not listed on the list
     const params = new HttpParams({
-      fromString: `filter=user_id,neq,${this.userId}&filter1=firstName,cs,${criteria}&filter2=middleName,cs,${criteria}&filter3=lastName,cs,${criteria}`,
+      fromString: `join=departments&join=user_types&filter=user_id,neq,${this.userId}&filter1=firstName,cs,${criteria}&filter2=middleName,cs,${criteria}&filter3=lastName,cs,${criteria}`,
     });
     return this.httpClient
       .get<ResponseWrapper<UserDetail>>(
-        `${this.appConfig.API_URL}/records/v_user_details`,
+        `${this.appConfig.API_URL}/records/userDetails`,
         { params: params }
       )
       .pipe(
-        map((res: ResponseWrapper<UserDetail>) => {
-          return res.records;
+        map((res: ResponseWrapper<any>) => {
+          const rec: UserDetail[] = [];
+          res.records.map((val) =>
+            rec.push({ ...val, departmentName: val.departmentId.name, userType: val.user_type_id.name})
+          );
+          return rec;
         })
       );
   }
