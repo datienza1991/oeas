@@ -64,12 +64,14 @@ export class ProfileComponent implements OnInit {
             id: this.id,
             user_id: this.userId,
             user_type_id: userDetail.userTypeId,
+            isResetPassword : false
           }
         : {
             ...userDetail,
             user_id: this.userId,
             isActive: false,
             user_type_id: userDetail.userTypeId,
+            isResetPassword : false
           };
 
     this.userService.save(newUserDetail).subscribe(() => {
