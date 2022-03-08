@@ -4,5 +4,6 @@ export interface ExamTakerList{
     section: string,
     department: string,
     score: string,
-    hasRecording: boolean
+    hasRecording: boolean,
+    recUrl: string
 }

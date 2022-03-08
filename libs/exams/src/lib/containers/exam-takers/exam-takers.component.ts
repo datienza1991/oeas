@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ExamTakerList } from '@batstateu/data-models';
+import { ExamsService } from '@batstateu/shared';
 
 @Component({
   selector: 'batstateu-exam-takers',
@@ -7,25 +9,14 @@ import { ExamTakerList } from '@batstateu/data-models';
   styleUrls: ['./exam-takers.component.less'],
 })
 export class ExamTakersComponent implements OnInit {
-  examTakerList: ExamTakerList[] = [
-    {
-      id: 1,
-      name: 'John Doe',
-      section: '123-A',
-      score: '50/60',
-      department: 'Grad school',
-      hasRecording: false
-    },
-    {
-      id: 1,
-      name: 'John Martin',
-      section: '123-A',
-      score: '25/60',
-      department: 'Grad school',
-      hasRecording: true
-    },
-  ];
-  constructor() {}
+  examTakerList!: ExamTakerList[];
+  examId!: number;
+  constructor(private examService: ExamsService, private route: ActivatedRoute) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.examId = Number(this.route.snapshot.paramMap.get('examId'));
+    this.examService.getAllExamTakers(this.examId,'').subscribe((val) => {
+      this.examTakerList = val;
+    });
+  }
 }
