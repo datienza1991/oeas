@@ -8,6 +8,12 @@ import { ExamTakerList } from '@batstateu/data-models';
 })
 export class ExamTakersListComponent implements OnInit {
   @Input() examTakerList: ExamTakerList[] = [];
+  @Output() viewScore = new EventEmitter();
+
+  onViewScore(userDetailId: number, examId: number){
+    const takerExamIdObj = {userDetailId: userDetailId, examId: examId}
+    this.viewScore.emit(takerExamIdObj);
+  }
   constructor() {}
 
   ngOnInit(): void {}
