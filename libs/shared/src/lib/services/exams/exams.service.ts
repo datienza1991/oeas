@@ -48,7 +48,7 @@ export class ExamsService {
   getAllTakerAnswers(userDetailId: number, examId: number ): Observable<ExamAnswer[]> {
     return this.httpClient
       .get<ResponseWrapper<ExamAnswer>>(
-        `${this.appConfig.API_URL}/records/examAnswers?filter=userDetailId,eq,${userDetailId}&examId,eq,${examId}`
+        `${this.appConfig.API_URL}/records/examAnswers?filter=userDetailId,eq,${userDetailId}&filter=examId,eq,${examId}`
       )
       .pipe(
         map((res: ResponseWrapper<any>) => {
