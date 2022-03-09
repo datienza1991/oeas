@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { APP_CONFIG } from '@batstateu/app-config';
-import { Exam, ExamTakerList, ResponseWrapper } from '@batstateu/data-models';
+import { Exam, ExamAnswer, ExamTakerList, ResponseWrapper } from '@batstateu/data-models';
 import { map, Observable } from 'rxjs';
 
 @Injectable({
@@ -45,6 +45,18 @@ export class ExamsService {
       );
   }
 
+  getAllTakerAnswers(userDetailId: number, examId: number ): Observable<ExamAnswer[]> {
+    return this.httpClient
+      .get<ResponseWrapper<ExamAnswer>>(
+        `${this.appConfig.API_URL}/records/examAnswers?filter=userDetailId,eq,${userDetailId}&filter=examId,eq,${examId}`
+      )
+      .pipe(
+        map((res: ResponseWrapper<any>) => {
+          return res.records;
+        })
+      );
+  }
+
   getAllExamTakers(
     examId: number,
     criteria: string
@@ -70,6 +82,8 @@ export class ExamsService {
                 score: '',
                 hasRecording: val.recUrl !== '',
                 recUrl: val.recUrl,
+                userDetailId: val.userDetailId?.id,
+                examId: val.examId,
               });
             }
           });

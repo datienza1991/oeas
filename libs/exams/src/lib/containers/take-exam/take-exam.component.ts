@@ -125,6 +125,7 @@ export class TakeExamComponent implements OnInit {
     const examAnswer: ExamAnswer = {
       userDetailId: this.userDetailId,
       questionId: this.questionId,
+      examId: this.examId,
       answer: answer,
       points: 0,
     };
