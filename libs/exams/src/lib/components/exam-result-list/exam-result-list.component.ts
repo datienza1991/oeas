@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ExamTakerResultList } from '@batstateu/data-models';
 
 @Component({
@@ -8,6 +8,12 @@ import { ExamTakerResultList } from '@batstateu/data-models';
 })
 export class ExamResultListComponent implements OnInit {
   @Input() examTakerResultList: ExamTakerResultList[] = [];
+  @Output() search = new EventEmitter<string>();
+  searchText = '';
+  onSearchChange(criteria: string) {
+    this.search.emit(criteria);
+  }
+  
   constructor() { }
 
   ngOnInit(): void {
