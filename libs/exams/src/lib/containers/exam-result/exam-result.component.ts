@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ExamTakerResultList } from '@batstateu/data-models';
+import { ExamsService } from '@batstateu/shared';
+import { BehaviorSubject, debounceTime, distinctUntilChanged, map } from 'rxjs';
 
 @Component({
   selector: 'batstateu-exam-result',
@@ -7,19 +10,41 @@ import { ExamTakerResultList } from '@batstateu/data-models';
   styleUrls: ['./exam-result.component.less'],
 })
 export class ExamResultComponent implements OnInit {
-  examTakerResultList: ExamTakerResultList[] = [
-    {
-      id: 1,
-      name: 'What is the most',
-      points: undefined
-    },
-    {
-      id: 2,
-      name: 'Enumerate the importance',
-      points: 30
-    },
-  ];
-  constructor() {}
+  examId!: number;
+  userDetailId!: number;
+  examTakerResultList!: ExamTakerResultList[];
+  criteria = '';
+  private searchSubject$ = new BehaviorSubject<string>('');
+  onSearch(criteria: string) {
+    this.criteria = criteria;
+    this.searchSubject$.next(criteria);
+  }
+  getAll(criteria: string) {
+    this.examService
+      .getAllTakerAnswersByCriteria(
+       this.userDetailId,
+        this.examId,
+        criteria
+      )
+      .subscribe((val) => {
+       this.examTakerResultList = val;
+      });
+  }
+  constructor(private examService: ExamsService, private route: ActivatedRoute) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.examId = Number(this.route.snapshot.paramMap.get('examId'));
+    this.userDetailId = Number(this.route.snapshot.paramMap.get('takerId'));
+    this.getAll('');
+    this.searchSubject$
+      .asObservable()
+      .pipe(
+        map((val) => val.trim()),
+        debounceTime(1000),
+        distinctUntilChanged()
+      )
+      .subscribe((val) => {
+        this.getAll(val);
+      });
+  }
 }

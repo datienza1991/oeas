@@ -12,7 +12,7 @@
   "
 >
   <nz-input-group style="width: 240px" [nzSuffix]="suffixIconSearch">
-    <input type="text" nz-input placeholder="Search" />
+    <input type="text" nz-input placeholder="Search" [(ngModel)]="searchText" (ngModelChange)="onSearchChange($event)" />
   </nz-input-group>
   <ng-template #suffixIconSearch>
     <i nz-icon nzType="search"></i>
@@ -37,7 +37,7 @@
       <td>{{ data?.points }}</td>
       <td>
         <a
-          *ngIf="data?.points === undefined"
+          *ngIf="data?.points === 0"
           nz-button
           nzType="text"
           nz-tooltip

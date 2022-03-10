@@ -9,10 +9,15 @@ import { ExamTakerList } from '@batstateu/data-models';
 export class ExamTakersListComponent implements OnInit {
   @Input() examTakerList: ExamTakerList[] = [];
   @Output() viewScore = new EventEmitter();
+  @Output() search = new EventEmitter<string>();
+  searchText = '';
 
   onViewScore(userDetailId: number, examId: number){
     const takerExamIdObj = {userDetailId: userDetailId, examId: examId}
     this.viewScore.emit(takerExamIdObj);
+  }
+  onSearchChange(criteria: string) {
+    this.search.emit(criteria);
   }
   constructor() {}
 

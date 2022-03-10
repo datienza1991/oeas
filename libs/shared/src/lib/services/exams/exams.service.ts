@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { APP_CONFIG } from '@batstateu/app-config';
-import { Exam, ExamAnswer, ExamTakerList, ResponseWrapper } from '@batstateu/data-models';
+import { Exam, ExamAnswer, ExamAnswerList, ExamTakerList, ExamTakerResultList, ResponseWrapper } from '@batstateu/data-models';
 import { map, Observable } from 'rxjs';
 
 @Injectable({
@@ -53,6 +53,30 @@ export class ExamsService {
       .pipe(
         map((res: ResponseWrapper<any>) => {
           return res.records;
+        })
+      );
+  }
+
+  getAllTakerAnswersByCriteria(userDetailId: number, examId: number, criteria : string): Observable<ExamTakerResultList[]> {
+    return this.httpClient
+      .get<ResponseWrapper<ExamTakerResultList>>(
+        `${this.appConfig.API_URL}/records/examAnswers?join=questions&filter=userDetailId,eq,${userDetailId}&filter=examId,eq,${examId}`
+      )
+      .pipe(
+        map((res: ResponseWrapper<any>) => {
+          const rec: ExamTakerResultList[] = [];
+          res.records.map((val) => {
+            if (
+              val.questionId?.question.includes(criteria)
+            ) {
+              rec.push({
+                id: val.id,
+                name: val.questionId?.question,
+                points: val.points
+              });
+            }
+          });
+          return rec;
         })
       );
   }
