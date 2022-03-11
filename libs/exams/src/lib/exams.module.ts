@@ -47,7 +47,7 @@ import { SharedModule } from '@batstateu/shared';
       {path: 'item-points', component: ExamItemPointsComponent},
       {path: ':examId/takers/:takerId/recording', component: ExamRecordingComponent},
       {path: ':examId/takers/:takerId/results', component: ExamResultComponent},
-      {path: ':examId/takers/:takerId/results/:resultId', component: ExamItemPointsComponent},
+      {path: ':examId/takers/:takerId/results/:examAnsId', component: ExamItemPointsComponent},
       {path: ':examId/takers', component: ExamTakersComponent},
       {path: ':examId/takers/:takerId/recording', component: ExamRecordingComponent},
       {path: ':examId/take-exam', component: TakeExamComponent},

@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -7,8 +7,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AnswerFormModel } from '@batstateu/data-models';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'batstateu-exam-item-points-form-view',
@@ -16,12 +18,17 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   styleUrls: ['./exam-item-points-form-view.component.less'],
 })
 export class ExamItemPointsFormViewComponent implements OnInit {
+  @Input() answerFormModel$! : Observable<AnswerFormModel | null>;
+  @Output() save =  new EventEmitter<number>();
   limit = 60;
   validateForm!: FormGroup;
-  captchaTooltipIcon: NzFormTooltipIcon = {
-    type: 'info-circle',
-    theme: 'twotone',
-  };
+
+  setValue(){
+    this.answerFormModel$.subscribe(val =>{
+      this.validateForm.patchValue(val || {});
+      this.limit = val?.maxPoints || 0;
+    })
+  }
   confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
@@ -33,13 +40,12 @@ export class ExamItemPointsFormViewComponent implements OnInit {
   };
   submitForm(): void {
     if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
       this.modal.confirm({
         nzIconType: 'warning',
         nzTitle: 'Submit Points',
         nzContent: `Are you sure you want to submit points? <br/> Submitted points can't be reverted.`,
         nzOnOk: () => {
-          this.location.back();
+          this.save.emit(this.validateForm.controls['points'].value);
         },
       });
     } else {
@@ -68,5 +74,6 @@ export class ExamItemPointsFormViewComponent implements OnInit {
       correctAnswer: ['The correct answer is ...'],
       points: [null, [Validators.required, this.confirmationValidator]],
     });
+    this.setValue()
   }
 }

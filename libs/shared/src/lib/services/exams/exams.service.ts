@@ -1,13 +1,31 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { APP_CONFIG } from '@batstateu/app-config';
-import { Exam, ExamAnswer, ExamAnswerList, ExamTakerList, ExamTakerResultList, ResponseWrapper } from '@batstateu/data-models';
+import { AnswerFormModel, Exam, ExamAnswer, ExamAnswerList, ExamTakerList, ExamTakerResultList, ResponseWrapper } from '@batstateu/data-models';
 import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExamsService {
+  editAnswerPoints(id: number, points: number): Observable<number> {
+    return this.httpClient
+      .put<number>(`${this.appConfig.API_URL}/records/examAnswers/${id}`, {points: points})
+      .pipe(map((res: number) => res));
+  }
+  getExamAnswer(id: number) {
+    return this.httpClient.get<AnswerFormModel>(
+      `${this.appConfig.API_URL}/records/examAnswers/${id}?join=questions`
+    ).pipe(map((res: any) => {
+      const rec : AnswerFormModel = {
+        question: res.questionId.question,
+        correctAnswer: res.questionId.correctAnswer,
+        answer: res.answer,
+        maxPoints: res.questionId.maxpoints
+      }
+      return rec;
+    }));;
+  }
   edit(val: Exam): Observable<number> {
     return this.httpClient
       .put<number>(`${this.appConfig.API_URL}/records/exams/${val.id}`, val)
@@ -67,7 +85,7 @@ export class ExamsService {
           const rec: ExamTakerResultList[] = [];
           res.records.map((val) => {
             if (
-              val.questionId?.question.includes(criteria)
+              val.questionId?.question.toLowerCase().includes(criteria.toLowerCase())
             ) {
               rec.push({
                 id: val.id,
@@ -94,9 +112,9 @@ export class ExamsService {
           const rec: ExamTakerList[] = [];
           res.records.map((val) => {
             if (
-              val.userDetailId.firstName.includes(criteria) ||
-              val.userDetailId.middleName.includes(criteria) ||
-              val.userDetailId.lastName.includes(criteria)
+              val.userDetailId.firstName.toLowerCase().includes(criteria.toLowerCase()) ||
+              val.userDetailId.middleName.toLowerCase().includes(criteria.toLowerCase()) ||
+              val.userDetailId.lastName.toLowerCase().includes(criteria.toLowerCase())
             ) {
               rec.push({
                 id: val.id,
