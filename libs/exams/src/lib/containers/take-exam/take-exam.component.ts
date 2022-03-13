@@ -67,7 +67,7 @@ export class TakeExamComponent implements OnInit {
       nzContent: `Starting the examination will record your screen. Do you want to continue?`,
       nzOnOk: () => {
         this.takeExamService
-          .addTakerExam({ userDetailId: 23, examId: this.examId, recUrl: '' })
+          .addTakerExam({ userDetailId: this.userDetailId, examId: this.examId, recUrl: '' })
           .subscribe((val) => {
             this.takerExamId = val;
 
@@ -173,9 +173,9 @@ export class TakeExamComponent implements OnInit {
     });
   }
   getUser() {
-    this.store
-      .select(fromAuth.getUser)
-      .subscribe((val) => (this.userDetailId = val?.userDetailId || 0));
+    this.store.select(fromAuth.getUser).subscribe((val) => {
+      this.userDetailId = val?.userDetailId || 0;
+    });
   }
   constructor(
     private location: Location,
