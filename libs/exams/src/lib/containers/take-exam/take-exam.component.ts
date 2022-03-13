@@ -16,11 +16,12 @@ import {
   TakerExamQuestion,
 } from '@batstateu/data-models';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ExamsService, TakeExamService } from '@batstateu/shared';
+import { ExamsService, TakeExamService, UserService } from '@batstateu/shared';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { APP_CONFIG } from '@batstateu/app-config';
 import { BehaviorSubject, Observable } from 'rxjs';
-
+import { Store } from '@ngrx/store';
+import * as fromAuth from '@batstateu/auth';
 @Component({
   selector: 'batstateu-take-exam',
   templateUrl: './take-exam.component.html',
@@ -42,7 +43,7 @@ export class TakeExamComponent implements OnInit {
   examDetailSubject$ = new BehaviorSubject<Exam | null>(null);
   examDetail$ = this.examDetailSubject$.asObservable();
 
-  userDetailId = 23;
+  userDetailId = 0;
   takerExamId!: number;
   examId!: number;
   questions!: TakerExamQuestion[];
@@ -56,6 +57,7 @@ export class TakeExamComponent implements OnInit {
 
   ngOnInit(): void {
     this.examId = Number(this.route.snapshot.paramMap.get('examId'));
+    this.getUser();
     this.getExamInstruction();
   }
 
@@ -81,7 +83,7 @@ export class TakeExamComponent implements OnInit {
       this.takeExamService
         .getQuestions(this.examId, answerArr)
         .subscribe((val2) => {
-          if(val2.length > 0){
+          if (val2.length > 0) {
             if (this.questionIdx < 0 || this.questionIdx > val2.length - 1) {
               this.modal.error({
                 nzTitle: 'Fetching questions',
@@ -105,12 +107,12 @@ export class TakeExamComponent implements OnInit {
               this.questionId = val2[this.questionIdx].id;
               this.currentQuestionSubject$.next(this.currentQuestion);
             }
-          }else{
+          } else {
             this.modal.info({
               nzTitle: 'Completed Exam',
               nzContent: `You completed the exam, click Ok to finish the exam.`,
               nzOnOk: () => {
-                this.router.navigate([`exams/${this.examId}/result`])
+                this.router.navigate([`exams/${this.examId}/result`]);
               },
             });
           }
@@ -170,6 +172,11 @@ export class TakeExamComponent implements OnInit {
       error: (err) => console.log(err),
     });
   }
+  getUser() {
+    this.store
+      .select(fromAuth.getUser)
+      .subscribe((val) => (this.userDetailId = val?.userDetailId || 0));
+  }
   constructor(
     private location: Location,
     private router: Router,
@@ -177,6 +184,8 @@ export class TakeExamComponent implements OnInit {
     private examService: ExamsService,
     private modal: NzModalService,
     private takeExamService: TakeExamService,
-    @Inject(APP_CONFIG) private appConfig: any
+    @Inject(APP_CONFIG) private appConfig: any,
+    private store: Store<fromAuth.State>,
+    private userService: UserService
   ) {}
 }

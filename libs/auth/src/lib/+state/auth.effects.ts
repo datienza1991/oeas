@@ -29,7 +29,7 @@ export class AuthEffects {
               userService.get(user.id).subscribe({
                 next: (userDetail) => {
                   if(userDetail !== undefined){
-                    store.dispatch(authActions.loginSuccess({ payload: {id: user.id, isActive: true, username: user.username, firstName: userDetail.firstName} }))
+                    store.dispatch(authActions.loginSuccess({ payload: {id: user.id, isActive: true, username: user.username, firstName: userDetail.firstName, userDetailId: userDetail.id} }))
                   }
                 },
                 error: () => store.dispatch(authActions.loginSuccessNewAccount({ payload: user })),
