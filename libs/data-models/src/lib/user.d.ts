@@ -3,4 +3,5 @@ export interface User {
     firstName: string;
     id: number;
     isActive: boolean;
+    userDetailId: number;
   }
