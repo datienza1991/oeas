@@ -3,7 +3,7 @@ export interface Exam{
     name: string,
     subject: string,
     startOn: string,
-    duration: string,
+    duration: number,
     passers: string,
     department: string,
     isActive: boolean,

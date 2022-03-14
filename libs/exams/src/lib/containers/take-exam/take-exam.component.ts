@@ -22,6 +22,7 @@ import { APP_CONFIG } from '@batstateu/app-config';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromAuth from '@batstateu/auth';
+import { CdTimerComponent } from 'angular-cd-timer';
 @Component({
   selector: 'batstateu-take-exam',
   templateUrl: './take-exam.component.html',
@@ -31,6 +32,8 @@ import * as fromAuth from '@batstateu/auth';
 export class TakeExamComponent implements OnInit {
   @ViewChild(TakeExamRecordingComponent)
   takeExamRecording!: TakeExamRecordingComponent;
+  @ViewChild('cdTimer')
+  cdTimer!: CdTimerComponent;
   examDetail!: Exam;
   examTitle = '';
   TakeExamStateEnum = ExamState;
@@ -54,13 +57,21 @@ export class TakeExamComponent implements OnInit {
   questionIdx = 0;
   question = '';
   questionId = 0;
-
+  startCdCount = 1;
   ngOnInit(): void {
     this.examId = Number(this.route.snapshot.paramMap.get('examId'));
     this.getUser();
     this.getExamInstruction();
   }
-
+  onCompleteTimer(){
+    this.modal.info({
+      nzTitle: 'Your time is up',
+      nzContent: `You completed the exam, click Ok to finish the exam.`,
+      nzOnOk: () => {
+        this.router.navigate([`exams/${this.examId}/result`]);
+      },
+    });
+  }
   onStartRecord() {
     this.modal.confirm({
       nzTitle: 'Start Examination',
@@ -72,7 +83,7 @@ export class TakeExamComponent implements OnInit {
             this.takerExamId = val;
 
             this.takeExamRecording.onStartRecord();
-            // this.onStartExam();
+
           });
       },
     });
@@ -120,6 +131,7 @@ export class TakeExamComponent implements OnInit {
     });
   }
   onStartExam() {
+    this.cdTimer.start();
     this.getQuestions();
     this.takeExamState = ExamState.takeExamQuestionView;
   }
@@ -156,6 +168,7 @@ export class TakeExamComponent implements OnInit {
       this.examDetailSubject$.next(val);
       this.examDetail = val;
       this.examTitle = val.name;
+      this.startCdCount = val.duration * 60;
     });
   }
   onUploadRecord(data: any) {

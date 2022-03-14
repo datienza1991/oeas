@@ -30,6 +30,7 @@ import { DataModelsModule } from '@batstateu/data-models';
 import { TakeExamResultComponent } from './containers/take-exam-result/take-exam-result.component';
 import { TakeExamResultViewComponent } from './components/take-exam-result-view/take-exam-result-view.component';
 import { SharedModule } from '@batstateu/shared';
+import { CdTimerModule } from 'angular-cd-timer';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { SharedModule } from '@batstateu/shared';
     DataModelsModule,
     FormsModule,
     SharedModule,
+    CdTimerModule,
     RouterModule.forChild([
       {path: '', component: ExamsComponent},
       {path: ':examId/form', component: ExamFormComponent},

@@ -3,6 +3,15 @@
   (nzBack)="onBack()"
   [nzBackIcon]="takeExamState === TakeExamStateEnum.instructionView ? '' : null"
   nzTitle="{{ (examDetail$ | async)?.name }}"
+  ><nz-page-header-extra
+    ><cd-timer
+      #cdTimer
+      [autoStart]="false"
+      format="hms"
+      [countdown]="true"
+      [startTime]="startCdCount"
+      (onComplete)="onCompleteTimer()"
+    ></cd-timer></nz-page-header-extra
 ></nz-page-header>
 
 <batstateu-exam-instruction-view
