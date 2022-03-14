@@ -41,7 +41,12 @@
 ></batstateu-take-exam-control>
 
 <batstateu-take-exam-recording
-  style="display: none"
+  [limit$]="limit$"
   (startExam)="onStartExam()"
   (uploadRecord)="onUploadRecord($event)"
 ></batstateu-take-exam-recording>
+
+<batstateu-take-exam-camera-view
+*ngIf="cameraVisible"
+  [videoVisible$]="videoVisible$"
+></batstateu-take-exam-camera-view>

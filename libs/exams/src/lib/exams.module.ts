@@ -31,6 +31,7 @@ import { TakeExamResultComponent } from './containers/take-exam-result/take-exam
 import { TakeExamResultViewComponent } from './components/take-exam-result-view/take-exam-result-view.component';
 import { SharedModule } from '@batstateu/shared';
 import { CdTimerModule } from 'angular-cd-timer';
+import { TakeExamCameraViewComponent } from './components/take-exam-camera-view/take-exam-camera-view.component';
 
 @NgModule({
   imports: [
@@ -84,6 +85,7 @@ import { CdTimerModule } from 'angular-cd-timer';
     TakeExamQuestionViewComponent,
     TakeExamResultComponent,
     TakeExamResultViewComponent,
+    TakeExamCameraViewComponent,
   ],
 })
 export class ExamsModule {}
