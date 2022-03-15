@@ -25,6 +25,7 @@ export { TakerExamQuestion } from './taker-exam-question';
 export { ExamAnswer } from './exam-answer';
 export { ExamAnswerList } from './exam-answer-list';
 export { AnswerFormModel } from './answer-form-model';
+export { ExamRecordViewModel } from './exam-recording-view-model';
 
 @NgModule({
   imports: [CommonModule],

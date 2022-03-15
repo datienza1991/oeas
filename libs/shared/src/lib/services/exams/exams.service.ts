@@ -1,13 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { APP_CONFIG } from '@batstateu/app-config';
-import { AnswerFormModel, Exam, ExamAnswer, ExamAnswerList, ExamTakerList, ExamTakerResultList, ResponseWrapper } from '@batstateu/data-models';
+import { AnswerFormModel, Exam, ExamAnswer, ExamAnswerList, ExamRecordViewModel, ExamTakerList, ExamTakerResultList, ResponseWrapper } from '@batstateu/data-models';
 import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExamsService {
+  getExamTakerByExamIdTakerId(examId: number, takerId: number): Observable<ExamRecordViewModel> {
+    return this.httpClient.get<ResponseWrapper<ExamRecordViewModel>>(
+      `${this.appConfig.API_URL}/records/takerExams?filter=userDetailId,eq,${takerId}&filter=examId,eq,${examId}`
+    ).pipe(
+      map((res: ResponseWrapper<any>) => {
+       return res.records[0];
+      })
+    );
+  }
   editAnswerPoints(id: number, points: number): Observable<number> {
     return this.httpClient
       .put<number>(`${this.appConfig.API_URL}/records/examAnswers/${id}`, {points: points})
