@@ -15,5 +15,6 @@ export interface UserDetail extends User {
   sectionName: string;
   departmentName: string;
   userType: string;
-  userTypeId: number
+  userTypeId: number;
+  isResetPassword: boolean;
 }

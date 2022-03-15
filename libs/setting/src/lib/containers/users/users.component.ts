@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { UserDetail } from '@batstateu/data-models';
 import { UserService } from '@batstateu/shared';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import {
   BehaviorSubject,
   debounceTime,
@@ -19,12 +20,28 @@ export class UsersComponent implements OnInit {
   userList!: UserDetail[];
   private searchSubject$ = new BehaviorSubject<string>('');
 
+  onResetPassword({ userId, userDetailId }: any) {
+    this.userService.resetPassword(userId).subscribe(() => {
+      this.userService
+        .updateResetPasswordDefaultStatus(userDetailId)
+        .subscribe(() => {
+          this.getAll('');
+          this.modal.info({
+            nzTitle: 'Reset Password',
+            nzContent: `Password has been reset to default`,
+          });
+        });
+    });
+  }
   onDelete(userDetail: UserDetail) {
     this.userService.deleteUser(userDetail.user_id).subscribe(() => {
       this.getAll('');
     });
   }
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private modal: NzModalService
+  ) {}
 
   ngOnInit(): void {
     this.getAll('');

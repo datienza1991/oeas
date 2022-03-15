@@ -12,11 +12,16 @@
     justify-content: space-between;
   "
 >
-  <a style="width: 72px" nz-button nzType="primary" routerLink="add">
-    Add
-  </a>
+  <a style="width: 72px" nz-button nzType="primary" routerLink="add"> Add </a>
   <nz-input-group style="width: 240px" [nzSuffix]="suffixIconSearch">
-    <input type="text" nz-input placeholder="Search" [(ngModel)]="searchText" (ngModelChange)="onSearchChange($event)" id="search-box" />
+    <input
+      type="text"
+      nz-input
+      placeholder="Search"
+      [(ngModel)]="searchText"
+      (ngModelChange)="onSearchChange($event)"
+      id="search-box"
+    />
   </nz-input-group>
   <ng-template #suffixIconSearch>
     <i nz-icon nzType="search"></i>
@@ -57,7 +62,7 @@
             [nzTheme]="'twotone'"
             [nzTwotoneColor]="'#faad14'"
           ></i>
-      </a>
+        </a>
         <button
           nz-button
           nzType="text"
@@ -71,6 +76,15 @@
             [nzTheme]="'twotone'"
             [nzTwotoneColor]="'#f5222d'"
           ></i>
+        </button>
+        <button *ngIf="data.isResetPassword"
+          nz-button
+          nzType="text"
+          nz-tooltip
+          nzTooltipTitle="Reset Password"
+          (click)="onResetPassword(data)"
+        >
+          <i nz-icon nzType="key" nzTheme="outline" style="color: #1890ff;"></i>
         </button>
       </td>
     </tr>
