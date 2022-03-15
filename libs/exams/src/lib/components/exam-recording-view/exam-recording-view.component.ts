@@ -1,25 +1,33 @@
-import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
-import {Record,adapter} from '@batstateu/videojs-record'
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ElementRef,
+  Input,
+  DoCheck,
+} from '@angular/core';
+import { Record, adapter } from '@batstateu/videojs-record';
 import videojs from 'video.js';
 import * as RecordRTC from 'recordrtc';
+import { Observable } from 'rxjs';
+import { ExamRecordViewModel } from '@batstateu/data-models';
 @Component({
   selector: 'batstateu-exam-recording-view',
   templateUrl: './exam-recording-view.component.html',
   styleUrls: ['./exam-recording-view.component.less'],
 })
 export class ExamRecordingViewComponent implements OnInit, OnDestroy {
-
-  url = "http://localhost:8081/uploads/1645357095460.webm";
+  @Input() url = '';
+  @Input() examRecordViewModel$!: Observable<ExamRecordViewModel | null>;
   visible = true;
   // index to create unique ID for component
   idx = 'clip1';
 
   private config: any;
-  private player: any; 
+  private player: any;
   private plugin: any;
 
-  // constructor initializes our declared vars
-  constructor() {
+  createConfig() {
     this.player = false;
 
     // save reference to plugin (so it initializes)
@@ -36,34 +44,37 @@ export class ExamRecordingViewComponent implements OnInit, OnDestroy {
       bigPlayButton: true,
       sources: {
         src: this.url,
-        type: 'video/webm'
+        type: 'video/webm',
       },
       controlBar: {
-        volumePanel: false
+        volumePanel: false,
       },
-      plugins: {
-      }
+      plugins: {},
     };
   }
- 
-  ngOnInit() {}
-
-  // use ngAfterViewInit to make sure we initialize the videojs element
-  // after the component template itself has been rendered
-  ngAfterViewInit() {
+  initVideo() {
+    console.log();
     // ID with which to access the template's video element
     const el = 'video_' + this.idx;
 
     // setup the player via the unique element ID
-    this.player = videojs(document.getElementById(el) as HTMLVideoElement, this.config, () => {
-      console.log('player ready! id:', el);
+    this.player = videojs(
+      document.getElementById(el) as HTMLVideoElement,
+      this.config,
+      () => {
+        console.log('player ready! id:', el);
 
-      // print version information at startup
-      const msg = 'Using video.js ' + videojs.VERSION +
-        ' with videojs-record ' + videojs.getPluginVersion('record') +
-        ' and recordrtc ' + RecordRTC.version;
-      videojs.log(msg);
-    });
+        // print version information at startup
+        const msg =
+          'Using video.js ' +
+          videojs.VERSION +
+          ' with videojs-record ' +
+          videojs.getPluginVersion('record') +
+          ' and recordrtc ' +
+          RecordRTC.version;
+        videojs.log(msg);
+      }
+    );
 
     // device is ready
     this.player.on('deviceReady', () => {
@@ -85,12 +96,23 @@ export class ExamRecordingViewComponent implements OnInit, OnDestroy {
     });
 
     // error handling
-    this.player.on('error', (element : any, error: any) => {
+    this.player.on('error', (element: any, error: any) => {
       console.warn(error);
     });
 
     this.player.on('deviceError', () => {
       console.error('device error:', this.player.deviceErrorCode);
+    });
+  }
+  // constructor initializes our declared vars
+  constructor() {}
+  ngOnInit(): void {
+    this.examRecordViewModel$.subscribe((val) => {
+      if (val !== null) {
+        this.url = val?.recUrl || '';
+        this.createConfig();
+        this.initVideo();
+      }
     });
   }
 
