@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   ViewChild,
   Inject,
+  NgZone,
 } from '@angular/core';
 
 import { Location } from '@angular/common';
@@ -63,9 +64,11 @@ export class TakeExamComponent implements OnInit {
   startCdCount = 1;
   limitSubject$ = new BehaviorSubject<number>(0);
   videoVisibleSubject$ = new BehaviorSubject<boolean>(false);
-  limit$ =  this.limitSubject$.asObservable();
-  videoVisible$ =  this.videoVisibleSubject$.asObservable();
+  limit$ = this.limitSubject$.asObservable();
+  videoVisible$ = this.videoVisibleSubject$.asObservable();
   cameraVisible = false;
+  //TODO: Add Inactive status functionality
+  hasInactiveStatus = true;
   ngOnInit(): void {
     this.examId = Number(this.route.snapshot.paramMap.get('examId'));
     this.getUser();
@@ -76,7 +79,7 @@ export class TakeExamComponent implements OnInit {
       nzTitle: 'Your time is up',
       nzContent: `You completed the exam, click Ok to finish the exam.`,
       nzOnOk: () => {
-        this.router.navigate([`exams/${this.examId}/result`]);
+        this.onFinishExamination();
       },
     });
   }
@@ -134,7 +137,7 @@ export class TakeExamComponent implements OnInit {
               nzTitle: 'Completed Exam',
               nzContent: `You completed the exam, click Ok to finish the exam.`,
               nzOnOk: () => {
-                this.router.navigate([`exams/${this.examId}/result`]);
+                this.onFinishExamination();
               },
             });
           }
@@ -174,7 +177,7 @@ export class TakeExamComponent implements OnInit {
     this.location.back();
   }
   onFinishExamination() {
-    this.router.navigate([`exams/${this.examId}/result`]);
+    this.takeExamRecording.onStopRecord();
   }
   getExamInstruction() {
     this.examService.get(this.examId).subscribe((val) => {
@@ -183,21 +186,31 @@ export class TakeExamComponent implements OnInit {
       this.examTitle = val.name;
       this.startCdCount = val.duration * 60;
       this.limitSubject$.next(this.startCdCount);
-      
     });
   }
   onUploadRecord(data: any) {
-    this.takeExamService.upload(data).subscribe({
-      next: (value) =>
-        this.takeExamService.get(this.takerExamId).subscribe((val) =>
-          this.takeExamService
-            .updateTakerExam(this.takerExamId, {
-              ...val,
-              recUrl: `${this.appConfig.UPLOAD_URL}/uploads/${data.name}`,
-            })
-            .subscribe()
-        ),
-      error: (err) => console.log(err),
+    if (this.hasInactiveStatus) {
+      this.takeExamService.upload(data).subscribe({
+        next: (value) =>
+          this.takeExamService.get(this.takerExamId).subscribe((val) =>
+            this.takeExamService
+              .updateTakerExam(this.takerExamId, {
+                ...val,
+                recUrl: `${this.appConfig.UPLOAD_URL}/uploads/${data.name}`,
+              })
+              .subscribe((val) => {
+                this.goToResults();
+              })
+          ),
+        error: (err) => console.log(err),
+      });
+    } else {
+      this.goToResults();
+    }
+  }
+  goToResults() {
+    this.zone.run(() => {
+      this.router.navigate([`exams/${this.examId}/result`]);
     });
   }
   getUser() {
@@ -214,6 +227,7 @@ export class TakeExamComponent implements OnInit {
     private takeExamService: TakeExamService,
     @Inject(APP_CONFIG) private appConfig: any,
     private store: Store<fromAuth.State>,
-    private userService: UserService
+    private userService: UserService,
+    private zone: NgZone
   ) {}
 }

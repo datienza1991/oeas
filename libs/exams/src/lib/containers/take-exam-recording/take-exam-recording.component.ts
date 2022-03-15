@@ -37,6 +37,9 @@ export class TakeExamRecordingComponent
   onStartRecord() {
     this.player.record().getDevice();
   }
+  onStopRecord() {
+    this.player.record().stopDevice();
+  }
 
   constructor(private takeExamService: TakeExamService) {
     this.player = false;
