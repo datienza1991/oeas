@@ -17,7 +17,7 @@ import { Observable } from 'rxjs';
   templateUrl: './take-exam-camera-view.component.html',
   styleUrls: ['./take-exam-camera-view.component.css'],
 })
-export class TakeExamCameraViewComponent implements OnInit, AfterViewInit {
+export class TakeExamCameraViewComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() videoVisible$!: Observable<boolean>;
   videoVisible!: boolean;
   private videoPlayer: any;
@@ -75,4 +75,11 @@ export class TakeExamCameraViewComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    if (this.videoPlayer) {
+      this.videoPlayer.dispose();
+      this.videoPlayer = false;
+    }
+  }
 }
