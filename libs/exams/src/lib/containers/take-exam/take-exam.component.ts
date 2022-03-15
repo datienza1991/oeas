@@ -23,6 +23,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromAuth from '@batstateu/auth';
 import { CdTimerComponent } from 'angular-cd-timer';
+import { TakeExamCameraViewComponent } from '../../components/take-exam-camera-view/take-exam-camera-view.component';
 @Component({
   selector: 'batstateu-take-exam',
   templateUrl: './take-exam.component.html',
@@ -32,6 +33,8 @@ import { CdTimerComponent } from 'angular-cd-timer';
 export class TakeExamComponent implements OnInit {
   @ViewChild(TakeExamRecordingComponent)
   takeExamRecording!: TakeExamRecordingComponent;
+  @ViewChild(TakeExamCameraViewComponent)
+  takeExamCameraView!: TakeExamCameraViewComponent;
   @ViewChild('cdTimer')
   cdTimer!: CdTimerComponent;
   examDetail!: Exam;
@@ -58,12 +61,17 @@ export class TakeExamComponent implements OnInit {
   question = '';
   questionId = 0;
   startCdCount = 1;
+  limitSubject$ = new BehaviorSubject<number>(0);
+  videoVisibleSubject$ = new BehaviorSubject<boolean>(false);
+  limit$ =  this.limitSubject$.asObservable();
+  videoVisible$ =  this.videoVisibleSubject$.asObservable();
+  cameraVisible = false;
   ngOnInit(): void {
     this.examId = Number(this.route.snapshot.paramMap.get('examId'));
     this.getUser();
     this.getExamInstruction();
   }
-  onCompleteTimer(){
+  onCompleteTimer() {
     this.modal.info({
       nzTitle: 'Your time is up',
       nzContent: `You completed the exam, click Ok to finish the exam.`,
@@ -78,12 +86,15 @@ export class TakeExamComponent implements OnInit {
       nzContent: `Starting the examination will record your screen. Do you want to continue?`,
       nzOnOk: () => {
         this.takeExamService
-          .addTakerExam({ userDetailId: this.userDetailId, examId: this.examId, recUrl: '' })
+          .addTakerExam({
+            userDetailId: this.userDetailId,
+            examId: this.examId,
+            recUrl: '',
+          })
           .subscribe((val) => {
             this.takerExamId = val;
 
             this.takeExamRecording.onStartRecord();
-
           });
       },
     });
@@ -131,6 +142,8 @@ export class TakeExamComponent implements OnInit {
     });
   }
   onStartExam() {
+    this.cameraVisible = true;
+    this.videoVisibleSubject$.next(true);
     this.cdTimer.start();
     this.getQuestions();
     this.takeExamState = ExamState.takeExamQuestionView;
@@ -169,6 +182,8 @@ export class TakeExamComponent implements OnInit {
       this.examDetail = val;
       this.examTitle = val.name;
       this.startCdCount = val.duration * 60;
+      this.limitSubject$.next(this.startCdCount);
+      
     });
   }
   onUploadRecord(data: any) {

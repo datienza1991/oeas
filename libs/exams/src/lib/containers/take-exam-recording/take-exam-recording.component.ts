@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   EventEmitter,
+  Input,
   OnDestroy,
   OnInit,
   Output,
@@ -10,6 +11,7 @@ import { Record, TsEBMLEngine } from '@batstateu/videojs-record';
 import videojs from 'video.js';
 import * as RecordRTC from 'recordrtc';
 import { TakeExamService } from '../../services/take-exam/take-exam.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'batstateu-take-exam-recording',
@@ -19,6 +21,8 @@ import { TakeExamService } from '../../services/take-exam/take-exam.service';
 export class TakeExamRecordingComponent
   implements OnInit, OnDestroy, AfterViewInit
 {
+  @Input() limit$!: Observable<number>;
+
   @Output() startExam = new EventEmitter();
   @Output() uploadRecord = new EventEmitter();
 
@@ -27,6 +31,8 @@ export class TakeExamRecordingComponent
   private config: any;
   private player: any;
   private plugin: any;
+  limit!: number;
+
 
   onStartRecord() {
     this.player.record().getDevice();
@@ -62,17 +68,17 @@ export class TakeExamRecordingComponent
       },
     };
   }
+
   ngOnDestroy(): void {
     if (this.player) {
       this.player.dispose();
       this.player = false;
     }
   }
-  ngOnInit(): void {}
 
-  ngAfterViewInit(): void {
+  initScreenRecorder() {
     // ID with which to access the template's video element
-    let el = 'video_' + this.idx;
+    const el = 'video_' + this.idx;
 
     // setup the player via the unique element ID
     this.player = videojs(
@@ -138,5 +144,15 @@ export class TakeExamRecordingComponent
       .catch((error) => {
         console.log('Got error :', error);
       });
+  }
+  ngOnInit(): void {
+    this.setLimit();
+  }
+  setLimit() {
+    this.limit$.subscribe((val) => (this.limit = val));
+  }
+
+  ngAfterViewInit(): void {
+    this.initScreenRecorder();
   }
 }
