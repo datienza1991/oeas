@@ -17,7 +17,29 @@ import * as fromAuth from '@batstateu/auth';
   providedIn: 'root',
 })
 export class UserService {
-  
+  updateResetPasswordDefaultStatus(id: number): Observable<number> {
+    return this.httpClient
+      .put<number>(`${this.appConfig.API_URL}/records/userDetails/${id}`, {
+        isResetPassword:0,
+        isActive: 1
+      })
+      .pipe(
+        map((res: number) => {
+          return res;
+        })
+      );
+  }
+  resetPassword(id: number): Observable<number> {
+    return this.httpClient
+      .put<number>(`${this.appConfig.API_URL}/records/users/${id}`, {
+        password:'abc123'
+      })
+      .pipe(
+        map((res: number) => {
+          return res;
+        })
+      );
+  }
   requestReset(id: number): Observable<number> {
     return this.httpClient
       .put<number>(`${this.appConfig.API_URL}/records/userDetails/${id}`, {

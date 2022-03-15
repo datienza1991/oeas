@@ -26,6 +26,7 @@ export class UserListComponent {
   @Input() userList!: UserDetail[];
   @Output() deleteRecord = new EventEmitter<UserDetail>();
   @Output() search = new EventEmitter<string>();
+  @Output() resetPassword = new EventEmitter();
   searchText = '';
 
   constructor(private modal: NzModalService) {}
@@ -37,6 +38,18 @@ export class UserListComponent {
       nzContent: `Are you sure you want to delete user with name <b>${userdDetail.firstName} ${userdDetail.lastName}</b>?`,
       nzOnOk: () => {
         this.deleteRecord.emit(userdDetail);
+      },
+    });
+  }
+  onResetPassword(userdDetail: UserDetail) {
+    this.modal.confirm({
+      nzTitle: 'Reset Password',
+      nzContent: `Are you sure you want to reset password of user with name <b>${userdDetail.firstName} ${userdDetail.lastName}</b>?`,
+      nzOnOk: () => {
+        this.resetPassword.emit({
+          userId: userdDetail.user_id,
+          userDetailId: userdDetail.id,
+        });
       },
     });
   }
