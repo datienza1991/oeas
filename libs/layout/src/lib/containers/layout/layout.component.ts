@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import * as fromAuth from '@batstateu/auth';
 import { User } from '@batstateu/data-models';
 import { map, Observable, tap } from 'rxjs';
@@ -13,7 +13,7 @@ import { UserService } from '@batstateu/account';
 })
 export class LayoutComponent implements OnInit {
   user$: Observable<User | null>;
-
+ 
   constructor(
     private store: Store<fromAuth.State>,
     private userService: UserService
