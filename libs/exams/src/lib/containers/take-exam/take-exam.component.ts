@@ -5,6 +5,7 @@ import {
   ViewChild,
   Inject,
   NgZone,
+  HostListener,
 } from '@angular/core';
 
 import { Location } from '@angular/common';
@@ -49,7 +50,6 @@ export class TakeExamComponent implements OnInit {
   enablePreviousButton = false;
   examDetailSubject$ = new BehaviorSubject<Exam | null>(null);
   examDetail$ = this.examDetailSubject$.asObservable();
-
   userDetailId = 0;
   takerExamId!: number;
   examId!: number;
@@ -69,6 +69,15 @@ export class TakeExamComponent implements OnInit {
   cameraVisible = false;
   //TODO: Add Inactive status functionality
   hasInactiveStatus = true;
+  //TODO: Add logic data here for visibility change
+  @HostListener('document:visibilitychange') documentVisibilityEvent() {
+    if (document.visibilityState === 'hidden') {
+      this.hasInactiveStatus = true;
+    }
+  }
+  @HostListener('window:blur') documentBlurEvent() {
+    this.hasInactiveStatus = true;
+  }
   ngOnInit(): void {
     this.examId = Number(this.route.snapshot.paramMap.get('examId'));
     this.getUser();
