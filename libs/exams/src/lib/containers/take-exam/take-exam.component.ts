@@ -86,7 +86,21 @@ export class TakeExamComponent implements OnInit {
   ngOnInit(): void {
     this.examId = Number(this.route.snapshot.paramMap.get('examId'));
     this.getUser();
+    this.checkHasExamRecord();
     this.getExamInstruction();
+  }
+  checkHasExamRecord(){
+    this.takeExamService.getTakerExamByUserDetaiIdExamId(this.userDetailId,this.examId).subscribe((val) => {
+      if(val){
+        this.modal.error({
+          nzTitle: 'Finished examination',
+          nzContent: `You already completed the exam.`,
+          nzOnOk: () => {
+            this.location.back();
+          },
+        });
+      }
+    });
   }
   onCompleteTimer() {
     this.modal.info({
