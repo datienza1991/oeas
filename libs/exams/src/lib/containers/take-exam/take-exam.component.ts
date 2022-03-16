@@ -68,15 +68,20 @@ export class TakeExamComponent implements OnInit {
   videoVisible$ = this.videoVisibleSubject$.asObservable();
   cameraVisible = false;
   //TODO: Add Inactive status functionality
-  hasInactiveStatus = true;
+  hasInactiveStatus = false;
   //TODO: Add logic data here for visibility change
   @HostListener('document:visibilitychange') documentVisibilityEvent() {
-    if (document.visibilityState === 'hidden') {
+    if (
+      document.visibilityState === 'hidden' &&
+      this.takeExamState == ExamState.takeExamQuestionView
+    ) {
       this.hasInactiveStatus = true;
     }
   }
   @HostListener('window:blur') documentBlurEvent() {
-    this.hasInactiveStatus = true;
+    if (this.takeExamState == ExamState.takeExamQuestionView) {
+      this.hasInactiveStatus = true;
+    }
   }
   ngOnInit(): void {
     this.examId = Number(this.route.snapshot.paramMap.get('examId'));
