@@ -30,7 +30,7 @@ export class TakeExamService {
   getAnswers(userDetailId: number) : Observable<ExamAnswer[]> {
     return this.httpClient
       .get<ResponseWrapper<ExamAnswer>>(
-        `${this.appConfig.API_URL}/records/examAnswers?filter=userDetailId,eq${userDetailId}`
+        `${this.appConfig.API_URL}/records/examAnswers?filter=userDetailId,eq,${userDetailId}`
       )
       .pipe(map((res: ResponseWrapper<any>) => res.records));
   }
