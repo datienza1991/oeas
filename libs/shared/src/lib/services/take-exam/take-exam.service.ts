@@ -20,21 +20,33 @@ export class TakeExamService {
       val
     );
   }
-  getQuestions(examId : number, answerArr: any[]) : Observable<TakerExamQuestion[]> {
+  getQuestions(
+    examId: number,
+    answerArr: any[]
+  ): Observable<TakerExamQuestion[]> {
     return this.httpClient
       .get<ResponseWrapper<TakerExamQuestion>>(
         `${this.appConfig.API_URL}/records/questions?filter=examId,eq,${examId}&filter=id,nin,${answerArr}`
       )
       .pipe(map((res: ResponseWrapper<any>) => res.records));
   }
-  getAnswers(userDetailId: number) : Observable<ExamAnswer[]> {
+  getAnswers(userDetailId: number): Observable<ExamAnswer[]> {
     return this.httpClient
       .get<ResponseWrapper<ExamAnswer>>(
         `${this.appConfig.API_URL}/records/examAnswers?filter=userDetailId,eq,${userDetailId}`
       )
       .pipe(map((res: ResponseWrapper<any>) => res.records));
   }
-
+  getTakerExamByUserDetaiIdExamId(
+    userDetailId: number,
+    examId: number
+  ): Observable<TakerExamDetail> {
+    return this.httpClient
+      .get<ResponseWrapper<TakerExamDetail>>(
+        `${this.appConfig.API_URL}/records/takerExams?filter=userDetailId,eq,${userDetailId}&filter=examId,eq,${examId}`
+      )
+      .pipe(map((res: ResponseWrapper<any>) => res.records[0]));
+  }
   get(takerExamId: number): Observable<TakerExamDetail> {
     return this.httpClient.get<TakerExamDetail>(
       `${this.appConfig.API_URL}/records/takerExams/${takerExamId}`
