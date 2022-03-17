@@ -14,7 +14,6 @@ import { State } from './auth.reducer';
 import { UserService } from '@batstateu/account';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-
 @Injectable()
 export class AuthEffects {
   login$ = createEffect(() =>
@@ -28,14 +27,30 @@ export class AuthEffects {
             next(user: User) {
               userService.get(user.id).subscribe({
                 next: (userDetail) => {
-                  if(userDetail !== undefined){
-                    store.dispatch(authActions.loginSuccess({ payload: {id: user.id, isActive: true, username: user.username, firstName: userDetail.firstName, userDetailId: userDetail.id} }))
+                  if (userDetail !== undefined) {
+                    store.dispatch(
+                      authActions.loginSuccess({
+                        payload: {
+                          id: user.id,
+                          isActive: true,
+                          username: user.username,
+                          firstName: userDetail.firstName,
+                          userDetailId: userDetail.id,
+                          sectionId: userDetail.sectionId?.id || null,
+                        },
+                      })
+                    );
                   }
                 },
-                error: () => store.dispatch(authActions.loginSuccessNewAccount({ payload: user })),
+                error: () =>
+                  store.dispatch(
+                    authActions.loginSuccessNewAccount({ payload: user })
+                  ),
               });
             },
-            error: (er) =>{ console.log("[Auth Effects] Login user error",er)}
+            error: (er) => {
+              console.log('[Auth Effects] Login user error', er);
+            },
           });
         },
         onError: (action, error) => {

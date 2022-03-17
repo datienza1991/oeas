@@ -1,39 +1,59 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { APP_CONFIG } from '@batstateu/app-config';
-import { AnswerFormModel, Exam, ExamAnswer, ExamAnswerList, ExamRecordViewModel, ExamTakerList, ExamTakerResultList, ResponseWrapper } from '@batstateu/data-models';
+import {
+  AnswerFormModel,
+  Exam,
+  ExamAnswer,
+  ExamAnswerList,
+  ExamRecordViewModel,
+  ExamTakerList,
+  ExamTakerResultList,
+  ResponseWrapper,
+} from '@batstateu/data-models';
 import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExamsService {
-  getExamTakerByExamIdTakerId(examId: number, takerId: number): Observable<ExamRecordViewModel> {
-    return this.httpClient.get<ResponseWrapper<ExamRecordViewModel>>(
-      `${this.appConfig.API_URL}/records/takerExams?filter=userDetailId,eq,${takerId}&filter=examId,eq,${examId}`
-    ).pipe(
-      map((res: ResponseWrapper<any>) => {
-       return res.records[0];
-      })
-    );
+  getExamTakerByExamIdTakerId(
+    examId: number,
+    takerId: number
+  ): Observable<ExamRecordViewModel> {
+    return this.httpClient
+      .get<ResponseWrapper<ExamRecordViewModel>>(
+        `${this.appConfig.API_URL}/records/takerExams?filter=userDetailId,eq,${takerId}&filter=examId,eq,${examId}`
+      )
+      .pipe(
+        map((res: ResponseWrapper<any>) => {
+          return res.records[0];
+        })
+      );
   }
   editAnswerPoints(id: number, points: number): Observable<number> {
     return this.httpClient
-      .put<number>(`${this.appConfig.API_URL}/records/examAnswers/${id}`, {points: points})
+      .put<number>(`${this.appConfig.API_URL}/records/examAnswers/${id}`, {
+        points: points,
+      })
       .pipe(map((res: number) => res));
   }
   getExamAnswer(id: number) {
-    return this.httpClient.get<AnswerFormModel>(
-      `${this.appConfig.API_URL}/records/examAnswers/${id}?join=questions`
-    ).pipe(map((res: any) => {
-      const rec : AnswerFormModel = {
-        question: res.questionId.question,
-        correctAnswer: res.questionId.correctAnswer,
-        answer: res.answer,
-        maxPoints: res.questionId.maxpoints
-      }
-      return rec;
-    }));;
+    return this.httpClient
+      .get<AnswerFormModel>(
+        `${this.appConfig.API_URL}/records/examAnswers/${id}?join=questions`
+      )
+      .pipe(
+        map((res: any) => {
+          const rec: AnswerFormModel = {
+            question: res.questionId.question,
+            correctAnswer: res.questionId.correctAnswer,
+            answer: res.answer,
+            maxPoints: res.questionId.maxpoints,
+          };
+          return rec;
+        })
+      );
   }
   edit(val: Exam): Observable<number> {
     return this.httpClient
@@ -56,7 +76,11 @@ export class ExamsService {
       .pipe(map((res: number) => res));
   }
 
-  getAll(criteria: string): Observable<Exam[]> {
+  getAll(
+    criteria: string,
+    sectionId: number | null,
+    userDetailId: number | null
+  ): Observable<Exam[]> {
     return this.httpClient
       .get<ResponseWrapper<Exam>>(
         `${this.appConfig.API_URL}/records/exams?join=sections,departments&filter=name,cs,${criteria}`
@@ -64,15 +88,22 @@ export class ExamsService {
       .pipe(
         map((res: ResponseWrapper<any>) => {
           const rec: Exam[] = [];
-          res.records.map((val) =>
-            rec.push({ ...val, department: val.sectionId.departmentId.name })
-          );
+          const f_res =
+            sectionId != null
+              ? res.records.filter((val) => val.sectionId.id == sectionId)
+              : res.records.filter((val) => val.userDetailId == userDetailId);
+          f_res.map((val) => {
+            rec.push({ ...val, department: val.sectionId.departmentId.name });
+          });
           return rec;
         })
       );
   }
 
-  getAllTakerAnswers(userDetailId: number, examId: number ): Observable<ExamAnswer[]> {
+  getAllTakerAnswers(
+    userDetailId: number,
+    examId: number
+  ): Observable<ExamAnswer[]> {
     return this.httpClient
       .get<ResponseWrapper<ExamAnswer>>(
         `${this.appConfig.API_URL}/records/examAnswers?filter=userDetailId,eq,${userDetailId}&filter=examId,eq,${examId}`
@@ -84,7 +115,11 @@ export class ExamsService {
       );
   }
 
-  getAllTakerAnswersByCriteria(userDetailId: number, examId: number, criteria : string): Observable<ExamTakerResultList[]> {
+  getAllTakerAnswersByCriteria(
+    userDetailId: number,
+    examId: number,
+    criteria: string
+  ): Observable<ExamTakerResultList[]> {
     return this.httpClient
       .get<ResponseWrapper<ExamTakerResultList>>(
         `${this.appConfig.API_URL}/records/examAnswers?join=questions&filter=userDetailId,eq,${userDetailId}&filter=examId,eq,${examId}`
@@ -94,12 +129,14 @@ export class ExamsService {
           const rec: ExamTakerResultList[] = [];
           res.records.map((val) => {
             if (
-              val.questionId?.question.toLowerCase().includes(criteria.toLowerCase())
+              val.questionId?.question
+                .toLowerCase()
+                .includes(criteria.toLowerCase())
             ) {
               rec.push({
                 id: val.id,
                 name: val.questionId?.question,
-                points: val.points
+                points: val.points,
               });
             }
           });
@@ -121,9 +158,15 @@ export class ExamsService {
           const rec: ExamTakerList[] = [];
           res.records.map((val) => {
             if (
-              val.userDetailId.firstName.toLowerCase().includes(criteria.toLowerCase()) ||
-              val.userDetailId.middleName.toLowerCase().includes(criteria.toLowerCase()) ||
-              val.userDetailId.lastName.toLowerCase().includes(criteria.toLowerCase())
+              val.userDetailId.firstName
+                .toLowerCase()
+                .includes(criteria.toLowerCase()) ||
+              val.userDetailId.middleName
+                .toLowerCase()
+                .includes(criteria.toLowerCase()) ||
+              val.userDetailId.lastName
+                .toLowerCase()
+                .includes(criteria.toLowerCase())
             ) {
               rec.push({
                 id: val.id,
