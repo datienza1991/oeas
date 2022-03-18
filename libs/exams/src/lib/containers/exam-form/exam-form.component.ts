@@ -1,10 +1,12 @@
 import { DatePipe, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Exam, Section } from '@batstateu/data-models';
+import { Exam, Section, User } from '@batstateu/data-models';
 import { ExamsService, SectionService } from '@batstateu/shared';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { format } from 'date-fns';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as fromAuth from '@batstateu/auth';
 @Component({
   selector: 'batstateu-exam-form',
   templateUrl: './exam-form.component.html',
@@ -13,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ExamFormComponent implements OnInit {
   sections!: Section[];
   examDetail!: Exam;
+  userStore!: User | null;
   onSave(val: any) {
     const date = format(new Date(val.startOn), 'yyyy-MM-dd kk:mm:ss');
     if (this.examDetail && this.examDetail.id > 0) {
@@ -27,7 +30,7 @@ export class ExamFormComponent implements OnInit {
         );
     } else {
       this.examService
-        .add({ ...val, startOn: date, isActive: true })
+        .add({ ...val, startOn: date, isActive: true, userDetailId: this.userStore?.userDetailId })
         .subscribe(() => {
           this.modal.success({
             nzTitle: 'Success',
@@ -50,15 +53,22 @@ export class ExamFormComponent implements OnInit {
       });
     }
   }
+  getUser() {
+    this.store.select(fromAuth.getUser).subscribe((val) => {
+      this.userStore = val;
+    });
+  }
   constructor(
     private modal: NzModalService,
     private examService: ExamsService,
     private sectionService: SectionService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private store: Store<fromAuth.State>
   ) {}
 
   ngOnInit(): void {
+    this.getUser();
     this.getValues();
     this.getSections();
   }
