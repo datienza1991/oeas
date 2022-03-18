@@ -6,7 +6,9 @@ import {
 } from '@angular/core';
 import { Exam, ExamList } from '@batstateu/data-models';
 import { ExamsService } from '@batstateu/shared';
+import { Store } from '@ngrx/store';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import * as fromAuth from '@batstateu/auth';
 import {
   BehaviorSubject,
   debounceTime,
@@ -23,10 +25,12 @@ import {
 export class ExamsComponent implements OnInit {
   criteria = "";
   examList: Exam[] = [];
+  sectionId!: number | null;
+  userDetailId!: number | null;
   private searchSubject$ = new BehaviorSubject<string>('');
 
   getAll(criteria: string) {
-    this.examService.getAll(criteria).subscribe((val) => {
+    this.examService.getAll(criteria, this.sectionId, this.userDetailId).subscribe((val) => {
       this.examList = [...val];
       this.cd.detectChanges();
     });
@@ -44,13 +48,21 @@ export class ExamsComponent implements OnInit {
     this.criteria = criteria;
     this.searchSubject$.next(criteria);
   }
+  getUser() {
+    this.store.select(fromAuth.getUser).subscribe((val) => {
+      this.sectionId = val?.sectionId;
+      this.userDetailId = val?.userDetailId || null;
+    });
+  }
   constructor(
     private examService: ExamsService,
     private cd: ChangeDetectorRef,
+    private store: Store<fromAuth.State>,
     private modal: NzModalService
   ) {}
 
   ngOnInit(): void {
+    this.getUser();
     this.getAll('');
 
     this.searchSubject$

@@ -8,7 +8,8 @@ export interface UserDetail extends User {
   lastName: string;
   address: string;
   departmentId: number;
-  sectionId: number;
+  sectionId: any | null;
+  
   contactNumber: string;
   user_id: number;
   contactNumberPrefix: string;
