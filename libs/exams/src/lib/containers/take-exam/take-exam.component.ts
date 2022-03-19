@@ -94,9 +94,9 @@ export class TakeExamComponent implements OnInit {
       if(val){
         this.modal.error({
           nzTitle: 'Finished examination',
-          nzContent: `You already completed the exam.`,
+          nzContent: `You already completed the exam. <br/> Click Ok to view result`,
           nzOnOk: () => {
-            this.location.back();
+            this.goToResults();
           },
         });
       }

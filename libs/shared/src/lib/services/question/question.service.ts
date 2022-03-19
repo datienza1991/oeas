@@ -8,6 +8,13 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class QuestionService {
+  getAllByExamId(examId: number): Observable<QuestionList[]> {
+    return this.httpClient
+      .get<ResponseWrapper<QuestionList>>(
+        `${this.appConfig.API_URL}/records/questions?filter=examId,eq,${examId}`
+      )
+      .pipe(map((res: ResponseWrapper<any>) => res.records));
+  }
   delete(id: number): Observable<number> {
     return this.httpClient.delete<number>(
       `${this.appConfig.API_URL}/records/questions/${id}`
