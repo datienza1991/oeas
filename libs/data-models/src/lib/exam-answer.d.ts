@@ -3,5 +3,5 @@ export interface ExamAnswer{
     questionId: number;
     examId: number;
     answer: string;
-    points: number;
+    points: number | null;
 }
