@@ -18,6 +18,7 @@ import { Observable } from 'rxjs';
 })
 export class ExamListComponent {
   @Input() examList!: Exam[];
+  @Input() isStudent!: boolean;
   @Output() deleteRecord = new EventEmitter<number>();
   @Output() search = new EventEmitter<string>();
   searchText = '';
