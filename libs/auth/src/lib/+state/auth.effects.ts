@@ -37,6 +37,7 @@ export class AuthEffects {
                           firstName: userDetail.firstName,
                           userDetailId: userDetail.id,
                           sectionId: userDetail.sectionId?.id || null,
+                          userType: userDetail.userType
                         },
                       })
                     );

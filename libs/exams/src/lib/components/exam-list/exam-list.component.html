@@ -47,19 +47,19 @@
       <td>{{ data?.department }}</td>
       <td>{{ data?.isActive || false | status }}</td>
       <td>
-        <a nz-button nzType="text" nz-tooltip nzTooltipTitle="Take Exam" routerLink="{{data?.id}}/take-exam">
+        <a *ngIf="isStudent" nz-button nzType="text" nz-tooltip nzTooltipTitle="Take Exam" routerLink="{{data?.id}}/take-exam">
           <i nz-icon [nzType]="'folder-open'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#fa541c'"></i>
         </a>
-        <button nz-button nzType="text" nz-tooltip nzTooltipTitle="Edit" routerLink="{{data?.id}}/form">
+        <button *ngIf="!isStudent" nz-button nzType="text" nz-tooltip nzTooltipTitle="Edit" routerLink="{{data?.id}}/form">
             <i nz-icon [nzType]="'edit'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#faad14'"></i>
         </button>
-        <button nz-button nzType="text" nz-tooltip nzTooltipTitle="Delete" (click)="delete(data)">
+        <button *ngIf="!isStudent" nz-button nzType="text" nz-tooltip nzTooltipTitle="Delete" (click)="delete(data)">
             <i nz-icon [nzType]="'delete'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#f5222d'"></i>
         </button>
-        <button nz-button nzType="text" nz-tooltip nzTooltipTitle="More" nz-dropdown [nzDropdownMenu]="menu">
+        <button *ngIf="!isStudent"nz-button nzType="text" nz-tooltip nzTooltipTitle="More" nz-dropdown [nzDropdownMenu]="menu">
             <i nz-icon [nzType]="'more'" [nzTheme]="'outline'"></i>
         </button>
-        <nz-dropdown-menu #menu="nzDropdownMenu">
+        <nz-dropdown-menu  #menu="nzDropdownMenu">
             <ul nz-menu>
               <li nz-menu-item>
                 <!--TODO: Add route parameters here for navigating to takers-->

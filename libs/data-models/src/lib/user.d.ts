@@ -5,4 +5,5 @@ export interface User {
   isActive: boolean;
   userDetailId: number;
   sectionId: numuber | null;
+  userType: string;
 }

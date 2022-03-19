@@ -6,7 +6,7 @@
       Exams
     </li>
     <li
-      *ngIf="(user$ | async)?.isActive"
+      *ngIf="(user$ | async)?.isActive && (user$ | async)?.userType !== 'Student'"
       nz-menu-item
       nz-dropdown
       [nzDropdownMenu]="settingMenu"

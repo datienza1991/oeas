@@ -28,7 +28,7 @@ export class ExamsComponent implements OnInit {
   sectionId!: number | null;
   userDetailId!: number | null;
   private searchSubject$ = new BehaviorSubject<string>('');
-
+  isStudent!: boolean;
   getAll(criteria: string) {
     this.examService.getAll(criteria, this.sectionId, this.userDetailId).subscribe((val) => {
       this.examList = [...val];
@@ -52,6 +52,7 @@ export class ExamsComponent implements OnInit {
     this.store.select(fromAuth.getUser).subscribe((val) => {
       this.sectionId = val?.sectionId;
       this.userDetailId = val?.userDetailId || null;
+      this.isStudent = val?.userType === "Student"
     });
   }
   constructor(
