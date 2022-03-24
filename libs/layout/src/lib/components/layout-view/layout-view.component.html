@@ -1,0 +1,71 @@
+<nz-layout>
+  <nz-sider
+    *ngIf="user$ | async as user"
+    nzCollapsible
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null"
+  >
+    <div class="logo"></div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li *ngIf="(user$ | async)?.isActive" nz-menu-item routerLink="dashboard">
+        <i nz-icon nzType="appstore"></i>
+        <span>Dashboard</span>
+      </li>
+      <li *ngIf="(user$ | async)?.isActive" nz-menu-item routerLink="exams">
+        <i nz-icon nzType="book"></i>
+        <span>Exams</span>
+      </li>
+      <li
+        *ngIf="
+          (user$ | async)?.isActive && (user$ | async)?.userType !== 'Student'
+        "
+        nz-submenu
+        nzTitle="Settings"
+        nzIcon="setting"
+      >
+        <ul>
+          <li routerLink="setting/users" nz-menu-item>
+            <i nz-icon nzType="team"></i> <span>Users</span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header
+      *ngIf="user$ | async as user"
+      style="display: flex; justify-content: space-between"
+    >
+      <i
+        class="trigger"
+        nz-icon
+        [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+        (click)="isCollapsed = !isCollapsed"
+      ></i>
+
+      <nz-avatar
+        nz-dropdown
+        [nzDropdownMenu]="menu"
+        [nzPlacement]="'bottomRight'"
+        nzSize="large"
+        nzText="{{
+          (user$ | async)?.firstName?.substring(0, 1)?.toUpperCase()
+        }}"
+      ></nz-avatar>
+    </nz-header>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li routerLink="account/profile" nz-menu-item>Profile</li>
+        <!--TODO: Change color of anchor tag same with other -->
+        <li nz-menu-item>
+          <a routerLink="account/change-password">Change Password</a>
+        </li>
+        <li nz-menu-item (click)="onLogout()">Log out</li>
+      </ul>
+    </nz-dropdown-menu>
+    <nz-content>
+      <router-outlet></router-outlet>
+    </nz-content>
+    <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+  </nz-layout>
+</nz-layout>

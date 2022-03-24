@@ -1,29 +1,32 @@
 <div class="container">
   <div class="row" nz-row [nzGutter]="[16, 24]">
-    <div nz-col [nzSpan]="12" class="gutter-row">
-      <nz-card class="card">
-        <p class="card-value">100</p>
-        <p class="card-title">Total Exams</p>
+    <div *ngFor="let item of exams" nz-col [nzSpan]="6" class="gutter-row">
+      <nz-card
+        style="width: 300px"
+        [nzCover]="coverTemplate"
+        [nzActions]="[actionSetting, actionEdit, actionEllipsis]"
+      >
+        <nz-card-meta
+          nzTitle="{{item.name}}"
+          nzDescription="This is the description"
+        ></nz-card-meta>
       </nz-card>
-    </div>
-    <div nz-col [nzSpan]="12" class="gutter-row">
-      <nz-card class="card">
-        <p class="card-value">3</p>
-        <p class="card-title">Upcoming Exams</p>
-      </nz-card>
-    </div>
-    <div nz-col [nzSpan]="12" class="gutter-row">
-      <nz-card class="card">
-        <p class="card-value">14</p>
-        <p class="card-title">Recent Exams</p>
-      </nz-card>
-    </div>
-    <div nz-col [nzSpan]="12" class="gutter-row">
-      <nz-card class="card">
-        <p class="card-value">8</p>
-        <p class="card-title">On-going Exams</p>
-      </nz-card>
+     
+      <ng-template #coverTemplate>
+        <img
+          alt="example"
+          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+        />
+      </ng-template>
+      <ng-template #actionSetting>
+        <i nz-icon nzType="setting"></i>
+      </ng-template>
+      <ng-template #actionEdit>
+        <i nz-icon nzType="edit"></i>
+      </ng-template>
+      <ng-template #actionEllipsis>
+        <i nz-icon nzType="ellipsis"></i>
+      </ng-template>
     </div>
   </div>
 </div>
-

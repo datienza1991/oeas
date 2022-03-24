@@ -86,7 +86,13 @@ import {
   PlaySquareTwoTone,
   WarningOutline,
   ArrowLeftOutline,
-  KeyOutline
+  KeyOutline,
+  TeamOutline,
+  MenuFoldOutline,
+  MenuUnfoldOutline,
+  AppstoreOutline,
+  BookOutline,
+  SettingOutline
 } from '@ant-design/icons-angular/icons';
 import { IconDefinition } from '@ant-design/icons-angular';
 /** config ng-zorro-antd i18n **/
@@ -111,7 +117,13 @@ const icons: IconDefinition[] = [
   PlaySquareTwoTone,
   WarningOutline,
   ArrowLeftOutline,
-  KeyOutline
+  KeyOutline,
+  TeamOutline,
+  MenuFoldOutline,
+  MenuUnfoldOutline,
+  AppstoreOutline,
+  BookOutline,
+  SettingOutline
 ];
 @NgModule({
   imports: [CommonModule, NzIconModule.forRoot(icons)],
