@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ExamCard } from '@batstateu/data-models';
 
 @Component({
   selector: 'batstateu-stats',
@@ -6,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./stats.component.less']
 })
 export class StatsComponent implements OnInit {
-  @Input() exams = [{name: 'English'},{name: 'Math'},{name: 'Science'},{name: 'History'},{name: 'test'},{name: 'test'}]
+  @Input() upcomingExams! : ExamCard[];
   constructor() { }
 
   ngOnInit(): void {
