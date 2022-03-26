@@ -31,7 +31,7 @@ nz-header {
 }
 
 nz-content {
-  margin: 24px 16px;
+  margin: 16px;
 }
 
 nz-breadcrumb {
@@ -43,6 +43,7 @@ nz-breadcrumb {
   background: #fff;
   min-height: 360px;
 }
+
 
 nz-footer {
   text-align: center;
