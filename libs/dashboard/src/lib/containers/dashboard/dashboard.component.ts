@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from '../../services/dashboard.service';
+import { ExamCard } from '@batstateu/data-models';
+import { ExamsService } from '@batstateu/shared';
+import { Store } from '@ngrx/store';
+import { format } from 'date-fns';
+import * as fromAuth from '@batstateu/auth';
 export interface Person {
   key: string;
   date: string;
@@ -11,71 +15,26 @@ export interface Person {
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  listOfData: Person[] = [
-    {
-      key: '1',
-      date: '12/23/2020 00:00:00',
-      details: "Something done with the app"
-    },
-    {
-      key: '2',
-      date: '01/24/2022 01:01:01',
-      details: "Something added with the app",
-    },
-    {
-      key: '3',
-      date: '01/24/2022 01:01:01',
-      details: "Something added with the app",
-    },
-    {
-      key: '1',
-      date: '01/24/2022 01:01:01',
-      details: "Something edit with the app",
-    },
-    {
-      key: '2',
-      date: '01/24/2022 01:01:01',
-      details: "Something deleted with the app",
-    },
-    {
-      key: '3',
-      date: '01/24/2022 01:01:01',
-      details: "Something done with the app",
-    },
-    {
-      key: '1',
-      date: '01/24/2022 01:01:01',
-      details: "Something done with the app",
-    },
-    {
-      key: '2',
-      date: '01/24/2022 01:01:01',
-      details: "Something done with the app",
-    },
-    {
-      key: '3',
-      date: '01/24/2022 01:01:01',
-      details: "Something done with the app",
-    },
-    {
-      key: '1',
-      date: '01/24/2022 01:01:01',
-      details: "Something done with the app",
-    },
-    {
-      key: '2',
-      date: '01/24/2022 01:01:01',
-      details: "Something done with the app",
-    },
-    {
-      key: '3',
-      date: '01/24/2022 01:01:01',
-      details: "Something done with the app",
-    },
-  ];
-  constructor(private dashboardService: DashboardService) {}
+  upcomingExams!: ExamCard[];
+  sectionId!: number | null;
+  userDetailId!: number | null;
+
+  getUser() {
+    this.store.select(fromAuth.getUser).subscribe((val) => {
+      this.sectionId = val?.sectionId;
+      this.userDetailId = val?.userDetailId || null;
+    });
+  }
+  constructor(
+    private examService: ExamsService,
+    private store: Store<fromAuth.State>
+  ) {}
 
   ngOnInit(): void {
-    this.dashboardService.getAllHistory().subscribe({next: (val) => console.log(val)});
+    this.getUser();
+    const date = format(new Date(), 'yyyy-MM-dd');
+    this.examService
+      .getAllStartOn(date,this.sectionId,this.userDetailId)
+      .subscribe((val) => (this.upcomingExams = val));
   }
 }

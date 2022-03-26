@@ -6,6 +6,7 @@ import {
   Exam,
   ExamAnswer,
   ExamAnswerList,
+  ExamCard,
   ExamRecordViewModel,
   ExamTakerList,
   ExamTakerResultList,
@@ -17,6 +18,34 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ExamsService {
+  getAllStartOn(
+    date: string,
+    sectionId: number | null,
+    userDetailId: number | null
+  ): Observable<ExamCard[]> {
+    return this.httpClient
+      .get<ResponseWrapper<ExamCard>>(
+        `${this.appConfig.API_URL}/records/exams?join=sections&filter=startOn,gt,${date}`
+      )
+      .pipe(
+        map((res: ResponseWrapper<any>) => {
+          const examCards: ExamCard[] = [];
+          const f_res =
+            sectionId != null
+              ? res.records.filter((val) => val.sectionId.id == sectionId)
+              : res.records.filter((val) => val.userDetailId == userDetailId);
+          f_res.map((val) => {
+            examCards.push({
+              name: val.name,
+              schedule: val.startOn,
+              duration: val.duration,
+            });
+          });
+
+          return examCards;
+        })
+      );
+  }
   getExamTakerByExamIdTakerId(
     examId: number,
     takerId: number
