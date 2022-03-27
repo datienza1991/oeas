@@ -86,7 +86,8 @@ export class TakeExamComponent implements OnInit {
   ngOnInit(): void {
     this.examId = Number(this.route.snapshot.paramMap.get('examId'));
     this.getUser();
-    this.checkHasExamRecord();
+    //TODO: Un comment checkhas exam after ui
+    //this.checkHasExamRecord();
     this.getExamInstruction();
   }
   checkHasExamRecord(){

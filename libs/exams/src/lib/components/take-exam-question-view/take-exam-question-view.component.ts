@@ -66,7 +66,8 @@ export class TakeExamQuestionViewComponent implements OnInit {
   setQuestion(){
     this.currentQuestion$.subscribe((val) => {
       if(val){
-        this.validateForm.patchValue({ answer: '', question: val.question });
+        this.question = val.question;
+        this.validateForm.patchValue({ answer: ''});
       }
     });
   }
@@ -79,7 +80,6 @@ export class TakeExamQuestionViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      question: [null],
       answer: [null, [Validators.required]],
     });
     this.setQuestion();
