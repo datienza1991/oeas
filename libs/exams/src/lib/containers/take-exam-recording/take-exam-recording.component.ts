@@ -33,7 +33,6 @@ export class TakeExamRecordingComponent
   private plugin: any;
   limit!: number;
 
-
   onStartRecord() {
     this.player.record().getDevice();
   }
@@ -41,7 +40,7 @@ export class TakeExamRecordingComponent
     this.player.record().stopDevice();
   }
 
-  constructor(private takeExamService: TakeExamService) {
+  init() {
     this.player = false;
     // save reference to plugin (so it initializes)
     this.plugin = Record;
@@ -63,7 +62,7 @@ export class TakeExamRecordingComponent
         record: {
           audio: true,
           screen: true,
-          maxLength: 100,
+          maxLength: this.limit,
           convertEngine: 'ts-ebml',
           videoMimeType: 'video/webm;codecs=vp8',
           debug: true,
@@ -71,6 +70,7 @@ export class TakeExamRecordingComponent
       },
     };
   }
+  constructor() {}
 
   ngOnDestroy(): void {
     if (this.player) {
@@ -152,10 +152,14 @@ export class TakeExamRecordingComponent
     this.setLimit();
   }
   setLimit() {
-    this.limit$.subscribe((val) => (this.limit = val));
+    this.limit$.subscribe((val) => {
+      if (val > 0) {
+        this.limit = val;
+        this.init();
+        this.initScreenRecorder();
+      }
+    });
   }
 
-  ngAfterViewInit(): void {
-    this.initScreenRecorder();
-  }
+  ngAfterViewInit(): void {}
 }
