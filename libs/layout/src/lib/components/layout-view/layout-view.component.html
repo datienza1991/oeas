@@ -1,5 +1,6 @@
 <nz-layout>
-  <nz-sider nzTheme="dark"
+  <nz-sider
+    nzTheme="dark"
     *ngIf="user$ | async as user"
     nzCollapsible
     [(nzCollapsed)]="isCollapsed"
@@ -66,6 +67,17 @@
     <nz-content>
       <router-outlet></router-outlet>
     </nz-content>
-    <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+    <nz-footer
+      style="background-color: #373737; padding: 8px 8px; text-align: left"
+      ><div style="display: flex; flex-direction: row; align-items: center">
+        <img alt="example" src="assets/logo.png" width="50" height="50" />
+        <div>
+          <p style="color: #fff; margin: 0 8px">Batangas State University</p>
+          <p style="font-size: small; color: #fff; margin: 0 8px">
+            Copyright © 2022
+          </p>
+        </div>
+      </div></nz-footer
+    >
   </nz-layout>
 </nz-layout>
