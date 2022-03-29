@@ -6,38 +6,49 @@
   nzLayout="vertical"
   (ngSubmit)="submitForm()"
 >
-  <nz-form-item>
+  <div nz-row nzGutter="16">
+    <div nz-col nzSpan="16">
+      <nz-form-item
+        style="padding: 16px; height: 100%; border: solid 1px #dddfe2"
+      >
+        <div [innerHTML]="question"></div>
+      </nz-form-item>
+    </div>
     <div
-      [innerHTML]="question"
+      nz-col
+      nzSpan="8"
       style="
-        height: 50%;
+        display: flex;
+        justify-content: center;
+        background-color: #dddfe2;
         padding: 16px;
-        border-radius: 3px;
-        border: solid 1px #dddfe2;
+        border-radius: 5px;
       "
-    ></div>
-  </nz-form-item>
-
-  <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="answer">
-      <span>Answer</span>
-    </nz-form-label>
-    <nz-form-control
-      nzErrorTip="Please input your answer!"
     >
+      <batstateu-take-exam-camera-view
+        *ngIf="videoVisible$ | async"
+        [videoVisible$]="videoVisible$"
+      ></batstateu-take-exam-camera-view>
+    </div>
+  </div>
+  <nz-form-item style="margin: 16px 0;">
+    <nz-form-control>
+      <div style="display: flex; justify-content: flex-end;">
+        <button nz-button nzType="primary" [disabled]="!validateForm.valid">
+          Submit
+        </button>
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your answer!">
       <textarea
-        rows="4"
+        placeholder="Place your answer here.."
+        rows="12"
         nz-input
         id="answer"
         formControlName="answer"
       ></textarea>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-control [nzOffset]="7" [nzSpan]="12">
-      <button nz-button nzType="primary" [disabled]="!validateForm.valid">
-        Submit
-      </button>
     </nz-form-control>
   </nz-form-item>
 </form>

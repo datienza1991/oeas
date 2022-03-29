@@ -29,6 +29,7 @@ export class TakeExamQuestionViewComponent implements OnInit {
   @Input() question = "";
   @Input() currentQuestion$!: Observable<TakerExamQuestion | null>;
   @Output() save = new EventEmitter();
+  @Input() videoVisible$! : Observable<boolean>;
   limit = 60;
   validateForm!: FormGroup;
 
