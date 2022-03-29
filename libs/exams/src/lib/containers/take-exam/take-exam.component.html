@@ -1,10 +1,9 @@
 <nz-page-header
-  class="site-page-header"
   (nzBack)="onBack()"
   [nzBackIcon]="takeExamState === TakeExamStateEnum.instructionView ? '' : null"
   nzTitle="{{ (examDetail$ | async)?.name }}"
   ><nz-page-header-extra
-    ><cd-timer
+    ><cd-timer style="font-size: 24px;"
       #cdTimer
       [autoStart]="false"
       format="hms"
@@ -13,7 +12,6 @@
       (onComplete)="onCompleteTimer()"
     ></cd-timer></nz-page-header-extra
 ></nz-page-header>
-
 <batstateu-exam-instruction-view
   [examDetail]="examDetail"
   [hidden]="takeExamState !== TakeExamStateEnum.instructionView"
@@ -21,6 +19,7 @@
 
 <div *ngIf="takeExamState === TakeExamStateEnum.takeExamQuestionView">
   <batstateu-take-exam-question-view
+  [videoVisible$]="videoVisible$"
     [currentQuestion]="currentQuestion"
     [question]="question"
     [currentQuestion$]="currentQuestion$"
@@ -46,7 +45,3 @@
   (uploadRecord)="onUploadRecord($event)"
 ></batstateu-take-exam-recording>
 
-<batstateu-take-exam-camera-view
-*ngIf="cameraVisible"
-  [videoVisible$]="videoVisible$"
-></batstateu-take-exam-camera-view>
