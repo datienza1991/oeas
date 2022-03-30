@@ -4,6 +4,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
@@ -17,22 +18,33 @@ import {
 import { Exam, Section } from '@batstateu/data-models';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { Editor, toHTML, Toolbar } from 'ngx-editor';
 
 @Component({
   selector: 'batstateu-exam-form-view',
   templateUrl: './exam-form-view.component.html',
   styleUrls: ['./exam-form-view.component.less'],
 })
-export class ExamFormViewComponent implements OnInit, OnChanges {
+export class ExamFormViewComponent implements OnInit, OnChanges, OnDestroy {
+  editor!: Editor;
+  html!: '';
   @Output() save = new EventEmitter<Exam>();
   @Input() sections!: Section[];
   @Input() examDetail!: Exam;
   validateForm!: FormGroup;
   title = 'Add New';
-  captchaTooltipIcon: NzFormTooltipIcon = {
-    type: 'info-circle',
-    theme: 'twotone',
-  };
+
+  toolbar: Toolbar = [
+    // default value
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['blockquote','text_color'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
+  colorPresets = ['red', 'green', 'blue'];
+
 
   submitForm(): void {
     if (this.validateForm.valid) {
@@ -66,16 +78,20 @@ export class ExamFormViewComponent implements OnInit, OnChanges {
   };
 
   constructor(private fb: FormBuilder, private modal: NzModalService) {}
+  ngOnDestroy(): void {
+    this.editor.destroy();
+  }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['examDetail']) {
       if (this.examDetail) {
         this.setValue();
-        this.title = "Edit"
+        this.title = 'Edit';
       }
     }
   }
 
   ngOnInit(): void {
+    this.editor = new Editor();
     this.validateForm = this.fb.group({
       name: [null, [Validators.required]],
       subject: [null, [Validators.required]],
