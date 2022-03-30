@@ -21,7 +21,7 @@ export class ExamFormComponent implements OnInit {
     const date = format(new Date(val.startOn), 'yyyy-MM-dd kk:mm:ss');
     if (this.examDetail && this.examDetail.id > 0) {
       this.examService
-        .edit({ ...val, id: this.examDetail.id, startOn: date, instructions: toHTML(val.instructions) })
+        .edit({ ...val, id: this.examDetail.id, startOn: date })
         .subscribe(() =>
           this.modal.success({
             nzTitle: 'Success',
@@ -31,7 +31,13 @@ export class ExamFormComponent implements OnInit {
         );
     } else {
       this.examService
-        .add({ ...val, startOn: date, isActive: true, userDetailId: this.userStore?.userDetailId, instructions: toHTML(val.instructions) })
+        .add({
+          ...val,
+          startOn: date,
+          isActive: true,
+          userDetailId: this.userStore?.userDetailId,
+          instructions: toHTML(val.instructions),
+        })
         .subscribe(() => {
           this.modal.success({
             nzTitle: 'Success',
