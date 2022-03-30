@@ -1,7 +1,7 @@
 <nz-page-header class="site-page-header">
   <nz-breadcrumb nz-page-header-breadcrumb>
     <nz-breadcrumb-item>Exams</nz-breadcrumb-item>
-    <nz-breadcrumb-item>{{title}}</nz-breadcrumb-item>
+    <nz-breadcrumb-item>{{ title }}</nz-breadcrumb-item>
   </nz-breadcrumb>
 </nz-page-header>
 <form
@@ -82,7 +82,19 @@
           <span>Instructions</span>
         </nz-form-label>
         <nz-form-control nzErrorTip="Please input your instruction!">
-          <textarea rows="4" nz-input formControlName="instructions"></textarea>
+          <div class="NgxEditor__Wrapper">
+            <ngx-editor-menu
+              [editor]="editor"
+              [toolbar]="toolbar"
+              [colorPresets]="colorPresets"
+            >
+            </ngx-editor-menu>
+            <ngx-editor
+              formControlName="instructions"
+              [editor]="editor"
+              [placeholder]="'Type here...'"
+            ></ngx-editor>
+          </div>
         </nz-form-control>
       </nz-form-item>
     </div>

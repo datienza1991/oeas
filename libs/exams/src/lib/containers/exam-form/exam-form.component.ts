@@ -7,6 +7,7 @@ import { format } from 'date-fns';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromAuth from '@batstateu/auth';
+import { toHTML } from 'ngx-editor';
 @Component({
   selector: 'batstateu-exam-form',
   templateUrl: './exam-form.component.html',
@@ -20,7 +21,7 @@ export class ExamFormComponent implements OnInit {
     const date = format(new Date(val.startOn), 'yyyy-MM-dd kk:mm:ss');
     if (this.examDetail && this.examDetail.id > 0) {
       this.examService
-        .edit({ ...val, id: this.examDetail.id, startOn: date })
+        .edit({ ...val, id: this.examDetail.id, startOn: date, instructions: toHTML(val.instructions) })
         .subscribe(() =>
           this.modal.success({
             nzTitle: 'Success',
@@ -30,7 +31,7 @@ export class ExamFormComponent implements OnInit {
         );
     } else {
       this.examService
-        .add({ ...val, startOn: date, isActive: true, userDetailId: this.userStore?.userDetailId })
+        .add({ ...val, startOn: date, isActive: true, userDetailId: this.userStore?.userDetailId, instructions: toHTML(val.instructions) })
         .subscribe(() => {
           this.modal.success({
             nzTitle: 'Success',

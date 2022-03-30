@@ -32,6 +32,7 @@ import { TakeExamResultViewComponent } from './components/take-exam-result-view/
 import { SharedModule } from '@batstateu/shared';
 import { CdTimerModule } from 'angular-cd-timer';
 import { TakeExamCameraViewComponent } from './components/take-exam-camera-view/take-exam-camera-view.component';
+import { NgxEditorModule } from 'ngx-editor';
 
 @NgModule({
   imports: [
@@ -43,6 +44,7 @@ import { TakeExamCameraViewComponent } from './components/take-exam-camera-view/
     FormsModule,
     SharedModule,
     CdTimerModule,
+    NgxEditorModule,
     RouterModule.forChild([
       {path: '', component: ExamsComponent},
       {path: ':examId/form', component: ExamFormComponent},
