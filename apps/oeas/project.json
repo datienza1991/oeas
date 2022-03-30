@@ -8,7 +8,6 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        
         "allowedCommonJsDependencies": [
           "videojs-record/dist/videojs.record.js",
           "recordrtc"
@@ -19,7 +18,15 @@
         "polyfills": "apps/oeas/src/polyfills.ts",
         "tsConfig": "apps/oeas/tsconfig.app.json",
         "inlineStyleLanguage": "less",
-        "assets": ["apps/oeas/src/favicon.ico", "apps/oeas/src/assets"],
+        "assets": [
+          "apps/oeas/src/favicon.ico",
+          "apps/oeas/src/assets",
+          {
+            "input": "./libs/shared/src/lib/assets",
+            "glob": "**/*",
+            "output": "./assets"
+          }
+        ],
         "styles": ["apps/oeas/src/styles.less"],
         "scripts": []
       },

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'batstateu-layout-view',
   templateUrl: './layout-view.component.html',
-  styleUrls: ['./layout-view.component.css'],
+  styleUrls: ['./layout-view.component.less'],
 })
 export class LayoutViewComponent implements OnInit {
   @Input() isCollapsed: boolean;
