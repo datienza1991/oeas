@@ -34,17 +34,13 @@
       </nz-form-control>
     </nz-form-item>
 
-    <div nz-row class="login-form-margin">
-      <div nz-col [nzSpan]="12">
-        <label nz-checkbox formControlName="remember">
-          <span>Remember me</span>
-        </label>
-      </div>
-      <div nz-col [nzSpan]="12" class="login-form-login">
-        <button nz-button nzType="primary">Login</button>
-      </div>
-    </div>
-    <a routerLink="/auth/register" class="login-form-register" href="">Click here to register</a>
+    <nz-form-item>
+      <button class="login-form-button" nz-button nzType="primary">Login</button>
+    </nz-form-item>
+    <nz-divider></nz-divider>
+    <a routerLink="/auth/register" class="login-form-register" href=""
+      >Click here to register</a
+    >
   </form>
 </nz-card>
 <ng-template #extraTemplate>
