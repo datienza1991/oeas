@@ -3,7 +3,6 @@
 }
 
 .login-form-register{
-    margin-top: 20px;
     display: flex;
     justify-content: center;
 }
@@ -11,4 +10,11 @@
 .login-form-login{
    display: flex;
    justify-content: right;
+}
+.login-form-button{
+    width: 100%;
+}
+
+nz-divider{
+    margin: 20px 0;
 }
