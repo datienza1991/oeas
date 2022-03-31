@@ -145,7 +145,6 @@ export class UserService {
   }
 
   getAll(criteria: string): Observable<UserDetail[]> {
-    //FIXME: Others users are not listed on the list
     const params = new HttpParams({
       fromString: `join=departments&join=user_types&filter=user_id,neq,${this.userId}&filter1=firstName,cs,${criteria}&filter2=middleName,cs,${criteria}&filter3=lastName,cs,${criteria}`,
     });

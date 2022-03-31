@@ -67,9 +67,8 @@ export class TakeExamComponent implements OnInit {
   limit$ = this.limitSubject$.asObservable();
   videoVisible$ = this.videoVisibleSubject$.asObservable();
   cameraVisible = false;
-  //TODO: Add Inactive status functionality
   hasInactiveStatus = false;
-  //TODO: Add logic data here for visibility change
+
   @HostListener('document:visibilitychange') documentVisibilityEvent() {
     if (
       document.visibilityState === 'hidden' &&
@@ -86,22 +85,23 @@ export class TakeExamComponent implements OnInit {
   ngOnInit(): void {
     this.examId = Number(this.route.snapshot.paramMap.get('examId'));
     this.getUser();
-    //TODO: Un comment checkhas exam after ui
-    //this.checkHasExamRecord();
+    this.checkHasExamRecord();
     this.getExamInstruction();
   }
-  checkHasExamRecord(){
-    this.takeExamService.getTakerExamByUserDetaiIdExamId(this.userDetailId,this.examId).subscribe((val) => {
-      if(val){
-        this.modal.error({
-          nzTitle: 'Finished examination',
-          nzContent: `You already completed the exam. <br/> Click Ok to view result`,
-          nzOnOk: () => {
-            this.goToResults();
-          },
-        });
-      }
-    });
+  checkHasExamRecord() {
+    this.takeExamService
+      .getTakerExamByUserDetaiIdExamId(this.userDetailId, this.examId)
+      .subscribe((val) => {
+        if (val) {
+          this.modal.error({
+            nzTitle: 'Finished examination',
+            nzContent: `You already completed the exam. <br/> Click Ok to view result`,
+            nzOnOk: () => {
+              this.goToResults();
+            },
+          });
+        }
+      });
   }
   onCompleteTimer() {
     this.modal.info({
@@ -190,7 +190,6 @@ export class TakeExamComponent implements OnInit {
     };
 
     this.takeExamService.addAnswer(examAnswer).subscribe(() => {
-      //TODO: If 1 question available, dont
       this.getQuestions();
     });
   }
