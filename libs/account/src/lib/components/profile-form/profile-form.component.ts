@@ -65,8 +65,6 @@ export class ProfileFormComponent implements OnInit {
   constructor(private fb: FormBuilder, private modal: NzModalService) {}
 
   ngOnInit(): void {
-    //FIXME: If newly registered user, code not showing.
-    // Means need to use the value from state from container
     this.validateForm = this.fb.group({
       code: [{ value: null, disabled: true }, [Validators.required]],
       email: [null, [Validators.email, Validators.required]],

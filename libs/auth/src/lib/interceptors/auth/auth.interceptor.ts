@@ -12,10 +12,11 @@ import { State } from '../../+state/auth.reducer';
 import { getUser } from '../../+state/auth.selectors';
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
-
+import * as fromAuth from '../../+state/auth.reducer';
+import * as authActions from './../../+state/auth.actions';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private router: Router, private modal: NzModalService) {}
+  constructor(private router: Router, private modal: NzModalService, private store: Store<fromAuth.State>) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -26,10 +27,9 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       tap({
         error: (err) => {
-          //TODO: If error 1011, dispatch logout action from auto store
           if (err.error.code === 1011) {
-
-            this.router.navigate(['/auth/login']);
+            this.store.dispatch(authActions.logout());
+            // this.router.navigate(['/auth/login']);
           } else if (
             (this.router.url === '/auth/login' && err.error.code === 1003) ||
             (this.router.url === '/account/profile' && err.error.code === 1003)

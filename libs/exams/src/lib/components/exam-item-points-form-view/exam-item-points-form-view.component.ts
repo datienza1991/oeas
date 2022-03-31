@@ -18,21 +18,20 @@ import { Observable } from 'rxjs';
   styleUrls: ['./exam-item-points-form-view.component.less'],
 })
 export class ExamItemPointsFormViewComponent implements OnInit {
-  @Input() answerFormModel$! : Observable<AnswerFormModel | null>;
-  @Output() save =  new EventEmitter<number>();
+  @Input() answerFormModel$!: Observable<AnswerFormModel | null>;
+  @Output() save = new EventEmitter<number>();
   limit = 60;
   validateForm!: FormGroup;
 
-  setValue(){
-    this.answerFormModel$.subscribe(val =>{
+  setValue() {
+    this.answerFormModel$.subscribe((val) => {
       this.validateForm.patchValue(val || {});
       this.limit = val?.maxPoints || 0;
-    })
+    });
   }
   confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
-      //TODO: set limit for points
     } else if (control.value > this.limit) {
       return { confirm: true, error: true };
     }
@@ -74,6 +73,6 @@ export class ExamItemPointsFormViewComponent implements OnInit {
       correctAnswer: ['The correct answer is ...'],
       points: [null, [Validators.required, this.confirmationValidator]],
     });
-    this.setValue()
+    this.setValue();
   }
 }

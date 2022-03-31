@@ -75,7 +75,6 @@ export class ProfileComponent implements OnInit {
           };
 
     this.userService.save(newUserDetail).subscribe(() => {
-      //TODO:Modal must on container
       this.modal.success({
         nzTitle: 'Success',
         nzContent: 'Record has been saved',
