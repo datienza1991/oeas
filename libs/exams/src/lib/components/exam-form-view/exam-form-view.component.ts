@@ -36,7 +36,7 @@ export class ExamFormViewComponent implements OnInit, OnChanges, OnDestroy {
 
   toolbar: Toolbar = [
     // default value
-    ['bold', 'italic'],
+    ['bold', 'italic' ],
     ['underline', 'strike'],
     ['blockquote'],
     ['ordered_list', 'bullet_list'],
