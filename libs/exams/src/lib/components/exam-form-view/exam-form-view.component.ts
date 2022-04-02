@@ -36,14 +36,13 @@ export class ExamFormViewComponent implements OnInit, OnChanges, OnDestroy {
 
   toolbar: Toolbar = [
     // default value
-    ['bold', 'italic'],
+    ['bold', 'italic' ],
     ['underline', 'strike'],
-    ['blockquote','text_color'],
+    ['blockquote'],
     ['ordered_list', 'bullet_list'],
     [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
     ['align_left', 'align_center', 'align_right', 'align_justify'],
   ];
-  colorPresets = ['red', 'green', 'blue'];
 
 
   submitForm(): void {
