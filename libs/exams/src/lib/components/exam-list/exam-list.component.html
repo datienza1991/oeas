@@ -1,6 +1,6 @@
 <nz-page-header class="site-page-header" nzTitle="Exams">
   <nz-page-header-extra>
-    <button style="width: 72px" nz-button nzType="primary" routerLink="form">
+    <button *ngIf="!isStudent" style="width: 72px" nz-button nzType="primary" routerLink="form">
       Add
     </button>
     <nz-input-group style="width: 240px" [nzSuffix]="suffixIconSearch">
