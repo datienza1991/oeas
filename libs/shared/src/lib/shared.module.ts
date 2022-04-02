@@ -14,6 +14,7 @@ export * from './services/user-type/user-type.service';
 export * from './services/exams/exams.service';
 export * from './services/question/question.service';
 export * from './services/take-exam/take-exam.service'; 
+export * from  './guards/exam/exam.guard';
 @NgModule({
     imports: [
       CommonModule,
@@ -23,7 +24,7 @@ export * from './services/take-exam/take-exam.service';
     ],
     declarations: [
         UserFormViewComponent,
-        StatusPipe
+        StatusPipe,
     ],
     exports:[
       UserFormViewComponent,

@@ -32,7 +32,7 @@ export class AuthEffects {
                       authActions.loginSuccess({
                         payload: {
                           id: user.id,
-                          isActive: true,
+                          isActive: userDetail.isActive,
                           username: user.username,
                           firstName: userDetail.firstName,
                           userDetailId: userDetail.id,
