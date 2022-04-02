@@ -1,51 +1,70 @@
-<nz-page-header class="site-page-header">
-    <nz-breadcrumb nz-page-header-breadcrumb>
-      <nz-breadcrumb-item>Exams</nz-breadcrumb-item>
-      <nz-breadcrumb-item>Questions</nz-breadcrumb-item>
-    </nz-breadcrumb>
-  </nz-page-header>
-  <div
-    style="
-      padding-left: 24px;
-      padding-right: 24px;
-      display: flex;
-      justify-content: space-between;
-    "
-  >
-    <a style="width: 72px" nz-button nzType="primary" routerLink="add" >Add</a>
+<nz-page-header class="site-page-header" nzTitle="Questions">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>Exams</nz-breadcrumb-item>
+    <nz-breadcrumb-item>Questions</nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <nz-page-header-extra
+    ><a style="width: 72px" nz-button nzType="primary" routerLink="add">Add</a>
     <nz-input-group style="width: 240px" [nzSuffix]="suffixIconSearch">
-      <input type="text" nz-input placeholder="Search" [(ngModel)]="searchText" (ngModelChange)="onSearchChange($event)"/>
+      <input
+        type="text"
+        nz-input
+        placeholder="Search"
+        [(ngModel)]="searchText"
+        (ngModelChange)="onSearchChange($event)"
+      />
     </nz-input-group>
     <ng-template #suffixIconSearch>
-      <i nz-icon nzType="search"></i>
-    </ng-template>
-  </div>
-  
-  <nz-table
-    style="margin-top: 24px; margin-left: 24px; margin-right: 24px"
-    #basicTable
-    [nzData]="questionList"
-  >
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Max Points</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of basicTable.data">
-        <td>{{ data?.question }}</td>
-        <td>{{ data?.maxpoints }}</td>
-        <td>
-          <a nz-button nzType="text" nz-tooltip nzTooltipTitle="Edit" routerLink="{{data?.id}}/edit">
-              <i nz-icon [nzType]="'edit'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#faad14'"></i>
-          </a>
-          <button nz-button nzType="text" nz-tooltip nzTooltipTitle="Delete" (click)="delete(data)">
-              <i nz-icon [nzType]="'delete'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#f5222d'"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </nz-table>
-  
+      <i nz-icon nzType="search"></i> </ng-template
+  ></nz-page-header-extra>
+</nz-page-header>
+
+<nz-table
+  #basicTable
+  [nzData]="questionList"
+  nzBordered
+>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Max Points</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data?.question }}</td>
+      <td>{{ data?.maxpoints }}</td>
+      <td>
+        <a
+          nz-button
+          nzType="text"
+          nz-tooltip
+          nzTooltipTitle="Edit"
+          routerLink="{{ data?.id }}/edit"
+        >
+          <i
+            nz-icon
+            [nzType]="'edit'"
+            [nzTheme]="'twotone'"
+            [nzTwotoneColor]="'#faad14'"
+          ></i>
+        </a>
+        <button
+          nz-button
+          nzType="text"
+          nz-tooltip
+          nzTooltipTitle="Delete"
+          (click)="delete(data)"
+        >
+          <i
+            nz-icon
+            [nzType]="'delete'"
+            [nzTheme]="'twotone'"
+            [nzTwotoneColor]="'#f5222d'"
+          ></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
