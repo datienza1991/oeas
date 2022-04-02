@@ -10,6 +10,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { APP_CONFIG } from '@batstateu/app-config';
+import { ExamGuard } from '@batstateu/shared';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,6 +39,7 @@ import { APP_CONFIG } from '@batstateu/app-config';
           loadChildren: () =>
             import('@batstateu/exams').then((module) => module.ExamsModule),
             canActivate: [AuthGuard],
+            canActivateChild: [ExamGuard]
         },
         {
           path: 'account',
@@ -66,7 +68,7 @@ import { APP_CONFIG } from '@batstateu/app-config';
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule.forRoot(),
   ],
-  providers: [{ provide: APP_CONFIG, useValue: environment}],
+  providers: [{ provide: APP_CONFIG, useValue: environment},ExamGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
