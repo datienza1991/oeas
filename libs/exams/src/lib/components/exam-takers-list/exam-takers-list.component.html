@@ -1,33 +1,28 @@
-<nz-breadcrumb>
-  <nz-breadcrumb-item>Exams</nz-breadcrumb-item>
-  <nz-breadcrumb-item>Takers</nz-breadcrumb-item>
-</nz-breadcrumb>
-<div
-  style="
-    padding-left: 24px;
-    padding-right: 24px;
-    display: flex;
-    justify-content: flex-end;
-  "
->
-  <nz-input-group style="width: 240px" [nzSuffix]="suffixIconSearch">
-    <input
-      type="text"
-      nz-input
-      placeholder="Search"
-      [(ngModel)]="searchText"
-      (ngModelChange)="onSearchChange($event)"
-    />
-  </nz-input-group>
-  <ng-template #suffixIconSearch>
-    <i nz-icon nzType="search"></i>
-  </ng-template>
-</div>
+<nz-page-header class="site-page-header" nzTitle="Takers">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>Exams</nz-breadcrumb-item>
+    <nz-breadcrumb-item>Takers</nz-breadcrumb-item>
+  </nz-breadcrumb>
+  <nz-page-header-extra>
+    <nz-input-group style="width: 240px" [nzSuffix]="suffixIconSearch">
+      <input
+        type="text"
+        nz-input
+        placeholder="Search"
+        [(ngModel)]="searchText"
+        (ngModelChange)="onSearchChange($event)"
+      />
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+  </nz-page-header-extra>
+</nz-page-header>
 
 <nz-table
-  style="margin-top: 24px; margin-left: 24px; margin-right: 24px"
   #basicTable
   [nzData]="examTakerList"
+  nzBordered
 >
   <thead>
     <tr>
