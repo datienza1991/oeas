@@ -34,6 +34,8 @@ export class UserFormComponent implements OnInit {
   userTypes!: UserType[];
   code! : string;
   userFormType = UserFormType.FACULTY_ADMIN;
+  isSetting = true;
+  
   constructor(
     private store: Store<fromAuth.State>,
     private userService: UserService,

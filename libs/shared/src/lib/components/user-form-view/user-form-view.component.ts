@@ -43,6 +43,7 @@ export class UserFormViewComponent implements OnInit, OnChanges, DoCheck {
   @Input() code!: string;
   @Input() userFormLocation!: UserFormLocation;
   @Input() isHideUserTypeList!: boolean;
+  @Input() isSetting!: boolean;
   
   UserFormTypeEnum = UserFormType;
   UserFormLocationEnum = UserFormLocation;
