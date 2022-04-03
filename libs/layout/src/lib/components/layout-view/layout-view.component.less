@@ -8,6 +8,7 @@ nz-layout {
   background: #fff;
   min-height: calc(100vh);
 }
+
 .test {
   background: @sider-bg no-repeat;
   height: 100%;
@@ -27,7 +28,7 @@ nz-layout {
 .ant-layout-sider-children {
   background-color: red;
 }
-.logo-container{
+.logo-container {
   position: relative;
   z-index: 2;
   display: flex;
@@ -48,7 +49,7 @@ nz-header {
 }
 
 nz-content {
-  margin: 16px;
+  margin: 16px 8px 0px 16px;
 }
 
 nz-breadcrumb {
@@ -63,4 +64,15 @@ nz-breadcrumb {
 
 nz-footer {
   text-align: center;
+}
+.sider-background {
+  height: 100vh;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  opacity: calc(0.2);
+}
+.layout-right{
+  margin-left: 200px;
 }
