@@ -20,11 +20,18 @@ import { Observable } from 'rxjs';
 export class ExamItemPointsFormViewComponent implements OnInit {
   @Input() answerFormModel$!: Observable<AnswerFormModel | null>;
   @Output() save = new EventEmitter<number>();
+  question = '';
+  answer = '';
+  correctAns = '';
+
   limit = 60;
   validateForm!: FormGroup;
 
   setValue() {
     this.answerFormModel$.subscribe((val) => {
+      this.question = val?.question || '';
+      this.answer = val?.answer || '';
+      this.correctAns = val?.correctAnswer || '';
       this.validateForm.patchValue(val || {});
       this.limit = val?.maxPoints || 0;
     });
@@ -68,9 +75,6 @@ export class ExamItemPointsFormViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      question: ['What is the ...'],
-      answer: ['The answer is ...'],
-      correctAnswer: ['The correct answer is ...'],
       points: [null, [Validators.required, this.confirmationValidator]],
     });
     this.setValue();
