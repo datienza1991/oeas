@@ -7,17 +7,7 @@
     [nzTrigger]="null"
   >
     <div style="position: relative; height: 100%; overflow: hidden">
-      <img
-        style="
-          height: 100%;
-          position: absolute;
-          z-index: 1;
-          top: 0px;
-          left: -820px;
-          opacity: calc(0.2);
-        "
-        src="assets/images/sider-bg.jpg"
-      />
+      <img class="sider-background" src="assets/images/sider-bg.jpg" />
       <div class="logo-container">
         <div class="logo">
           <img
@@ -94,7 +84,7 @@
         <li nz-menu-item (click)="onLogout()">Log out</li>
       </ul>
     </nz-dropdown-menu>
-    <nz-content>
+    <nz-content style="overflow-x: hidden; overflow-y: auto; height: 300px;">
       <router-outlet></router-outlet>
     </nz-content>
     <nz-footer
