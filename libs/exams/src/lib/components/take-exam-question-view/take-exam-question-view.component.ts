@@ -17,6 +17,7 @@ import {
 import { TakerExamQuestion } from '@batstateu/data-models';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { Editor, Toolbar } from 'ngx-editor';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -26,13 +27,23 @@ import { Observable } from 'rxjs';
 })
 export class TakeExamQuestionViewComponent implements OnInit {
   @Input() currentQuestion!: TakerExamQuestion;
-  @Input() question = "";
+  @Input() question = '';
   @Input() currentQuestion$!: Observable<TakerExamQuestion | null>;
   @Output() save = new EventEmitter();
-  @Input() videoVisible$! : Observable<boolean>;
+  @Input() videoVisible$!: Observable<boolean>;
   limit = 60;
   validateForm!: FormGroup;
-
+  editor!: Editor;
+  
+  toolbar: Toolbar = [
+    // default value
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
   confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
@@ -64,11 +75,11 @@ export class TakeExamQuestionViewComponent implements OnInit {
   cancel() {
     this.location.back();
   }
-  setQuestion(){
+  setQuestion() {
     this.currentQuestion$.subscribe((val) => {
-      if(val){
+      if (val) {
         this.question = val.question;
-        this.validateForm.patchValue({ answer: ''});
+        this.validateForm.patchValue({ answer: '' });
       }
     });
   }
@@ -77,9 +88,9 @@ export class TakeExamQuestionViewComponent implements OnInit {
     private modal: NzModalService,
     private location: Location
   ) {}
- 
 
   ngOnInit(): void {
+    this.editor = new Editor();
     this.validateForm = this.fb.group({
       answer: [null, [Validators.required]],
     });

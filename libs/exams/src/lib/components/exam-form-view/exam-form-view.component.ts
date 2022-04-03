@@ -57,6 +57,7 @@ export class ExamFormViewComponent implements OnInit, OnChanges, OnDestroy {
       });
     }
   }
+  
   setValue() {
     this.validateForm.patchValue({...this.examDetail, startOn: new Date(this.examDetail.startOn)});
   }

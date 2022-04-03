@@ -31,9 +31,9 @@
       ></batstateu-take-exam-camera-view>
     </div>
   </div>
-  <nz-form-item style="margin: 16px 0;">
+  <nz-form-item style="margin: 16px 0">
     <nz-form-control>
-      <div style="display: flex; justify-content: flex-end;">
+      <div style="display: flex; justify-content: flex-end">
         <button nz-button nzType="primary" [disabled]="!validateForm.valid">
           Submit
         </button>
@@ -42,13 +42,15 @@
   </nz-form-item>
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your answer!">
-      <textarea
-        placeholder="Place your answer here.."
-        rows="12"
-        nz-input
-        id="answer"
-        formControlName="answer"
-      ></textarea>
+      <div class="NgxEditor__Wrapper">
+        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+        </ngx-editor-menu>
+        <ngx-editor
+          formControlName="answer"
+          [editor]="editor"
+          [placeholder]="'Type here...'"
+        ></ngx-editor>
+      </div>
     </nz-form-control>
   </nz-form-item>
 </form>
