@@ -40,7 +40,7 @@ export class ExamRecordingViewComponent implements OnInit, OnDestroy {
       fluid: false,
       loop: false,
       width: 640,
-      height: 560,
+      height: 400,
       bigPlayButton: true,
       sources: {
         src: this.url,
