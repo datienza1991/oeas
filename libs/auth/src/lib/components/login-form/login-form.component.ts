@@ -9,7 +9,7 @@ import { Authenticate } from '@batstateu/data-models';
 @Component({
   selector: 'batstateu-login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.css'],
+  styleUrls: ['./login-form.component.less'],
 })
 export class LoginFormComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
