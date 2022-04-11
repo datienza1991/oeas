@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { QuestionDetail } from '@batstateu/data-models';
 import { QuestionService } from '@batstateu/shared';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { toHTML } from 'ngx-editor';
 
 @Component({
   selector: 'batstateu-question-form',
@@ -13,24 +14,33 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 export class QuestionFormComponent implements OnInit {
   questionDetail!: QuestionDetail;
 
-  onSave(val: QuestionDetail) {
+  onSave(val: any) {
     const examId = Number(this.route.snapshot.paramMap.get('examId'));
     if (this.questionDetail && this.questionDetail.id > 0) {
-      this.questionService.edit({...val, id: this.questionDetail.id}).subscribe(() =>
-        this.modal.success({
-          nzTitle: 'Success',
-          nzContent: 'Record has been saved',
-          nzOkText: 'Ok',
-        })
-      );
+      this.questionService
+        .edit({ ...val, id: this.questionDetail.id })
+        .subscribe(() =>
+          this.modal.success({
+            nzTitle: 'Success',
+            nzContent: 'Record has been saved',
+            nzOkText: 'Ok',
+          })
+        );
     } else {
-      this.questionService.add({...val, examId: examId}).subscribe(() => {
-        this.modal.success({
-          nzTitle: 'Success',
-          nzContent: 'Record has been saved',
-          nzOnOk: () => this.location.back(),
+      this.questionService
+        .add({
+          ...val,
+          examId: examId,
+          question: toHTML(val.question),
+          correctAnswer: toHTML(val.correctAnswer),
+        })
+        .subscribe(() => {
+          this.modal.success({
+            nzTitle: 'Success',
+            nzContent: 'Record has been saved',
+            nzOnOk: () => this.location.back(),
+          });
         });
-      });
     }
   }
   getValues() {
@@ -49,7 +59,6 @@ export class QuestionFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
     this.getValues();
   }
 }
