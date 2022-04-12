@@ -18,16 +18,11 @@ import { SharedModule } from '@batstateu/shared';
     NgZorroAntdModule,
     SharedModule,
     RouterModule.forChild([
-      { path: '', pathMatch : 'full', redirectTo: "users" },
-      { path: 'users', component: UsersComponent},
-      { path: 'users/:id/edit', component: UserFormComponent},
-      { path: 'users/add', component: UserFormComponent},
+      { path: '', pathMatch: 'full', redirectTo: 'users' },
+      { path: 'users', component: UsersComponent },
+      { path: 'users/:id/edit', component: UserFormComponent },
     ]),
   ],
-  declarations: [
-    UsersComponent,
-    UserListComponent,
-    UserFormComponent,
-  ],
+  declarations: [UsersComponent, UserListComponent, UserFormComponent],
 })
 export class SettingModule {}
