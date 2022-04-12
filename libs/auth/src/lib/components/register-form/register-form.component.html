@@ -1,61 +1,63 @@
-<div class="register-form">
-  <nz-card nzTitle="Register" [nzExtra]="extraTemplate">
-    <form
-      nz-form
-      [formGroup]="validateForm"
-      (ngSubmit)="submitForm()"
-      [nzLayout]="'vertical'"
-    >
-      <nz-form-item>
-        <nz-form-label nzRequired nzFor="srcode">Username</nz-form-label>
-        <nz-form-control nzErrorTip="The input is not valid username!">
-          <input
-            nz-input
-            formControlName="username"
-            id="srcode"
-            placeholder="Srcode or Faculty code only"
-          />
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label nzFor="password" nzRequired>Password</nz-form-label>
-        <nz-form-control nzErrorTip="Please input your password!">
-          <input
-            nz-input
-            type="password"
-            id="password"
-            formControlName="password"
-            (ngModelChange)="updateConfirmValidator()"
-          />
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label nzFor="checkPassword" nzRequired
-          >Retype Password</nz-form-label
-        >
-        <nz-form-control [nzErrorTip]="errorTpl">
-          <input
-            nz-input
-            type="password"
-            formControlName="checkPassword"
-            id="checkPassword"
-          />
-          <ng-template #errorTpl let-control>
-            <ng-container *ngIf="control.hasError('required')"
-              >Please confirm your password!</ng-container
-            >
-            <ng-container *ngIf="control.hasError('confirm')">
-              Two passwords that you enter is inconsistent!
-            </ng-container>
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item class="register-area">
-        <button nz-button nzType="primary">Register</button>
-      </nz-form-item>
-    </form>
-  </nz-card>
-  <ng-template #extraTemplate>
-    <a routerLink="/auth/login">Login Now</a>
-  </ng-template>
+<div class="main">
+  <div class="register-container">
+    <nz-card nzTitle="Register" [nzExtra]="extraTemplate">
+      <form
+        nz-form
+        [formGroup]="validateForm"
+        (ngSubmit)="submitForm()"
+        [nzLayout]="'vertical'"
+      >
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="srcode">Username</nz-form-label>
+          <nz-form-control nzErrorTip="The input is not valid username!">
+            <input
+              nz-input
+              formControlName="username"
+              id="srcode"
+              placeholder="Srcode or Faculty code only"
+            />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="password" nzRequired>Password</nz-form-label>
+          <nz-form-control nzErrorTip="Please input your password!">
+            <input
+              nz-input
+              type="password"
+              id="password"
+              formControlName="password"
+              (ngModelChange)="updateConfirmValidator()"
+            />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="checkPassword" nzRequired
+            >Retype Password</nz-form-label
+          >
+          <nz-form-control [nzErrorTip]="errorTpl">
+            <input
+              nz-input
+              type="password"
+              formControlName="checkPassword"
+              id="checkPassword"
+            />
+            <ng-template #errorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')"
+                >Please confirm your password!</ng-container
+              >
+              <ng-container *ngIf="control.hasError('confirm')">
+                Two passwords that you enter is inconsistent!
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="register-area">
+          <button nz-button nzType="primary">Register</button>
+        </nz-form-item>
+      </form>
+    </nz-card>
+    <ng-template #extraTemplate>
+      <a routerLink="/auth/login">Login Now</a>
+    </ng-template>
+  </div>
 </div>
