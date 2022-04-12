@@ -27,7 +27,7 @@
             "output": "./assets"
           }
         ],
-        "styles": ["apps/oeas/src/styles.less"],
+        "styles": ["apps/oeas/src/styles.less", "libs/shared/src/lib/styles/base.less"],
         "scripts": []
       },
       "configurations": {
