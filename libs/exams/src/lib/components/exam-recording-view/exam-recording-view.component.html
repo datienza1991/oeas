@@ -1,19 +1,20 @@
-<nz-page-header class="site-page-header" nzTitle="Recording Playback">
-  <nz-breadcrumb nz-page-header-breadcrumb>
-    <nz-breadcrumb-item>Exams</nz-breadcrumb-item>
-    <nz-breadcrumb-item> Takers </nz-breadcrumb-item>
-    <nz-breadcrumb-item>Recording</nz-breadcrumb-item>
-  </nz-breadcrumb>
-</nz-page-header>
+<div class="m-3" style="height: 100%;">
+  <nz-page-header class="site-page-header" nzTitle="Recording Playback">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+      <nz-breadcrumb-item>Exams</nz-breadcrumb-item>
+      <nz-breadcrumb-item> Takers </nz-breadcrumb-item>
+      <nz-breadcrumb-item>Recording</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </nz-page-header>
 
-<div class="video-container">
-  <video
-    id="video_{{ idx }}"
-    class="video-js vjs-default-skin vjs-big-play-centered"
-    playsinline
-  ></video>
-</div>
-
-<div style="display: flex; justify-content: right">
-  <a nz-button nzType="default" routerLink="../..">Back</a>
+  <div class="video-container" style="display: flex; align-items: center">
+    <video
+      id="video_{{ idx }}"
+      class="video-js vjs-default-skin vjs-big-play-centered"
+      playsinline
+    ></video>
+  </div>
+  <div style="display: flex; justify-content: right">
+    <a nz-button nzType="default" routerLink="../..">Back</a>
+  </div>
 </div>
