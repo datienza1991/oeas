@@ -16,7 +16,11 @@ import * as fromAuth from '../../+state/auth.reducer';
 import * as authActions from './../../+state/auth.actions';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private router: Router, private modal: NzModalService, private store: Store<fromAuth.State>) {}
+  constructor(
+    private router: Router,
+    private modal: NzModalService,
+    private store: Store<fromAuth.State>
+  ) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -39,12 +43,26 @@ export class AuthInterceptor implements HttpInterceptor {
               nzTitle: 'Update your profile now!',
               nzContent: `Please update your profile now so administrator can review and activate it!`,
             });
-          }else if(err.status === 0){
+          } 
+          else if (err.status === 0) {
             this.modal.error({
               nzTitle: 'Error',
               nzContent: `Can't connect to server!`,
             });
-          } else {
+          }
+          else if (err.error.code === 1010) {
+            this.modal.error({
+              nzTitle: 'Error',
+              nzContent: `Record is related to other record. Cannot delete!`,
+            });
+          }
+          else if (err.error.code === 1013) {
+            this.modal.error({
+              nzTitle: 'Error',
+              nzContent: `Invalid Input!`,
+            });
+          }
+           else {
             this.modal.error({
               nzTitle: 'Error',
               nzContent: `Code: ${err.error.code} ${err.error.message}`,
