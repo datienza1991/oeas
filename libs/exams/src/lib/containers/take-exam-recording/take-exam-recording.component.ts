@@ -11,7 +11,7 @@ import { Record, TsEBMLEngine } from '@batstateu/videojs-record';
 import videojs from 'video.js';
 import * as RecordRTC from 'recordrtc';
 import { TakeExamService } from '../../services/take-exam/take-exam.service';
-import { Observable } from 'rxjs';
+import { Observable, timer } from 'rxjs';
 
 @Component({
   selector: 'batstateu-take-exam-recording',
@@ -28,22 +28,21 @@ export class TakeExamRecordingComponent
 
   idx = 'clip1';
   isRecording = false;
-  isIntialStart = false;
   private config: any;
   private player: any;
   private plugin: any;
   limit!: number;
+  interval: any;
+  timeLeft = 5;
 
   onTabActive() {
     this.tabActive$.subscribe((isActive) => {
-      if (this.isRecording && !this.isIntialStart) {
+      if (this.isRecording) {
         if (isActive) {
           this.player.record().pause();
         } else {
           this.player.record().resume();
         }
-      } else if (this.isRecording && this.isIntialStart) {
-        this.player.record().pause();
       }
     });
   }
@@ -120,8 +119,8 @@ export class TakeExamRecordingComponent
     this.player.on('deviceReady', () => {
       console.log('device is ready!');
       this.isRecording = true;
-      this.isIntialStart = true;
       this.player.record().start();
+      this.startTimerPauseRecording();
       this.startExam.emit();
     });
 
@@ -176,6 +175,17 @@ export class TakeExamRecordingComponent
         this.onTabActive();
       }
     });
+  }
+
+  startTimerPauseRecording() {
+    this.interval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        this.player.record().pause();
+        clearInterval(this.interval);
+      }
+    }, 1000);
   }
 
   ngAfterViewInit(): void {}
