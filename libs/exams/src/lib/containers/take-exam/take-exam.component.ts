@@ -68,6 +68,8 @@ export class TakeExamComponent implements OnInit {
   videoVisible$ = this.videoVisibleSubject$.asObservable();
   cameraVisible = false;
   hasInactiveStatus = false;
+  tabActiveSubject$ = new BehaviorSubject<boolean | null>(null);
+  tabActive$ = this.tabActiveSubject$.asObservable();
 
   @HostListener('document:visibilitychange') documentVisibilityEvent() {
     if (
@@ -75,11 +77,17 @@ export class TakeExamComponent implements OnInit {
       this.takeExamState == ExamState.takeExamQuestionView
     ) {
       this.hasInactiveStatus = true;
+      this.tabActiveSubject$.next(false);
+    } else {
+      this.tabActiveSubject$.next(true);
     }
   }
   @HostListener('window:blur') documentBlurEvent() {
     if (this.takeExamState == ExamState.takeExamQuestionView) {
       this.hasInactiveStatus = true;
+      this.tabActiveSubject$.next(false);
+    } else {
+      this.tabActiveSubject$.next(true);
     }
   }
   ngOnInit(): void {

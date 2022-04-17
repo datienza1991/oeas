@@ -22,17 +22,31 @@ export class TakeExamRecordingComponent
   implements OnInit, OnDestroy, AfterViewInit
 {
   @Input() limit$!: Observable<number>;
-
+  @Input() tabActive$!: Observable<boolean | null>;
   @Output() startExam = new EventEmitter();
   @Output() uploadRecord = new EventEmitter();
 
   idx = 'clip1';
-
+  isRecording = false;
+  isIntialStart = false;
   private config: any;
   private player: any;
   private plugin: any;
   limit!: number;
 
+  onTabActive() {
+    this.tabActive$.subscribe((isActive) => {
+      if (this.isRecording && !this.isIntialStart) {
+        if (isActive) {
+          this.player.record().pause();
+        } else {
+          this.player.record().resume();
+        }
+      } else if (this.isRecording && this.isIntialStart) {
+        this.player.record().pause();
+      }
+    });
+  }
   onStartRecord() {
     this.player.record().getDevice();
   }
@@ -105,6 +119,8 @@ export class TakeExamRecordingComponent
     // device is ready
     this.player.on('deviceReady', () => {
       console.log('device is ready!');
+      this.isRecording = true;
+      this.isIntialStart = true;
       this.player.record().start();
       this.startExam.emit();
     });
@@ -157,6 +173,7 @@ export class TakeExamRecordingComponent
         this.limit = val;
         this.init();
         this.initScreenRecorder();
+        this.onTabActive();
       }
     });
   }
