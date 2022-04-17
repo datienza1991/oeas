@@ -17,13 +17,26 @@ import { Observable } from 'rxjs';
   templateUrl: './take-exam-camera-view.component.html',
   styleUrls: ['./take-exam-camera-view.component.css'],
 })
-export class TakeExamCameraViewComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TakeExamCameraViewComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   @Input() videoVisible$!: Observable<boolean>;
+  @Input() tabActive$!: Observable<boolean | null>;
   videoVisible!: boolean;
   private videoPlayer: any;
   private videoConf: any;
   idx2 = 'clip2';
   limit = 0;
+
+  onTabActive() {
+    this.tabActive$.subscribe((isActive) => {
+      if (isActive) {
+
+      } else {
+
+      }
+    });
+  }
   setVideoVisible() {
     this.videoVisible$.subscribe((val) => {
       if (val) {
@@ -50,20 +63,25 @@ export class TakeExamCameraViewComponent implements OnInit, AfterViewInit, OnDes
     this.videoPlayer.on('error', function (element: any, error: any) {
       console.error(error);
     });
+    this.videoPlayer.on('enterPIP', function (element: any, evt: any) {
+      console.log('Entered Picture-in-Picture');
+    });
     this.videoPlayer.record().getDevice();
   }
   constructor() {
     // video.js configuration
     this.videoConf = {
-      controls: false,
+      controls: true,
       width: 320,
       height: 240,
       fluid: false,
-     
+
       plugins: {
         record: {
+          pip: true,
           audio: false,
           video: true,
+
           displayMilliseconds: false,
           debug: true,
         },
@@ -72,6 +90,7 @@ export class TakeExamCameraViewComponent implements OnInit, AfterViewInit, OnDes
   }
   ngAfterViewInit(): void {
     this.initCameraView();
+    this.onTabActive();
   }
 
   ngOnInit(): void {}
