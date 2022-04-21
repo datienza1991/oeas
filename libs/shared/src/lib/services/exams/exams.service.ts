@@ -39,6 +39,7 @@ export class ExamsService {
               name: val.name,
               schedule: val.startOn,
               duration: val.duration,
+              id: val.id
             });
           });
 
