@@ -44,7 +44,18 @@
         <td>{{ data?.startOn }}</td>
         <td>{{ data?.duration }} mins</td>
         <td>{{ data?.department }}</td>
-        <td>{{ data?.isActive || false | status }}</td>
+        <td>
+          <button
+            *ngIf="!isStudent"
+            nz-button
+            nzType="default"
+            [nzSize]="'small'"
+            (click)="onChangeStatus(data?.id, data?.isActive)"
+          >
+            {{ data?.isActive || false | status }}
+          </button>
+          <div *ngIf="isStudent">{{ data?.isActive || false | status }}</div>
+        </td>
         <td>
           <a
             *ngIf="isStudent"
