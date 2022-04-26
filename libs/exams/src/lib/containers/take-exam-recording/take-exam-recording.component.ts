@@ -39,7 +39,7 @@ export class TakeExamRecordingComponent
     this.tabActive$.subscribe((isActive) => {
       if (this.isRecording) {
         if (isActive) {
-          this.player.record().pause();
+          this.startTimerPauseRecording();
         } else {
           this.player.record().resume();
         }
@@ -182,6 +182,7 @@ export class TakeExamRecordingComponent
       if (this.timeLeft > 0) {
         this.timeLeft--;
       } else {
+        this.timeLeft = 10;
         this.player.record().pause();
         clearInterval(this.interval);
       }

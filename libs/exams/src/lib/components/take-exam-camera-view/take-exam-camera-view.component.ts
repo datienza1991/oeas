@@ -27,16 +27,6 @@ export class TakeExamCameraViewComponent
   private videoConf: any;
   idx2 = 'clip2';
   limit = 0;
-
-  onTabActive() {
-    this.tabActive$.subscribe((isActive) => {
-      if (isActive) {
-
-      } else {
-
-      }
-    });
-  }
   setVideoVisible() {
     this.videoVisible$.subscribe((val) => {
       if (val) {
@@ -71,14 +61,14 @@ export class TakeExamCameraViewComponent
   constructor() {
     // video.js configuration
     this.videoConf = {
-      controls: true,
+      controls: false,
       width: 320,
       height: 240,
       fluid: false,
 
       plugins: {
         record: {
-          pip: true,
+          pip: false,
           audio: false,
           video: true,
 
@@ -90,7 +80,6 @@ export class TakeExamCameraViewComponent
   }
   ngAfterViewInit(): void {
     this.initCameraView();
-    this.onTabActive();
   }
 
   ngOnInit(): void {}
