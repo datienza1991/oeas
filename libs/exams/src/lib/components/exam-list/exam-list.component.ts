@@ -21,6 +21,7 @@ export class ExamListComponent {
   @Input() isStudent!: boolean;
   @Output() deleteRecord = new EventEmitter<number>();
   @Output() search = new EventEmitter<string>();
+  @Output() changeStatus = new EventEmitter();
   searchText = '';
   constructor(private modal: NzModalService) {}
 
@@ -35,5 +36,8 @@ export class ExamListComponent {
   }
   onSearchChange(criteria: string) {
     this.search.emit(criteria);
+  }
+  onChangeStatus(id? : number, status?: boolean){
+    this.changeStatus.emit({id,status});
   }
 }

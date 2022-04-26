@@ -1,39 +1,35 @@
 <div class="stats-container">
   <h4 style="margin-bottom: 24px" nz-typography>Upcomings</h4>
-  <div class="row" nz-row [nzGutter]="[16,24]">
+  <div class="row" nz-row [nzGutter]="[16, 24]">
     <div
       *ngFor="let item of upcomingExams"
       nz-col
       [nzSpan]="6"
       class="gutter-row"
     >
-      <nz-card [nzCover]="coverTemplate">
-        <h5 style="margin: 0 0 14px" nz-typography>{{ item.name }}</h5>
+      <div *ngIf="item.isActive">
+        <nz-card [nzCover]="coverTemplate" [nzActions]="[actionOpen]">
+          <h5 style="margin: 0 0 14px" nz-typography>{{ item.name }}</h5>
 
-        <p class="sub-detail">{{ item.schedule | date: 'medium' }}</p>
-        <p class="sub-detail">{{ item.duration }} mins</p>
-      </nz-card>
+          <p class="sub-detail">{{ item.schedule | date: 'medium' }}</p>
+          <p class="sub-detail">{{ item.duration }} mins</p>
+        </nz-card>
 
-      <ng-template #coverTemplate>
-        <img
-          alt="example"
-          src="assets/images/take-exam-1.jpg"
-        />
-      </ng-template>
-      <ng-template #actionSetting>
-        <i nz-icon nzType="setting"></i>
-      </ng-template>
-      <ng-template #actionEdit>
-        <i nz-icon nzType="edit"></i>
-      </ng-template>
-      <ng-template #actionEllipsis>
-        <i
-          nz-icon
-          nzType="folder-open"
-          nzTheme="twotone"
-          nz-tooltip="Open Examination"
-        ></i>
-      </ng-template>
+        <ng-template #coverTemplate>
+          <img alt="example" src="assets/images/take-exam-1.jpg" />
+        </ng-template>
+        <ng-template #actionOpen>
+          <i
+            (click)="openExam(item?.id)"
+            nz-icon
+            nzType="folder-open"
+            nzTheme="twotone"
+            [nzTwotoneColor]="'#d30000'"
+            nz-tooltip="Open"
+            style="font-size: 24px"
+          ></i>
+        </ng-template>
+      </div>
     </div>
   </div>
 </div>

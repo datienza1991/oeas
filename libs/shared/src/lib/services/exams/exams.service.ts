@@ -18,6 +18,13 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ExamsService {
+  changeStatus(id?: number, status?: boolean): Observable<number> {
+    return this.httpClient
+      .put<number>(`${this.appConfig.API_URL}/records/exams/${id}`, {
+        isActive: status,
+      })
+      .pipe(map((res: number) => res));
+  }
   getAllStartOn(
     date: string,
     sectionId: number | null,
@@ -39,6 +46,8 @@ export class ExamsService {
               name: val.name,
               schedule: val.startOn,
               duration: val.duration,
+              id: val.id,
+              isActive: val.isActive,
             });
           });
 

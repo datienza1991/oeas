@@ -35,6 +35,11 @@ export class ExamsComponent implements OnInit {
       this.cd.detectChanges();
     });
   }
+  onChangeStatus(value : any){
+    this.examService.changeStatus(value.id,!value.status).subscribe(() => {
+      this.getAll(this.criteria);
+    });
+  }
   onDelete(id: number) {
     this.examService.delete(id).subscribe(() => {
       this.modal.success({

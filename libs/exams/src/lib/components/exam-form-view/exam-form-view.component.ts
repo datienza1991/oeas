@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import {
   Component,
   DoCheck,
@@ -15,6 +16,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Exam, Section } from '@batstateu/data-models';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -57,7 +59,9 @@ export class ExamFormViewComponent implements OnInit, OnChanges, OnDestroy {
       });
     }
   }
-  
+  onBack(){
+    this.location.back();
+  }
   setValue() {
     this.validateForm.patchValue({...this.examDetail, startOn: new Date(this.examDetail.startOn)});
   }
@@ -77,7 +81,7 @@ export class ExamFormViewComponent implements OnInit, OnChanges, OnDestroy {
     return {};
   };
 
-  constructor(private fb: FormBuilder, private modal: NzModalService) {}
+  constructor(private fb: FormBuilder, private modal: NzModalService, private location: Location) {}
   ngOnDestroy(): void {
     this.editor.destroy();
   }
