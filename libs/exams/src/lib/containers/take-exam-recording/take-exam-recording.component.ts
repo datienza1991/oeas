@@ -51,6 +51,7 @@ export class TakeExamRecordingComponent
   }
   onStopRecord() {
     this.player.record().stopDevice();
+    clearInterval(this.interval);
   }
 
   init() {

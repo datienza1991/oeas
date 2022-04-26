@@ -6,6 +6,7 @@ import {
   Inject,
   NgZone,
   HostListener,
+  AfterViewInit,
 } from '@angular/core';
 
 import { Location } from '@angular/common';
@@ -21,7 +22,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ExamsService, TakeExamService, UserService } from '@batstateu/shared';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { APP_CONFIG } from '@batstateu/app-config';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, interval, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromAuth from '@batstateu/auth';
 import { CdTimerComponent } from 'angular-cd-timer';
@@ -32,7 +33,7 @@ import { TakeExamCameraViewComponent } from '../../components/take-exam-camera-v
   styleUrls: ['./take-exam.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TakeExamComponent implements OnInit {
+export class TakeExamComponent implements OnInit, AfterViewInit {
   @ViewChild(TakeExamRecordingComponent)
   takeExamRecording!: TakeExamRecordingComponent;
   @ViewChild(TakeExamCameraViewComponent)
@@ -70,26 +71,78 @@ export class TakeExamComponent implements OnInit {
   hasInactiveStatus = false;
   tabActiveSubject$ = new BehaviorSubject<boolean | null>(null);
   tabActive$ = this.tabActiveSubject$.asObservable();
+  takeExamInterval: any;
+  timeLeft = 30;
+  initial = true;
+  timerExitSource$ = interval(1000);
+  timerExitSubcription$!: any;
+  tabActive = true;
+  //TODO: Fix timer codes
+  startTimerExitExam() {
+    this.timerExitSubcription$ = this.timerExitSource$.subscribe((val) => {
+      console.log(val);
+      console.log(this.timeLeft);
+      if (this.timeLeft <= 0) {
+        this.onCompleteTimer();
+        setTimeout(() => this.timerExitSubcription$.unsubscribe(), 100);
+      } else {
+        this.timeLeft--;
+      }
+    });
+    // this.takeExamInterval = setInterval(() => {
+    //   if (this.timeLeft > 0) {
+    //     this.timeLeft--;
+    //   } else {
+    //     clearInterval(this.takeExamInterval);
+    //     this.onFinishExamination();
+
+    //   }
+    // }, 1000);
+  }
 
   @HostListener('document:visibilitychange') documentVisibilityEvent() {
     if (
       document.visibilityState === 'hidden' &&
       this.takeExamState == ExamState.takeExamQuestionView
     ) {
+      this.tabActive = false;
+      console.log('start exit timer');
       this.hasInactiveStatus = true;
+      this.startTimerExitExam();
+
       this.tabActiveSubject$.next(false);
-    } else {
+    } else if (this.takeExamState != ExamState.instructionView) {
+      this.tabActive = true;
+      console.log('stop exit timer');
+      setTimeout(() => this.timerExitSubcription$.unsubscribe(), 1000);
       this.tabActiveSubject$.next(true);
+      if(this.timeLeft > 0){
+        this.modal.warning({
+          nzTitle: 'Inactivity Limit',
+          nzContent: `You only have ${this.timeLeft} seconds to be inactive. Examination will exit automatically after limit has reach!`,
+        });
+      }
+      
     }
   }
-  @HostListener('window:blur') documentBlurEvent() {
-    if (this.takeExamState == ExamState.takeExamQuestionView) {
-      this.hasInactiveStatus = true;
-      this.tabActiveSubject$.next(false);
-    } else {
-      this.tabActiveSubject$.next(true);
-    }
-  }
+  // @HostListener('window:blur') documentBlurEvent() {
+  //   if (this.takeExamState == ExamState.takeExamQuestionView) {
+  //     console.log('start exit timer');
+  //     this.hasInactiveStatus = true;
+  //     this.tabActive = false;
+  //     this.startTimerExitExam();
+  //     this.tabActiveSubject$.next(false);
+  //   } else if (this.takeExamState != ExamState.instructionView) {
+  //     this.tabActive = true;
+  //     console.log('stop exit timer');
+  //     setTimeout(() => this.timerExitSubcription$.unsubscribe(), 1000);
+  //     this.tabActiveSubject$.next(true);
+  //     this.modal.warning({
+  //       nzTitle: 'Inactivity Limit',
+  //       nzContent: `You only have ${this.timeLeft} to be inactive. Examination will exit automatically after limit has reach!`,
+  //     });
+  //   }
+  // }
   ngOnInit(): void {
     this.examId = Number(this.route.snapshot.paramMap.get('examId'));
     this.getUser();
@@ -266,4 +319,5 @@ export class TakeExamComponent implements OnInit {
     private userService: UserService,
     private zone: NgZone
   ) {}
+  ngAfterViewInit(): void {}
 }
