@@ -119,8 +119,23 @@ export class TakeExamComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.examId = Number(this.route.snapshot.paramMap.get('examId'));
     this.getUser();
-    this.checkHasExamRecord();
+    this.checkExamStatus();
     this.getExamInstruction();
+  }
+  checkExamStatus() {
+    this.examService.get(this.examId).subscribe((val) => {
+      if (!val.isActive) {
+        this.modal.error({
+          nzTitle: 'Not Active Exam',
+          nzContent: `Examination is not Active! <br/> Click Ok to proceed.`,
+          nzOnOk: () => {
+            this.goToResults();
+          },
+        });
+      } else {
+        this.checkHasExamRecord();
+      }
+    });
   }
   checkHasExamRecord() {
     this.takeExamService
