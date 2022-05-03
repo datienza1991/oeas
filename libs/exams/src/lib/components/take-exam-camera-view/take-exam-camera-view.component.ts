@@ -17,8 +17,11 @@ import { Observable } from 'rxjs';
   templateUrl: './take-exam-camera-view.component.html',
   styleUrls: ['./take-exam-camera-view.component.css'],
 })
-export class TakeExamCameraViewComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TakeExamCameraViewComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   @Input() videoVisible$!: Observable<boolean>;
+  @Input() tabActive$!: Observable<boolean | null>;
   videoVisible!: boolean;
   private videoPlayer: any;
   private videoConf: any;
@@ -50,6 +53,9 @@ export class TakeExamCameraViewComponent implements OnInit, AfterViewInit, OnDes
     this.videoPlayer.on('error', function (element: any, error: any) {
       console.error(error);
     });
+    this.videoPlayer.on('enterPIP', function (element: any, evt: any) {
+      console.log('Entered Picture-in-Picture');
+    });
     this.videoPlayer.record().getDevice();
   }
   constructor() {
@@ -59,11 +65,13 @@ export class TakeExamCameraViewComponent implements OnInit, AfterViewInit, OnDes
       width: 320,
       height: 240,
       fluid: false,
-     
+
       plugins: {
         record: {
+          pip: false,
           audio: false,
           video: true,
+
           displayMilliseconds: false,
           debug: true,
         },

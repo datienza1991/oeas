@@ -11,7 +11,7 @@ import { Record, TsEBMLEngine } from '@batstateu/videojs-record';
 import videojs from 'video.js';
 import * as RecordRTC from 'recordrtc';
 import { TakeExamService } from '../../services/take-exam/take-exam.service';
-import { Observable } from 'rxjs';
+import { Observable, timer } from 'rxjs';
 
 @Component({
   selector: 'batstateu-take-exam-recording',
@@ -22,22 +22,36 @@ export class TakeExamRecordingComponent
   implements OnInit, OnDestroy, AfterViewInit
 {
   @Input() limit$!: Observable<number>;
-
+  @Input() tabActive$!: Observable<boolean | null>;
   @Output() startExam = new EventEmitter();
   @Output() uploadRecord = new EventEmitter();
 
   idx = 'clip1';
-
+  isRecording = false;
   private config: any;
   private player: any;
   private plugin: any;
   limit!: number;
+  interval: any;
+  timeLeft = 5;
 
+  onTabActive() {
+    this.tabActive$.subscribe((isActive) => {
+      if (this.isRecording) {
+        if (isActive) {
+          this.startTimerPauseRecording();
+        } else {
+          this.player.record().resume();
+        }
+      }
+    });
+  }
   onStartRecord() {
     this.player.record().getDevice();
   }
   onStopRecord() {
     this.player.record().stopDevice();
+    clearInterval(this.interval);
   }
 
   init() {
@@ -105,7 +119,9 @@ export class TakeExamRecordingComponent
     // device is ready
     this.player.on('deviceReady', () => {
       console.log('device is ready!');
+      this.isRecording = true;
       this.player.record().start();
+      this.startTimerPauseRecording();
       this.startExam.emit();
     });
 
@@ -157,8 +173,21 @@ export class TakeExamRecordingComponent
         this.limit = val;
         this.init();
         this.initScreenRecorder();
+        this.onTabActive();
       }
     });
+  }
+
+  startTimerPauseRecording() {
+    this.interval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        this.timeLeft = 10;
+        this.player.record().pause();
+        clearInterval(this.interval);
+      }
+    }, 1000);
   }
 
   ngAfterViewInit(): void {}

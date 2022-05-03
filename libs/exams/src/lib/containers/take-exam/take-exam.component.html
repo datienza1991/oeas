@@ -28,6 +28,7 @@
       [question]="question"
       [currentQuestion$]="currentQuestion$"
       (save)="onSubmitAnswer($event)"
+      [tabActive$]="tabActive$"
     ></batstateu-take-exam-question-view>
   </div>
 
@@ -47,5 +48,6 @@
     [limit$]="limit$"
     (startExam)="onStartExam()"
     (uploadRecord)="onUploadRecord($event)"
+    [tabActive$]="tabActive$"
   ></batstateu-take-exam-recording>
 </div>
