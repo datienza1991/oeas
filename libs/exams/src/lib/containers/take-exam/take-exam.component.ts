@@ -77,7 +77,7 @@ export class TakeExamComponent implements OnInit, AfterViewInit {
   timerExitSource$ = interval(1000);
   timerExitSubcription$!: any;
   tabActive = true;
-  //TODO: Fix timer codes
+
   startTimerExitExam() {
     this.timerExitSubcription$ = this.timerExitSource$.subscribe((val) => {
       console.log(val);
@@ -89,15 +89,6 @@ export class TakeExamComponent implements OnInit, AfterViewInit {
         this.timeLeft--;
       }
     });
-    // this.takeExamInterval = setInterval(() => {
-    //   if (this.timeLeft > 0) {
-    //     this.timeLeft--;
-    //   } else {
-    //     clearInterval(this.takeExamInterval);
-    //     this.onFinishExamination();
-
-    //   }
-    // }, 1000);
   }
 
   @HostListener('document:visibilitychange') documentVisibilityEvent() {
@@ -116,33 +107,15 @@ export class TakeExamComponent implements OnInit, AfterViewInit {
       console.log('stop exit timer');
       setTimeout(() => this.timerExitSubcription$.unsubscribe(), 1000);
       this.tabActiveSubject$.next(true);
-      if(this.timeLeft > 0){
+      if (this.timeLeft > 0) {
         this.modal.warning({
           nzTitle: 'Inactivity Limit',
           nzContent: `You only have ${this.timeLeft} seconds to be inactive. Examination will exit automatically after limit has reach!`,
         });
       }
-      
     }
   }
-  // @HostListener('window:blur') documentBlurEvent() {
-  //   if (this.takeExamState == ExamState.takeExamQuestionView) {
-  //     console.log('start exit timer');
-  //     this.hasInactiveStatus = true;
-  //     this.tabActive = false;
-  //     this.startTimerExitExam();
-  //     this.tabActiveSubject$.next(false);
-  //   } else if (this.takeExamState != ExamState.instructionView) {
-  //     this.tabActive = true;
-  //     console.log('stop exit timer');
-  //     setTimeout(() => this.timerExitSubcription$.unsubscribe(), 1000);
-  //     this.tabActiveSubject$.next(true);
-  //     this.modal.warning({
-  //       nzTitle: 'Inactivity Limit',
-  //       nzContent: `You only have ${this.timeLeft} to be inactive. Examination will exit automatically after limit has reach!`,
-  //     });
-  //   }
-  // }
+
   ngOnInit(): void {
     this.examId = Number(this.route.snapshot.paramMap.get('examId'));
     this.getUser();
