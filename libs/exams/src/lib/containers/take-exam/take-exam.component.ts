@@ -83,7 +83,7 @@ export class TakeExamComponent implements OnInit, AfterViewInit {
       console.log(val);
       console.log(this.timeLeft);
       if (this.timeLeft <= 0) {
-        this.onCompleteTimer();
+        this.onFinishExamination();
         setTimeout(() => this.timerExitSubcription$.unsubscribe(), 100);
       } else {
         this.timeLeft--;
