@@ -34,9 +34,11 @@ export class TakeExamRecordingComponent
   limit!: number;
   interval: any;
   timeLeft = 5;
+  isTabActive = true;
 
   onTabActive() {
     this.tabActive$.subscribe((isActive) => {
+      this.isTabActive = isActive ?? true;
       if (this.isRecording) {
         if (isActive) {
           this.startTimerPauseRecording();
@@ -184,7 +186,9 @@ export class TakeExamRecordingComponent
         this.timeLeft--;
       } else {
         this.timeLeft = 10;
-        this.player.record().pause();
+        if (this.isTabActive) {
+          this.player.record().pause();
+        }
         clearInterval(this.interval);
       }
     }, 1000);
