@@ -44,7 +44,7 @@ export class UserFormViewComponent implements OnInit, OnChanges, DoCheck {
   @Input() userFormLocation!: UserFormLocation;
   @Input() isHideUserTypeList!: boolean;
   @Input() isSetting!: boolean;
-  
+
   UserFormTypeEnum = UserFormType;
   UserFormLocationEnum = UserFormLocation;
 
@@ -73,8 +73,11 @@ export class UserFormViewComponent implements OnInit, OnChanges, DoCheck {
     }
   }
   onChange(val: number) {
-    this.userFormType = val === 3 ? this.UserFormTypeEnum.STUDENT : this.UserFormTypeEnum.FACULTY_ADMIN;
-    if(this.userFormType === this.UserFormTypeEnum.STUDENT){
+    this.userFormType =
+      val === 3
+        ? this.UserFormTypeEnum.STUDENT
+        : this.UserFormTypeEnum.FACULTY_ADMIN;
+    if (this.userFormType === this.UserFormTypeEnum.STUDENT) {
       this.setSectionValidator();
     }
   }
@@ -96,8 +99,10 @@ export class UserFormViewComponent implements OnInit, OnChanges, DoCheck {
     if (this.userFormType === UserFormType.FACULTY_ADMIN) {
       this.validateForm.controls['sectionId'].clearValidators();
       this.validateForm.controls['sectionId'].updateValueAndValidity();
-    }else{
-      this.validateForm.controls['sectionId'].addValidators(Validators.required);
+    } else {
+      this.validateForm.controls['sectionId'].addValidators(
+        Validators.required
+      );
       this.validateForm.controls['sectionId'].updateValueAndValidity();
     }
   }
@@ -116,6 +121,7 @@ export class UserFormViewComponent implements OnInit, OnChanges, DoCheck {
       sectionId: [null],
       isActive: [{ value: false, disabled: true }],
       userTypeId: [null, [Validators.required]],
+      gender: [null, [Validators.required]],
     });
   }
 }

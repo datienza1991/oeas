@@ -58,6 +58,23 @@
         </div>
         <div nz-col [nzSpan]="12">
           <nz-form-item>
+            <nz-form-label nzFor="genderId" nzRequired
+              >Gender</nz-form-label
+            >
+            <nz-form-control nzErrorTip="Please select gender!">
+              <nz-select
+                id="genderId"
+                formControlName="gender"
+                nzPlaceHolder="Select gender"
+              >
+                <nz-option [nzValue]="'male'" nzLabel="Male"></nz-option>
+                <nz-option [nzValue]="'female'" nzLabel="Female"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
             <nz-form-label nzFor="contactNumber" nzRequired
               >Contact Number</nz-form-label
             >
