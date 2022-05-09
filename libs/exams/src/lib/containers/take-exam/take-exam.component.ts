@@ -72,7 +72,7 @@ export class TakeExamComponent implements OnInit, AfterViewInit {
   tabActiveSubject$ = new BehaviorSubject<boolean | null>(null);
   tabActive$ = this.tabActiveSubject$.asObservable();
   takeExamInterval: any;
-  timeLeft = 30;
+  timeLeft = 15;
   initial = true;
   timerExitSource$ = interval(1000);
   timerExitSubcription$!: any;
