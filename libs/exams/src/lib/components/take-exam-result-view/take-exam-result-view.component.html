@@ -4,7 +4,7 @@
   "
   [nzTitle]="examTitle"
   [nzSubTitle]="
-    percentage === null ? 'Thank you for taking this examination!' : percentage < 75 ? 'Sorry you failed the examination' : 'Good Job! You pass the Examination'
+    percentage === null ? 'Thank you for taking this examination!' : percentage < 75 ? 'Sorry you failed the examination' : 'Good Job! You passed the Examination'
   "
 >
 <div *ngIf="percentage !== null" nz-result-content style="text-align: center;">
