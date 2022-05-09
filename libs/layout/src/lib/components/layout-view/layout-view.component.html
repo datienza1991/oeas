@@ -38,7 +38,7 @@
         </li>
         <li
           *ngIf="
-            (user$ | async)?.isActive && (user$ | async)?.userType !== 'Student'
+            (user$ | async)?.isActive && (user$ | async)?.userType !== 'Student' && (user$ | async)?.userType !== 'Faculty'
           "
           nz-submenu
           nzTitle="Settings"
