@@ -30,13 +30,14 @@ export class ExamFormComponent implements OnInit {
           })
         );
     } else {
+
       this.examService
         .add({
           ...val,
           startOn: date,
           isActive: true,
           userDetailId: this.userStore?.userDetailId,
-          instructions: toHTML(val.instructions),
+          instructions: val.instructions,
         })
         .subscribe(() => {
           this.modal.success({
