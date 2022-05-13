@@ -125,11 +125,24 @@ export class TakeExamComponent implements OnInit, AfterViewInit {
   checkExamStatus() {
     this.examService.get(this.examId).subscribe((val) => {
       if (!val.isActive) {
-        this.modal.error({
+        this.modal.confirm({
           nzTitle: 'Not Active Exam',
-          nzContent: `Examination is not Active! <br/> Click Ok to proceed.`,
+          nzContent: `Examination is not Active! <br/> Do you want to view the result?`,
+          nzOkText: "Yes",
+          nzCancelText: "No",
+          nzOnCancel: () => {
+            this.router.navigate(['/exams']);
+          },
           nzOnOk: () => {
             this.goToResults();
+          },
+        });
+      } else if (val.questions.length === 0) {
+        this.modal.error({
+          nzTitle: 'Invalid Examination',
+          nzContent: `Examination has no question! <br/> Click Ok to proceed.`,
+          nzOnOk: () => {
+            this.router.navigate(['/exams']);
           },
         });
       } else {
