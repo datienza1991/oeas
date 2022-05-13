@@ -35,11 +35,14 @@ export class ExamFormViewComponent implements OnInit, OnChanges, OnDestroy {
   @Input() examDetail!: Exam;
   validateForm!: FormGroup;
   title = 'Add New';
-  instruction = `Subject: Important-Your Upcoming Exam The upcoming [Midterm/Final/Ect.] exam is facilitated using an online examination administration system.
-     In order to take the exam, there are some important steps you will need to take.
-     Failure to do so in a timely manner may result in your not having access to the exam.
-     Choose the entire screen when you share the screen.The application will request to access your camera and audio.
-     The examination has a time limit set by the faculty.Leaving your exam tab for 15 seconds will end your examination automatically.`;
+  instruction = `<h3><strong>Subject</strong>:</h3><h1><strong><u>Important</u></strong></h1><p>
+    Your Upcoming Exam The upcoming [Midterm/Final/Ect.] exam is facilitated using an online examination administration system.
+    </p><p>In order to take the exam, there are some important steps you will need to take.
+    </p><ul><li><p>Failure to do so in a timely manner may result in your not having access to the exam.
+    </p></li></ul><ul><li><p>Choose the entire screen when you share the screen.
+    </p></li><li><p>The application will request to access your camera and audio.
+    </p></li><li><p>The examination has a time limit set by the faculty.
+    </p></li><li><p>Leaving your exam tab for 15 seconds will end your examination automatically.</p></li></ul>`;
 
   toolbar: Toolbar = [
     // default value
