@@ -100,7 +100,7 @@ export class ExamsService {
   }
   get(id: number): Observable<Exam> {
     return this.httpClient.get<Exam>(
-      `${this.appConfig.API_URL}/records/exams/${id}`
+      `${this.appConfig.API_URL}/records/exams/${id}?join=questions`
     );
   }
   delete(id: number): Observable<number> {

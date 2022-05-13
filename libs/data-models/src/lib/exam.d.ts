@@ -1,3 +1,5 @@
+import { QuestionList } from "./question-list";
+
 export interface Exam{
     id : number,
     name: string,
@@ -7,5 +9,6 @@ export interface Exam{
     passers: string,
     department: string,
     isActive: boolean,
-    instructions : string
+    instructions : string,
+    questions: QuestionList[]
 }
