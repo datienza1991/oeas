@@ -10,6 +10,7 @@ import {
   ExamRecordViewModel,
   ExamTakerList,
   ExamTakerResultList,
+  ExamTakersTotalPoints,
   ResponseWrapper,
 } from '@batstateu/data-models';
 import { map, Observable } from 'rxjs';
@@ -18,6 +19,19 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ExamsService {
+  getAllExamTakersTotalPoints(
+    examId: number
+  ): Observable<ExamTakersTotalPoints[]> {
+    return this.httpClient
+      .get<ResponseWrapper<ExamTakersTotalPoints>>(
+        `${this.appConfig.API_URL}/records/v_ExamTakersTotalPoints?filter=examId,eq,${examId}`
+      )
+      .pipe(
+        map((res: ResponseWrapper<any>) => {
+          return res.records;
+        })
+      );
+  }
   changeStatus(id?: number, status?: boolean): Observable<number> {
     return this.httpClient
       .put<number>(`${this.appConfig.API_URL}/records/exams/${id}`, {
@@ -99,9 +113,20 @@ export class ExamsService {
       .pipe(map((res: number) => res));
   }
   get(id: number): Observable<Exam> {
-    return this.httpClient.get<Exam>(
-      `${this.appConfig.API_URL}/records/exams/${id}?join=questions`
-    );
+    return this.httpClient
+      .get<Exam>(
+        `${this.appConfig.API_URL}/records/exams/${id}?join=questions&join=sections,departments&join=userDetails`
+      )
+      .pipe(
+        map((res: any) => {
+          const exam: Exam = {
+            ...res,
+            department: res.sectionId.departmentId.name,
+            facultyName: `${res.userDetailId.firstName} ${res.userDetailId.lastName}`
+          };
+          return exam;
+        })
+      );
   }
   delete(id: number): Observable<number> {
     return this.httpClient.delete<number>(
@@ -131,7 +156,10 @@ export class ExamsService {
               ? res.records.filter((val) => val.sectionId.id == sectionId)
               : res.records.filter((val) => val.userDetailId == userDetailId);
           f_res.map((val) => {
-            rec.push({ ...val, department: val.sectionId.departmentId.name });
+            rec.push({
+              ...val,
+              departmentName: val.sectionId.departmentId.name,
+            });
           });
           return rec;
         })

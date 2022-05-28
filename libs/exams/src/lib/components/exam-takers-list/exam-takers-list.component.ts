@@ -17,6 +17,7 @@ export class ExamTakersListComponent implements OnInit {
   @Input() examTakerList: ExamTakerList[] = [];
   @Output() viewScore = new EventEmitter();
   @Output() search = new EventEmitter<string>();
+  @Output() print = new EventEmitter();
   searchText = '';
 
   listOfColumns: ColumnItem[] = [
@@ -27,6 +28,9 @@ export class ExamTakersListComponent implements OnInit {
       sortDirections: ['ascend', 'descend', null]
     }
   ];
+  onPrint(){
+    this.print.emit();
+  }
 
   onViewScore(userDetailId: number, examId: number){
     const takerExamIdObj = {userDetailId: userDetailId, examId: examId}

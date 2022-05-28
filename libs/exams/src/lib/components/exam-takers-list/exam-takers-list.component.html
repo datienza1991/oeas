@@ -5,6 +5,14 @@
       <nz-breadcrumb-item>Takers</nz-breadcrumb-item>
     </nz-breadcrumb>
     <nz-page-header-extra>
+      <button
+        style="width: 72px"
+        nz-button
+        nzType="primary"
+        (click)="onPrint()"
+      >
+        Print
+      </button>
       <nz-input-group style="width: 240px" [nzSuffix]="suffixIconSearch">
         <input
           type="text"

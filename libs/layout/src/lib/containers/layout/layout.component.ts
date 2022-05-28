@@ -6,6 +6,7 @@ import { AuthService, getUser } from '@batstateu/auth';
 import { Store } from '@ngrx/store';
 import { UserService } from '@batstateu/account';
 
+
 @Component({
   selector: 'batstateu-layout',
   templateUrl: './layout.component.html',
@@ -14,17 +15,19 @@ import { UserService } from '@batstateu/account';
 export class LayoutComponent implements OnInit {
   user$: Observable<User | null>;
   isCollapsed = false;
-  onCollapsed(isCollapsed : boolean){
-    this.isCollapsed = isCollapsed
+
+  
+  onCollapsed(isCollapsed: boolean) {
+    this.isCollapsed = isCollapsed;
   }
   constructor(
     private store: Store<fromAuth.State>,
     private userService: UserService,
-    private authService : AuthService
+    private authService: AuthService
   ) {
     this.user$ = this.store.select(getUser);
   }
-  onLogout(){
+  onLogout() {
     this.authService.logout();
   }
   ngOnInit(): void {
