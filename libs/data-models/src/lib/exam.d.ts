@@ -8,6 +8,7 @@ export interface Exam{
     duration: number,
     passers: string,
     department: string,
+    facultyName: string,
     isActive: boolean,
     instructions : string,
     questions: QuestionList[]
