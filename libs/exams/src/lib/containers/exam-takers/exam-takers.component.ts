@@ -10,7 +10,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, map } from 'rxjs';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+
 @Component({
   selector: 'batstateu-exam-takers',
   templateUrl: './exam-takers.component.html',
@@ -46,7 +46,9 @@ export class ExamTakersComponent implements OnInit {
     private route: ActivatedRoute,
     private modal: NzModalService,
     private departmentService: DepartmentService
-  ) {}
+  ) {
+    (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+  }
   getAll(criteria: string) {
     this.examService
       .getAllExamTakers(this.examId, criteria)
@@ -163,9 +165,9 @@ export class ExamTakersComponent implements OnInit {
         },
 
         this.table(this.examTakersTotalPoints, [
-          { key: 'fullName', name : "Full Name" },
-          { key: 'gender', name: "Gender" },
-          { key: 'percent', name: "Percentage" },
+          { key: 'fullName', name: 'Full Name' },
+          { key: 'gender', name: 'Gender' },
+          { key: 'percent', name: 'Percentage' },
         ]),
       ],
       images: {
