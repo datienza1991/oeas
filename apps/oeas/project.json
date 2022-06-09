@@ -10,7 +10,13 @@
       "options": {
         "allowedCommonJsDependencies": [
           "videojs-record/dist/videojs.record.js",
-          "recordrtc"
+          "recordrtc",
+          "pdfmake/build/pdfmake",
+          "videojs-record/dist/plugins/videojs.record.ts-ebml.js",
+          "@videojs/xhr",
+          "global/document",
+          "videojs-vtt.js"
+
         ],
         "outputPath": "dist/apps/oeas",
         "index": "apps/oeas/src/index.html",
@@ -28,7 +34,7 @@
           }
         ],
         "styles": ["apps/oeas/src/styles.less", "libs/shared/src/lib/styles/base.less"],
-        "scripts": []
+        "scripts": ["./node_modules/pdfmake/build/vfs_fonts.js"]
       },
       "configurations": {
         "production": {
