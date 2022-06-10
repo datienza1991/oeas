@@ -58,6 +58,27 @@
           ],
           "outputHashing": "all"
         },
+        "production-beta": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "1mb",
+              "maximumError": "3mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/oeas/src/environments/environment.ts",
+              "with": "apps/oeas/src/environments/environment.prod.beta.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
         "development": {
           "buildOptimizer": false,
           "optimization": false,
