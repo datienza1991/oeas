@@ -13,6 +13,7 @@ import {
   ExamTakersTotalPoints,
   ResponseWrapper,
 } from '@batstateu/data-models';
+import { rest } from 'lodash-es';
 import { map, Observable } from 'rxjs';
 
 @Injectable({
@@ -122,6 +123,7 @@ export class ExamsService {
           const exam: Exam = {
             ...res,
             department: res.sectionId.departmentId.name,
+            sectionId: res.sectionId.id,
             facultyName: `${res.userDetailId.firstName} ${res.userDetailId.lastName}`
           };
           return exam;
@@ -159,6 +161,7 @@ export class ExamsService {
             rec.push({
               ...val,
               departmentName: val.sectionId.departmentId.name,
+              department: val.sectionId.departmentId.name,
             });
           });
           return rec;

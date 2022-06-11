@@ -11,5 +11,6 @@ export interface Exam{
     facultyName: string,
     isActive: boolean,
     instructions : string,
+    sectionId: number,
     questions: QuestionList[]
 }
