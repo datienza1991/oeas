@@ -77,7 +77,8 @@ export class ExamFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser();
-    this.getValues();
     this.getSections();
+    this.getValues();
+    
   }
 }
