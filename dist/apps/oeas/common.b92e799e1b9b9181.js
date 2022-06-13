@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkoeas=self.webpackChunkoeas||[]).push([[592],{9119:(c,s,a)=>{a.d(s,{s:()=>n});var u=a(5e3);let n=(()=>{class e{transform(t){return t?"Active":"Inactive"}}return e.\u0275fac=function(t){return new(t||e)},e.\u0275pipe=u.Yjl({name:"status",type:e,pure:!0}),e})()}}]);
