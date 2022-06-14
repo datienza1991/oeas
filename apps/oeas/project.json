@@ -16,7 +16,6 @@
           "@videojs/xhr",
           "global/document",
           "videojs-vtt.js"
-
         ],
         "outputPath": "dist/apps/oeas",
         "index": "apps/oeas/src/index.html",
@@ -33,7 +32,10 @@
             "output": "./assets"
           }
         ],
-        "styles": ["apps/oeas/src/styles.less", "libs/shared/src/lib/styles/base.less"],
+        "styles": [
+          "apps/oeas/src/styles.less",
+          "libs/shared/src/lib/styles/base.less"
+        ],
         "scripts": ["./node_modules/pdfmake/build/vfs_fonts.js"]
       },
       "configurations": {
@@ -101,6 +103,9 @@
       "configurations": {
         "production": {
           "browserTarget": "oeas:build:production"
+        },
+        "production-beta": {
+          "browserTarget": "oeas:build:production-beta"
         },
         "development": {
           "browserTarget": "oeas:build:development"
