@@ -11,9 +11,9 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -33,7 +33,7 @@ export class ExamFormViewComponent implements OnInit, OnChanges, OnDestroy {
   @Output() save = new EventEmitter<Exam>();
   @Input() sections!: Section[];
   @Input() examDetail!: Exam;
-  validateForm!: FormGroup;
+  validateForm!: UntypedFormGroup;
   title = 'Add New';
 
   toolbar: Toolbar = [
@@ -72,7 +72,7 @@ export class ExamFormViewComponent implements OnInit, OnChanges, OnDestroy {
     );
   }
 
-  durationValidator = (control: FormControl): { [s: string]: boolean } => {
+  durationValidator = (control: UntypedFormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
     } else if (control.value <= 0) {
@@ -81,7 +81,7 @@ export class ExamFormViewComponent implements OnInit, OnChanges, OnDestroy {
     return {};
   };
 
-  constructor(private fb: FormBuilder, private modal: NzModalService, private location: Location) {}
+  constructor(private fb: UntypedFormBuilder, private modal: NzModalService, private location: Location) {}
   ngOnDestroy(): void {
     this.editor.destroy();
   }

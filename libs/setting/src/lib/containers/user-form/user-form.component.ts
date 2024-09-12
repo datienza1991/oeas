@@ -15,7 +15,7 @@ import {
 import { Store } from '@ngrx/store';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Observable } from 'rxjs';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import * as fromAuth from '@batstateu/auth';
 import { ActivatedRoute } from '@angular/router';
 @Component({
@@ -32,10 +32,10 @@ export class UserFormComponent implements OnInit {
   departments!: Department[];
   sections!: Section[];
   userTypes!: UserType[];
-  code! : string;
+  code!: string;
   userFormType = UserFormType.FACULTY_ADMIN;
   isSetting = true;
-  
+
   constructor(
     private store: Store<fromAuth.State>,
     private userService: UserService,

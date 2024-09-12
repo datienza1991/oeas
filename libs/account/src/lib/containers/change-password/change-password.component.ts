@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ChangePassword, User } from '@batstateu/data-models';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { UserService } from '@batstateu/shared';
 import { NzModalService } from 'ng-zorro-antd/modal';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import * as fromAuth from '@batstateu/auth';
 import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';

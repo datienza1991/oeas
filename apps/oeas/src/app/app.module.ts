@@ -38,18 +38,18 @@ import { ExamGuard } from '@batstateu/shared';
           path: 'exams',
           loadChildren: () =>
             import('@batstateu/exams').then((module) => module.ExamsModule),
-            canActivate: [AuthGuard],
-            canActivateChild: [ExamGuard]
+          canActivate: [AuthGuard],
+          canActivateChild: [ExamGuard],
         },
         {
           path: 'account',
           loadChildren: () =>
             import('@batstateu/account').then((module) => module.AccountModule),
-            canActivate: [AuthGuard],
+          canActivate: [AuthGuard],
         },
       ],
       {
-        initialNavigation: 'enabled',
+        initialNavigation: 'enabledBlocking',
       }
     ),
     AuthModule,
@@ -65,10 +65,10 @@ import { ExamGuard } from '@batstateu/shared';
       }
     ),
     EffectsModule.forRoot([]),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    !environment.production ? StoreDevtoolsModule.instrument({connectInZone: true}) : [],
     StoreRouterConnectingModule.forRoot(),
   ],
-  providers: [{ provide: APP_CONFIG, useValue: environment},ExamGuard],
+  providers: [{ provide: APP_CONFIG, useValue: environment }, ExamGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

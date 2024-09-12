@@ -1,9 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -25,7 +25,7 @@ export class ExamItemPointsFormViewComponent implements OnInit {
   correctAns = '';
 
   limit = 60;
-  validateForm!: FormGroup;
+  validateForm!: UntypedFormGroup;
 
   setValue() {
     this.answerFormModel$.subscribe((val) => {
@@ -36,7 +36,7 @@ export class ExamItemPointsFormViewComponent implements OnInit {
       this.limit = val?.maxPoints || 0;
     });
   }
-  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
+  confirmationValidator = (control: UntypedFormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
     } else if (control.value > this.limit) {
@@ -68,7 +68,7 @@ export class ExamItemPointsFormViewComponent implements OnInit {
   }
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private modal: NzModalService,
     private location: Location
   ) {}

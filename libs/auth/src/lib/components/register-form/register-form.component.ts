@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { User } from '@batstateu/data-models';
@@ -17,7 +17,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 export class RegisterFormComponent implements OnInit {
   @Output() register = new EventEmitter();
   user! : User;
-  validateForm!: FormGroup;
+  validateForm!: UntypedFormGroup;
   captchaTooltipIcon: NzFormTooltipIcon = {
     type: 'info-circle',
     theme: 'twotone',
@@ -46,7 +46,7 @@ export class RegisterFormComponent implements OnInit {
     );
   }
 
-  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
+  confirmationValidator = (control: UntypedFormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
     } else if (control.value !== this.validateForm.controls['password'].value) {
@@ -59,7 +59,7 @@ export class RegisterFormComponent implements OnInit {
     e.preventDefault();
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: UntypedFormBuilder) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({

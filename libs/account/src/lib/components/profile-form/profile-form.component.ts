@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { User, UserDetail } from '@batstateu/data-models';
@@ -19,7 +19,7 @@ import { UserService } from '../../account.module';
 export class ProfileFormComponent implements OnInit {
   @Output() save = new EventEmitter<UserDetail>();
 
-  validateForm!: FormGroup;
+  validateForm!: UntypedFormGroup;
   captchaTooltipIcon: NzFormTooltipIcon = {
     type: 'info-circle',
     theme: 'twotone',
@@ -49,7 +49,7 @@ export class ProfileFormComponent implements OnInit {
     );
   }
 
-  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
+  confirmationValidator = (control: UntypedFormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
     } else if (control.value !== this.validateForm.controls['password'].value) {
@@ -62,7 +62,7 @@ export class ProfileFormComponent implements OnInit {
     e.preventDefault();
   }
 
-  constructor(private fb: FormBuilder, private modal: NzModalService) {}
+  constructor(private fb: UntypedFormBuilder, private modal: NzModalService) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({

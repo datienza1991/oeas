@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Authenticate, ForgotPassword } from '@batstateu/data-models';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -10,11 +10,11 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 })
 export class ForgotPasswordFormComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private modal: NzModalService) {}
+  constructor(private fb: UntypedFormBuilder, private modal: NzModalService) {}
 
   @Output() submitForm = new EventEmitter<ForgotPassword>();
   passwordVisible = false;
-  validateForm!: FormGroup;
+  validateForm!: UntypedFormGroup;
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({

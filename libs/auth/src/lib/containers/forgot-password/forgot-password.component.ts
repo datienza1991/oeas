@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { UserService } from '@batstateu/shared';
 import { ForgotPassword } from '@batstateu/data-models';
 import { NzModalService } from 'ng-zorro-antd/modal';

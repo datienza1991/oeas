@@ -1,26 +1,20 @@
 {
+  "name": "dashboard",
+  "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
   "projectType": "library",
-  "root": "libs/dashboard",
   "sourceRoot": "libs/dashboard/src",
   "prefix": "batstateu",
+  "tags": [],
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/dashboard"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/dashboard"],
       "options": {
-        "jestConfig": "libs/dashboard/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "libs/dashboard/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/dashboard/src/**/*.ts",
-          "libs/dashboard/src/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": []
+  }
 }

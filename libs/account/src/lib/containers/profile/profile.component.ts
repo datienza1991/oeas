@@ -10,12 +10,12 @@ import {
   UserFormType,
   UserType,
 } from '@batstateu/data-models';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import * as fromAuth from '@batstateu/auth';
 
 import { ProfileFormComponent } from '../../components/profile-form/profile-form.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import {
   DepartmentService,
   SectionService,
@@ -64,14 +64,14 @@ export class ProfileComponent implements OnInit {
             id: this.id,
             user_id: this.userId,
             user_type_id: userDetail.userTypeId,
-            isResetPassword : false
+            isResetPassword: false,
           }
         : {
             ...userDetail,
             user_id: this.userId,
             isActive: false,
             user_type_id: userDetail.userTypeId,
-            isResetPassword : false
+            isResetPassword: false,
           };
 
     this.userService.save(newUserDetail).subscribe(() => {

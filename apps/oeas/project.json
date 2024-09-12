@@ -1,8 +1,10 @@
 {
+  "name": "oeas",
+  "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
   "projectType": "application",
-  "root": "apps/oeas",
   "sourceRoot": "apps/oeas/src",
   "prefix": "batstateu",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -27,7 +29,10 @@
             "output": "./assets"
           }
         ],
-        "styles": ["apps/oeas/src/styles.less", "libs/shared/src/lib/styles/base.less"],
+        "styles": [
+          "apps/oeas/src/styles.less",
+          "libs/shared/src/lib/styles/base.less"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -73,10 +78,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "oeas:build:production"
+          "buildTarget": "oeas:build:production"
         },
         "development": {
-          "browserTarget": "oeas:build:development"
+          "buildTarget": "oeas:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -84,23 +89,18 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "oeas:build"
+        "buildTarget": "oeas:build"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["apps/oeas/src/**/*.ts", "apps/oeas/src/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/oeas"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/oeas"],
       "options": {
-        "jestConfig": "apps/oeas/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "apps/oeas/jest.config.ts"
       }
     }
-  },
-  "tags": []
+  }
 }

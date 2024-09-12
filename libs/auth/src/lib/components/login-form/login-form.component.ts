@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
-  FormBuilder,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { Authenticate } from '@batstateu/data-models';
@@ -12,11 +12,11 @@ import { Authenticate } from '@batstateu/data-models';
   styleUrls: ['./login-form.component.less'],
 })
 export class LoginFormComponent implements OnInit {
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: UntypedFormBuilder) {}
 
   @Output() submitForm = new EventEmitter<Authenticate>();
   passwordVisible = false;
-  validateForm!: FormGroup;
+  validateForm!: UntypedFormGroup;
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({

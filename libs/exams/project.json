@@ -1,26 +1,20 @@
 {
+  "name": "exams",
+  "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
   "projectType": "library",
-  "root": "libs/exams",
   "sourceRoot": "libs/exams/src",
   "prefix": "batstateu",
+  "tags": [],
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/exams"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/exams"],
       "options": {
-        "jestConfig": "libs/exams/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "libs/exams/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/exams/src/**/*.ts",
-          "libs/exams/src/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": []
+  }
 }

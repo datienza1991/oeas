@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as fromAuth from '@batstateu/auth';
@@ -8,7 +8,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 @Injectable({
   providedIn: 'root'
 })
-export class ExamGuard implements CanActivateChild {
+export class ExamGuard  {
   user! : User | null;
   constructor(private store : Store<fromAuth.State>, private router : Router, private message: NzMessageService ){
     this.store.select(fromAuth.getUser).subscribe(val => this.user = val);

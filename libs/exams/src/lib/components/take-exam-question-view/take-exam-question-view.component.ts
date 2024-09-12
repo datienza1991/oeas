@@ -9,9 +9,9 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { TakerExamQuestion } from '@batstateu/data-models';
@@ -33,7 +33,7 @@ export class TakeExamQuestionViewComponent implements OnInit {
   @Input() videoVisible$!: Observable<boolean>;
   @Input() tabActive$!: Observable<boolean | null>;
   limit = 60;
-  validateForm!: FormGroup;
+  validateForm!: UntypedFormGroup;
   editor!: Editor;
   
   toolbar: Toolbar = [
@@ -45,7 +45,7 @@ export class TakeExamQuestionViewComponent implements OnInit {
     [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
     ['align_left', 'align_center', 'align_right', 'align_justify'],
   ];
-  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
+  confirmationValidator = (control: UntypedFormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
       //TODO: set limit for points
@@ -85,7 +85,7 @@ export class TakeExamQuestionViewComponent implements OnInit {
     });
   }
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private modal: NzModalService,
     private location: Location
   ) {}

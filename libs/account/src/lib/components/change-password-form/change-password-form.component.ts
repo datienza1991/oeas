@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ChangePassword } from '@batstateu/data-models';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -12,7 +12,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 export class ChangePasswordFormComponent implements OnInit {
 
   @Output() save = new EventEmitter<ChangePassword>();
-  validateForm!: FormGroup;
+  validateForm!: UntypedFormGroup;
   captchaTooltipIcon: NzFormTooltipIcon = {
     type: 'info-circle',
     theme: 'twotone'
@@ -37,7 +37,7 @@ export class ChangePasswordFormComponent implements OnInit {
     Promise.resolve().then(() => this.validateForm.controls['checkPassword'].updateValueAndValidity());
   }
 
-  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
+  confirmationValidator = (control: UntypedFormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
     } else if (control.value !== this.validateForm.controls['newpassword'].value) {
@@ -50,7 +50,7 @@ export class ChangePasswordFormComponent implements OnInit {
     e.preventDefault();
   }
 
-  constructor(private fb: FormBuilder, private modal: NzModalService) {}
+  constructor(private fb: UntypedFormBuilder, private modal: NzModalService) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({

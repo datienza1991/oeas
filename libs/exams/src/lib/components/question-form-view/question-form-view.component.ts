@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Location } from '@angular/common';
@@ -15,7 +15,7 @@ export class QuestionFormViewComponent implements OnInit, OnChanges, OnDestroy {
   editorAns!: Editor;
   @Output() save = new EventEmitter<QuestionDetail>();
   @Input() questionDetail! : QuestionDetail;
-  validateForm!: FormGroup;
+  validateForm!: UntypedFormGroup;
   title = "Add New";
   toolbar: Toolbar = [
     // default value
@@ -56,7 +56,7 @@ export class QuestionFormViewComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private modal: NzModalService,
     private location: Location
   ) {}

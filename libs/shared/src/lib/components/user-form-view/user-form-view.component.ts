@@ -10,9 +10,9 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {
-  FormBuilder,
+  UntypedFormBuilder,
   FormControl,
-  FormGroup,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import {
@@ -35,7 +35,7 @@ export class UserFormViewComponent implements OnInit, OnChanges, DoCheck {
   @Output() save = new EventEmitter<UserDetail>();
   @Input() userDetail!: UserDetail;
   @Input() isActiveEnable = false;
-  validateForm!: FormGroup;
+  validateForm!: UntypedFormGroup;
   @Input() departments!: Department[];
   @Input() sections!: Section[];
   @Input() userFormType!: UserFormType;
@@ -78,7 +78,7 @@ export class UserFormViewComponent implements OnInit, OnChanges, DoCheck {
       this.setSectionValidator();
     }
   }
-  constructor(private fb: FormBuilder, private modal: NzModalService) {}
+  constructor(private fb: UntypedFormBuilder, private modal: NzModalService) {}
 
   ngDoCheck(): void {
     this.validateForm.controls['code'].setValue(this.code);

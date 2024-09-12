@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { fetch } from '@nrwl/angular';
+import { fetch } from '@ngrx/router-store/data-persistence';
 import { catchError, map, tap } from 'rxjs/operators';
 import { AuthActionTypes } from './auth.actions';
 import * as authActions from './auth.actions';
@@ -10,7 +10,7 @@ import { User } from '@batstateu/data-models';
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State } from './auth.reducer';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { UserService } from '@batstateu/account';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -37,7 +37,7 @@ export class AuthEffects {
                           firstName: userDetail.firstName,
                           userDetailId: userDetail.id,
                           sectionId: userDetail.sectionId?.id || null,
-                          userType: userDetail.userType
+                          userType: userDetail.userType,
                         },
                       })
                     );

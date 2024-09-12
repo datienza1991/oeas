@@ -11,7 +11,7 @@ import {
 } from '@batstateu/data-models';
 import { Store } from '@ngrx/store';
 import { map, Observable, tap, throwError } from 'rxjs';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import * as fromAuth from '@batstateu/auth';
 @Injectable({
   providedIn: 'root',
@@ -20,8 +20,8 @@ export class UserService {
   updateResetPasswordDefaultStatus(id: number): Observable<number> {
     return this.httpClient
       .put<number>(`${this.appConfig.API_URL}/records/userDetails/${id}`, {
-        isResetPassword:0,
-        isActive: 1
+        isResetPassword: 0,
+        isActive: 1,
       })
       .pipe(
         map((res: number) => {
@@ -32,7 +32,7 @@ export class UserService {
   resetPassword(id: number): Observable<number> {
     return this.httpClient
       .put<number>(`${this.appConfig.API_URL}/records/users/${id}`, {
-        password:'abc123'
+        password: 'abc123',
       })
       .pipe(
         map((res: number) => {
@@ -44,7 +44,7 @@ export class UserService {
     return this.httpClient
       .put<number>(`${this.appConfig.API_URL}/records/userDetails/${id}`, {
         isResetPassword: true,
-        isActive: false
+        isActive: false,
       })
       .pipe(
         map((res: number) => {
@@ -53,7 +53,9 @@ export class UserService {
       );
   }
 
-  validateForgotPassword(forgotPassword : ForgotPassword): Observable<UserDetail> {
+  validateForgotPassword(
+    forgotPassword: ForgotPassword
+  ): Observable<UserDetail> {
     return this.httpClient
       .get<ResponseWrapper<UserDetail>>(
         `${this.appConfig.API_URL}/records/userDetails?filter=email,eq,${forgotPassword.email}&join=users`
@@ -61,9 +63,12 @@ export class UserService {
       .pipe(
         map((res: ResponseWrapper<any>) => {
           const user = res.records[0];
-          if (user === undefined || user.user_id.username !== forgotPassword.username) {
+          if (
+            user === undefined ||
+            user.user_id.username !== forgotPassword.username
+          ) {
             throw Error('User not found');
-          }else if (user.isResetPassword){
+          } else if (user.isResetPassword) {
             throw Error('User already requested password reset');
           }
           return user;
@@ -157,7 +162,11 @@ export class UserService {
         map((res: ResponseWrapper<any>) => {
           const rec: UserDetail[] = [];
           res.records.map((val) =>
-            rec.push({ ...val, departmentName: val.departmentId.name, userType: val.user_type_id.name})
+            rec.push({
+              ...val,
+              departmentName: val.departmentId.name,
+              userType: val.user_type_id.name,
+            })
           );
           return rec;
         })

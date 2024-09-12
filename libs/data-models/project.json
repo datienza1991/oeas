@@ -1,26 +1,20 @@
 {
+  "name": "data-models",
+  "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
   "projectType": "library",
-  "root": "libs/data-models",
   "sourceRoot": "libs/data-models/src",
   "prefix": "batstateu",
+  "tags": [],
   "targets": {
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/data-models"],
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/data-models"],
       "options": {
-        "jestConfig": "libs/data-models/jest.config.js",
-        "passWithNoTests": true
+        "jestConfig": "libs/data-models/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/data-models/src/**/*.ts",
-          "libs/data-models/src/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": []
+  }
 }
