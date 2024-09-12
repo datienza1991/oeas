@@ -14,7 +14,7 @@ export class AuthService {
   constructor(
     private httpClient: HttpClient,
     private store: Store<fromAuth.State>,
-    @Inject(APP_CONFIG) private appConfig: any
+    @Inject(APP_CONFIG) private appConfig: any,
   ) {}
 
   login(authenticate: Authenticate): Observable<User> {
@@ -34,10 +34,7 @@ export class AuthService {
   }
 
   register(authenticate: any): Observable<Authenticate> {
-    return this.httpClient.post<Authenticate>(
-      `${this.appConfig.API_URL}/register`,
-      authenticate
-    );
+    return this.httpClient.post<Authenticate>(`${this.appConfig.API_URL}/register`, authenticate);
   }
 
   logout() {

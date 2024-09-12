@@ -109,72 +109,32 @@
   "fileMap": {
     "nonProjectFiles": [
       {
-        "file": "tools/tsconfig.tools.json",
-        "hash": "11810713488198132402"
-      },
-      {
-        "file": "nx.json",
-        "hash": "8625072754644992489"
-      },
-      {
-        "file": "server/db.json",
-        "hash": "710004338942568658"
-      },
-      {
-        "file": "package-lock.json",
-        "hash": "4657064215448118261"
-      },
-      {
-        "file": "jest.preset.js",
-        "hash": "9084884494335109525"
-      },
-      {
-        "file": "jest.config.ts",
-        "hash": "10692344265727502540"
-      },
-      {
-        "file": "decorate-angular-cli.js",
-        "hash": "14094702620983487434"
-      },
-      {
         "file": ".editorconfig",
         "hash": "11532813898455409296"
-      },
-      {
-        "file": "migrations.json",
-        "hash": "2864958206611120887"
-      },
-      {
-        "file": "apps/.gitkeep",
-        "hash": "3244421341483603138"
-      },
-      {
-        "file": ".gitignore",
-        "hash": "9926908766463344057"
-      },
-      {
-        "file": ".prettierignore",
-        "hash": "15146648731823155416"
-      },
-      {
-        "file": "server/server.ts",
-        "hash": "14491125316008881527"
-      },
-      {
-        "file": "package.json",
-        "hash": "18197617018309490451"
-      },
-      {
-        "file": "README.md",
-        "hash": "10354269654944876153"
       },
       {
         "file": ".eslintignore",
         "hash": "7663861978715868291"
       },
       {
-        "file": "tsconfig.base.json",
-        "hash": "14429209978668588694"
+        "file": ".eslintrc.json",
+        "hash": "17866138117546000433"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "7590608325178593141"
+      },
+      {
+        "file": ".prettierignore",
+        "hash": "15146648731823155416"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "432912894304819700"
+      },
+      {
+        "file": ".vscode/extensions.json",
+        "hash": "1031907106376631047"
       },
       {
         "file": ".vscode/launch.json",
@@ -185,20 +145,60 @@
         "hash": "10052807862579739421"
       },
       {
-        "file": ".prettierrc",
-        "hash": "432912894304819700"
+        "file": "README.md",
+        "hash": "10354269654944876153"
+      },
+      {
+        "file": "apps/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "decorate-angular-cli.js",
+        "hash": "14094702620983487434"
+      },
+      {
+        "file": "jest.config.ts",
+        "hash": "10692344265727502540"
+      },
+      {
+        "file": "jest.preset.js",
+        "hash": "9084884494335109525"
       },
       {
         "file": "libs/.gitkeep",
         "hash": "3244421341483603138"
       },
       {
-        "file": ".eslintrc.json",
-        "hash": "17866138117546000433"
+        "file": "migrations.json",
+        "hash": "2864958206611120887"
       },
       {
-        "file": ".vscode/extensions.json",
-        "hash": "1031907106376631047"
+        "file": "nx.json",
+        "hash": "8625072754644992489"
+      },
+      {
+        "file": "package-lock.json",
+        "hash": "4657064215448118261"
+      },
+      {
+        "file": "package.json",
+        "hash": "18197617018309490451"
+      },
+      {
+        "file": "server/db.json",
+        "hash": "710004338942568658"
+      },
+      {
+        "file": "server/server.ts",
+        "hash": "14491125316008881527"
+      },
+      {
+        "file": "tools/tsconfig.tools.json",
+        "hash": "11810713488198132402"
+      },
+      {
+        "file": "tsconfig.base.json",
+        "hash": "14429209978668588694"
       }
     ],
     "projectFileMap": {
@@ -503,7 +503,7 @@
         },
         {
           "file": "libs/auth/src/lib/services/auth/auth.service.ts",
-          "hash": "2407383434740013630",
+          "hash": "14600165026988213295",
           "deps": [
             "npm:@angular/core",
             "npm:@angular/common",
@@ -555,278 +555,212 @@
           "hash": "15955858930578889983"
         }
       ],
-      "shared": [
+      "ng-zorro-antd": [
         {
-          "file": "libs/shared/.babelrc",
-          "hash": "12678781556853150254"
+          "file": "libs/ng-zorro-antd/.eslintrc.json",
+          "hash": "12382470233042240265"
         },
         {
-          "file": "libs/shared/.eslintrc.json",
-          "hash": "13800677001662881425"
+          "file": "libs/ng-zorro-antd/README.md",
+          "hash": "6040868290726481454"
         },
         {
-          "file": "libs/shared/README.md",
-          "hash": "4539284640988790019"
+          "file": "libs/ng-zorro-antd/jest.config.ts",
+          "hash": "7383517874322228434"
         },
         {
-          "file": "libs/shared/jest.config.ts",
-          "hash": "9094329762431522973"
+          "file": "libs/ng-zorro-antd/project.json",
+          "hash": "6270808370034621271"
         },
         {
-          "file": "libs/shared/project.json",
-          "hash": "4047386859474326148"
+          "file": "libs/ng-zorro-antd/src/index.ts",
+          "hash": "7908840156285971112"
         },
         {
-          "file": "libs/shared/src/index.ts",
-          "hash": "13187166869228808562"
+          "file": "libs/ng-zorro-antd/src/lib/ng-zorro-antd.module.ts",
+          "hash": "721581504818098685",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/common",
+            "npm:ng-zorro-antd",
+            "npm:@ant-design/icons-angular"
+          ]
         },
         {
-          "file": "libs/shared/src/lib/assets/images/bg-auth.jpg",
-          "hash": "4659360257579600648"
+          "file": "libs/ng-zorro-antd/src/test-setup.ts",
+          "hash": "9531801021999427605",
+          "deps": [
+            "npm:jest-preset-angular"
+          ]
         },
         {
-          "file": "libs/shared/src/lib/assets/images/logo.png",
-          "hash": "7023222581355846115"
+          "file": "libs/ng-zorro-antd/tsconfig.json",
+          "hash": "12234414938733307145"
         },
         {
-          "file": "libs/shared/src/lib/assets/images/sider-bg.jpg",
-          "hash": "14481368102455918630"
+          "file": "libs/ng-zorro-antd/tsconfig.lib.json",
+          "hash": "14999110739244744162"
         },
         {
-          "file": "libs/shared/src/lib/assets/images/take-exam-1.jpg",
-          "hash": "4106636245053541640"
+          "file": "libs/ng-zorro-antd/tsconfig.spec.json",
+          "hash": "18121645209207210368"
+        }
+      ],
+      "setting": [
+        {
+          "file": "libs/setting/.eslintrc.json",
+          "hash": "12382470233042240265"
         },
         {
-          "file": "libs/shared/src/lib/components/user-form-view/user-form-view.component.css",
-          "hash": "5363704920487594068"
+          "file": "libs/setting/README.md",
+          "hash": "2865438227101458"
         },
         {
-          "file": "libs/shared/src/lib/components/user-form-view/user-form-view.component.html",
-          "hash": "5751832647710063482"
+          "file": "libs/setting/jest.config.ts",
+          "hash": "16860240230245843030"
         },
         {
-          "file": "libs/shared/src/lib/components/user-form-view/user-form-view.component.spec.ts",
+          "file": "libs/setting/project.json",
+          "hash": "14007109170546895374"
+        },
+        {
+          "file": "libs/setting/src/index.ts",
+          "hash": "18235756963358298083"
+        },
+        {
+          "file": "libs/setting/src/lib/components/user-form-view/user-form-view.component.html",
+          "hash": "433686331577790083"
+        },
+        {
+          "file": "libs/setting/src/lib/components/user-form-view/user-form-view.component.less",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/setting/src/lib/components/user-form-view/user-form-view.component.spec.ts",
           "hash": "13770773956271536642",
           "deps": [
             "npm:@angular/core"
           ]
         },
         {
-          "file": "libs/shared/src/lib/components/user-form-view/user-form-view.component.ts",
-          "hash": "4650026040891519898",
+          "file": "libs/setting/src/lib/components/user-form-view/user-form-view.component.ts",
+          "hash": "8544411132682006176",
           "deps": [
-            "npm:@angular/compiler",
             "npm:@angular/core",
             "npm:@angular/forms",
-            "data-models",
             "npm:ng-zorro-antd"
           ]
         },
         {
-          "file": "libs/shared/src/lib/guards/exam/exam.guard.spec.ts",
-          "hash": "13427880224172332110",
+          "file": "libs/setting/src/lib/components/user-list/user-list.component.html",
+          "hash": "14387618372882303662"
+        },
+        {
+          "file": "libs/setting/src/lib/components/user-list/user-list.component.less",
+          "hash": "1626611440315380779"
+        },
+        {
+          "file": "libs/setting/src/lib/components/user-list/user-list.component.spec.ts",
+          "hash": "5443336362345467657",
           "deps": [
             "npm:@angular/core"
           ]
         },
         {
-          "file": "libs/shared/src/lib/guards/exam/exam.guard.ts",
-          "hash": "12143413402159666138",
+          "file": "libs/setting/src/lib/components/user-list/user-list.component.ts",
+          "hash": "17025413257636786096",
           "deps": [
             "npm:@angular/core",
-            "npm:@angular/router",
+            "npm:ng-zorro-antd",
+            "data-models",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "libs/setting/src/lib/containers/user-form/user-form.component.html",
+          "hash": "1750156516991413482"
+        },
+        {
+          "file": "libs/setting/src/lib/containers/user-form/user-form.component.less",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/setting/src/lib/containers/user-form/user-form.component.spec.ts",
+          "hash": "8571600175985246588",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/setting/src/lib/containers/user-form/user-form.component.ts",
+          "hash": "1175790866637067012",
+          "deps": [
+            "npm:@angular/core",
+            "shared",
+            "data-models",
             "npm:@ngrx/store",
+            "npm:ng-zorro-antd",
             "npm:rxjs",
             "auth",
-            "data-models",
-            "npm:ng-zorro-antd"
+            "npm:@angular/router"
           ]
         },
         {
-          "file": "libs/shared/src/lib/pipes/status/status.pipe.spec.ts",
-          "hash": "532114505428421989"
+          "file": "libs/setting/src/lib/containers/users/users.component.html",
+          "hash": "11208429506692859582"
         },
         {
-          "file": "libs/shared/src/lib/pipes/status/status.pipe.ts",
-          "hash": "1963263923368078430",
+          "file": "libs/setting/src/lib/containers/users/users.component.less",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/setting/src/lib/containers/users/users.component.spec.ts",
+          "hash": "14362689794304939341",
           "deps": [
             "npm:@angular/core"
           ]
         },
         {
-          "file": "libs/shared/src/lib/services/department/department.service.spec.ts",
-          "hash": "15600808757153945299",
+          "file": "libs/setting/src/lib/containers/users/users.component.ts",
+          "hash": "17490322619007954060",
           "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "libs/shared/src/lib/services/department/department.service.ts",
-          "hash": "2650708688153850001",
-          "deps": [
-            "npm:@angular/common",
             "npm:@angular/core",
-            "app-config",
             "data-models",
+            "shared",
+            "npm:ng-zorro-antd",
             "npm:rxjs"
           ]
         },
         {
-          "file": "libs/shared/src/lib/services/exams/exams.service.spec.ts",
-          "hash": "2449235710526250807",
+          "file": "libs/setting/src/lib/setting.module.ts",
+          "hash": "5005590631211843068",
           "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "libs/shared/src/lib/services/exams/exams.service.ts",
-          "hash": "3402710508209314527",
-          "deps": [
-            "npm:@angular/common",
             "npm:@angular/core",
-            "app-config",
-            "data-models",
-            "npm:rxjs"
-          ]
-        },
-        {
-          "file": "libs/shared/src/lib/services/question/question.service.spec.ts",
-          "hash": "9475132495230876637",
-          "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "libs/shared/src/lib/services/question/question.service.ts",
-          "hash": "9488447350400592224",
-          "deps": [
             "npm:@angular/common",
-            "npm:@angular/core",
-            "app-config",
-            "data-models",
-            "npm:rxjs"
-          ]
-        },
-        {
-          "file": "libs/shared/src/lib/services/section/section.service.spec.ts",
-          "hash": "17213450993150368761",
-          "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "libs/shared/src/lib/services/section/section.service.ts",
-          "hash": "15995384817708100799",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "app-config",
-            "data-models",
-            "npm:rxjs"
-          ]
-        },
-        {
-          "file": "libs/shared/src/lib/services/take-exam/take-exam.service.spec.ts",
-          "hash": "16620814875520500818",
-          "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "libs/shared/src/lib/services/take-exam/take-exam.service.ts",
-          "hash": "7011281634134222385",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "app-config",
-            "data-models",
-            "npm:rxjs"
-          ]
-        },
-        {
-          "file": "libs/shared/src/lib/services/user-type/user-type.service.spec.ts",
-          "hash": "16553701680063815344",
-          "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "libs/shared/src/lib/services/user-type/user-type.service.ts",
-          "hash": "12920494765730373620",
-          "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "libs/shared/src/lib/services/user/user.service.spec.ts",
-          "hash": "18148047139486964869",
-          "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "libs/shared/src/lib/services/user/user.service.ts",
-          "hash": "16702639076000865843",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "app-config",
-            "data-models",
-            "npm:@ngrx/store",
-            "npm:rxjs",
-            "auth"
-          ]
-        },
-        {
-          "file": "libs/shared/src/lib/shared.module.ts",
-          "hash": "6232843110818714398",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "npm:@angular/forms",
             "npm:@angular/router",
-            "ng-zorro-antd"
+            "ng-zorro-antd",
+            "npm:@angular/forms",
+            "shared"
           ]
         },
         {
-          "file": "libs/shared/src/lib/shared.spec.ts",
-          "hash": "9548947426669788418"
+          "file": "libs/setting/src/test-setup.ts",
+          "hash": "9531801021999427605",
+          "deps": [
+            "npm:jest-preset-angular"
+          ]
         },
         {
-          "file": "libs/shared/src/lib/shared.ts",
-          "hash": "7390454490555929958"
+          "file": "libs/setting/tsconfig.json",
+          "hash": "12234414938733307145"
         },
         {
-          "file": "libs/shared/src/lib/styles/base.less",
-          "hash": "2423970085968563965"
+          "file": "libs/setting/tsconfig.lib.json",
+          "hash": "14999110739244744162"
         },
         {
-          "file": "libs/shared/src/lib/styles/spacing/_spacing-margin.less",
-          "hash": "16441888519297548666"
-        },
-        {
-          "file": "libs/shared/src/lib/styles/spacing/_spacing-padding.less",
-          "hash": "15896145566811095280"
-        },
-        {
-          "file": "libs/shared/src/lib/styles/spacing/_spacing-var.less",
-          "hash": "8079559068563804023"
-        },
-        {
-          "file": "libs/shared/src/lib/styles/spacing/_spacing.less",
-          "hash": "12749754880219637711"
-        },
-        {
-          "file": "libs/shared/tsconfig.json",
-          "hash": "47518674856179508"
-        },
-        {
-          "file": "libs/shared/tsconfig.lib.json",
-          "hash": "12597263177960957631"
-        },
-        {
-          "file": "libs/shared/tsconfig.spec.json",
-          "hash": "9571156425590174700"
+          "file": "libs/setting/tsconfig.spec.json",
+          "hash": "18121645209207210368"
         }
       ],
       "app-config": [
@@ -1055,44 +989,6 @@
         {
           "file": "libs/account/tsconfig.spec.json",
           "hash": "18121645209207210368"
-        }
-      ],
-      "oeas-e2e": [
-        {
-          "file": "apps/oeas-e2e/.eslintrc.json",
-          "hash": "15523834149352881398"
-        },
-        {
-          "file": "apps/oeas-e2e/cypress.json",
-          "hash": "16111852535868849693"
-        },
-        {
-          "file": "apps/oeas-e2e/project.json",
-          "hash": "5236375038323790024"
-        },
-        {
-          "file": "apps/oeas-e2e/src/fixtures/example.json",
-          "hash": "17341819486505642070"
-        },
-        {
-          "file": "apps/oeas-e2e/src/integration/app.spec.ts",
-          "hash": "3159758090357330128"
-        },
-        {
-          "file": "apps/oeas-e2e/src/support/app.po.ts",
-          "hash": "5364106453863571025"
-        },
-        {
-          "file": "apps/oeas-e2e/src/support/commands.ts",
-          "hash": "11031723810997510506"
-        },
-        {
-          "file": "apps/oeas-e2e/src/support/index.ts",
-          "hash": "15928825062325902088"
-        },
-        {
-          "file": "apps/oeas-e2e/tsconfig.json",
-          "hash": "11911316583761829540"
         }
       ],
       "exams": [
@@ -1799,139 +1695,473 @@
           "hash": "18121645209207210368"
         }
       ],
-      "oeas": [
+      "shared": [
         {
-          "file": "apps/oeas/.eslintrc.json",
+          "file": "libs/shared/.babelrc",
+          "hash": "12678781556853150254"
+        },
+        {
+          "file": "libs/shared/.eslintrc.json",
+          "hash": "13800677001662881425"
+        },
+        {
+          "file": "libs/shared/README.md",
+          "hash": "4539284640988790019"
+        },
+        {
+          "file": "libs/shared/jest.config.ts",
+          "hash": "9094329762431522973"
+        },
+        {
+          "file": "libs/shared/project.json",
+          "hash": "4047386859474326148"
+        },
+        {
+          "file": "libs/shared/src/index.ts",
+          "hash": "13187166869228808562"
+        },
+        {
+          "file": "libs/shared/src/lib/assets/images/bg-auth.jpg",
+          "hash": "4659360257579600648"
+        },
+        {
+          "file": "libs/shared/src/lib/assets/images/logo.png",
+          "hash": "7023222581355846115"
+        },
+        {
+          "file": "libs/shared/src/lib/assets/images/sider-bg.jpg",
+          "hash": "14481368102455918630"
+        },
+        {
+          "file": "libs/shared/src/lib/assets/images/take-exam-1.jpg",
+          "hash": "4106636245053541640"
+        },
+        {
+          "file": "libs/shared/src/lib/components/user-form-view/user-form-view.component.css",
+          "hash": "5363704920487594068"
+        },
+        {
+          "file": "libs/shared/src/lib/components/user-form-view/user-form-view.component.html",
+          "hash": "5751832647710063482"
+        },
+        {
+          "file": "libs/shared/src/lib/components/user-form-view/user-form-view.component.spec.ts",
+          "hash": "13770773956271536642",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/components/user-form-view/user-form-view.component.ts",
+          "hash": "4650026040891519898",
+          "deps": [
+            "npm:@angular/compiler",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "data-models",
+            "npm:ng-zorro-antd"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/guards/exam/exam.guard.spec.ts",
+          "hash": "13427880224172332110",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/guards/exam/exam.guard.ts",
+          "hash": "12143413402159666138",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@ngrx/store",
+            "npm:rxjs",
+            "auth",
+            "data-models",
+            "npm:ng-zorro-antd"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/pipes/status/status.pipe.spec.ts",
+          "hash": "532114505428421989"
+        },
+        {
+          "file": "libs/shared/src/lib/pipes/status/status.pipe.ts",
+          "hash": "1963263923368078430",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/services/department/department.service.spec.ts",
+          "hash": "15600808757153945299",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/services/department/department.service.ts",
+          "hash": "2650708688153850001",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "app-config",
+            "data-models",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/services/exams/exams.service.spec.ts",
+          "hash": "2449235710526250807",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/services/exams/exams.service.ts",
+          "hash": "3402710508209314527",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "app-config",
+            "data-models",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/services/question/question.service.spec.ts",
+          "hash": "9475132495230876637",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/services/question/question.service.ts",
+          "hash": "9488447350400592224",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "app-config",
+            "data-models",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/services/section/section.service.spec.ts",
+          "hash": "17213450993150368761",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/services/section/section.service.ts",
+          "hash": "15995384817708100799",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "app-config",
+            "data-models",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/services/take-exam/take-exam.service.spec.ts",
+          "hash": "16620814875520500818",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/services/take-exam/take-exam.service.ts",
+          "hash": "7011281634134222385",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "app-config",
+            "data-models",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/services/user-type/user-type.service.spec.ts",
+          "hash": "16553701680063815344",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/services/user-type/user-type.service.ts",
+          "hash": "12920494765730373620",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/services/user/user.service.spec.ts",
+          "hash": "18148047139486964869",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/services/user/user.service.ts",
+          "hash": "16702639076000865843",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "app-config",
+            "data-models",
+            "npm:@ngrx/store",
+            "npm:rxjs",
+            "auth"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/shared.module.ts",
+          "hash": "6232843110818714398",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "npm:@angular/router",
+            "ng-zorro-antd"
+          ]
+        },
+        {
+          "file": "libs/shared/src/lib/shared.spec.ts",
+          "hash": "9548947426669788418"
+        },
+        {
+          "file": "libs/shared/src/lib/shared.ts",
+          "hash": "7390454490555929958"
+        },
+        {
+          "file": "libs/shared/src/lib/styles/base.less",
+          "hash": "2423970085968563965"
+        },
+        {
+          "file": "libs/shared/src/lib/styles/spacing/_spacing-margin.less",
+          "hash": "16441888519297548666"
+        },
+        {
+          "file": "libs/shared/src/lib/styles/spacing/_spacing-padding.less",
+          "hash": "15896145566811095280"
+        },
+        {
+          "file": "libs/shared/src/lib/styles/spacing/_spacing-var.less",
+          "hash": "8079559068563804023"
+        },
+        {
+          "file": "libs/shared/src/lib/styles/spacing/_spacing.less",
+          "hash": "12749754880219637711"
+        },
+        {
+          "file": "libs/shared/tsconfig.json",
+          "hash": "47518674856179508"
+        },
+        {
+          "file": "libs/shared/tsconfig.lib.json",
+          "hash": "12597263177960957631"
+        },
+        {
+          "file": "libs/shared/tsconfig.spec.json",
+          "hash": "9571156425590174700"
+        }
+      ],
+      "data-models": [
+        {
+          "file": "libs/data-models/.eslintrc.json",
           "hash": "12382470233042240265"
         },
         {
-          "file": "apps/oeas/jest.config.ts",
-          "hash": "16177392743368122493"
+          "file": "libs/data-models/README.md",
+          "hash": "3901852202689017711"
         },
         {
-          "file": "apps/oeas/project.json",
-          "hash": "10495913879229456691"
+          "file": "libs/data-models/jest.config.ts",
+          "hash": "8189706077943405976"
         },
         {
-          "file": "apps/oeas/src/app/app.component.html",
-          "hash": "7815866351250246758"
+          "file": "libs/data-models/project.json",
+          "hash": "5808681276164822713"
         },
         {
-          "file": "apps/oeas/src/app/app.component.less",
-          "hash": "6404133042897308028"
+          "file": "libs/data-models/src/index.ts",
+          "hash": "14604064647354248153"
         },
         {
-          "file": "apps/oeas/src/app/app.component.spec.ts",
-          "hash": "16288778182152829277",
-          "deps": [
-            "npm:@angular/core"
-          ]
+          "file": "libs/data-models/src/lib/answer-form-model.d.ts",
+          "hash": "2568031836762466042"
         },
         {
-          "file": "apps/oeas/src/app/app.component.ts",
-          "hash": "7695668521529911348",
-          "deps": [
-            "npm:@angular/core"
-          ]
+          "file": "libs/data-models/src/lib/authenticate.d.ts",
+          "hash": "12580355431653165197"
         },
         {
-          "file": "apps/oeas/src/app/app.module.ts",
-          "hash": "14091918252114263965",
+          "file": "libs/data-models/src/lib/change-password.d.ts",
+          "hash": "898276619422937300"
+        },
+        {
+          "file": "libs/data-models/src/lib/data-models.module.ts",
+          "hash": "8433305049723976265",
           "deps": [
             "npm:@angular/core",
-            "npm:@angular/platform-browser",
-            "npm:@angular/router",
-            "auth",
-            "layout",
-            "npm:@ngrx/store",
-            "npm:@ngrx/effects",
-            "npm:@ngrx/store-devtools",
-            "npm:@ngrx/router-store",
-            "app-config",
-            "shared",
-            [
-              "dashboard",
-              "dynamic"
-            ],
-            [
-              "setting",
-              "dynamic"
-            ],
-            [
-              "exams",
-              "dynamic"
-            ],
-            [
-              "account",
-              "dynamic"
-            ]
+            "npm:@angular/common"
           ]
         },
         {
-          "file": "apps/oeas/src/assets/.gitkeep",
-          "hash": "3244421341483603138"
+          "file": "libs/data-models/src/lib/department.d.ts",
+          "hash": "15702137082912788035"
         },
         {
-          "file": "apps/oeas/src/environments/environment.dev.ts",
-          "hash": "2805363230067032323"
+          "file": "libs/data-models/src/lib/exam-answer-list.d.ts",
+          "hash": "2609638250344370090"
         },
         {
-          "file": "apps/oeas/src/environments/environment.prod.ts",
-          "hash": "17742862762098202561"
+          "file": "libs/data-models/src/lib/exam-answer.d.ts",
+          "hash": "16463167146919064468"
         },
         {
-          "file": "apps/oeas/src/environments/environment.ts",
-          "hash": "14521450534601418167"
+          "file": "libs/data-models/src/lib/exam-card.d.ts",
+          "hash": "12975749935303259993"
         },
         {
-          "file": "apps/oeas/src/favicon.ico",
-          "hash": "13614330678626473617"
+          "file": "libs/data-models/src/lib/exam-list.d.ts",
+          "hash": "3330402085033754012"
         },
         {
-          "file": "apps/oeas/src/index.html",
-          "hash": "11729907626048439729"
+          "file": "libs/data-models/src/lib/exam-recording-view-model.d.ts",
+          "hash": "2181991630181028576"
         },
         {
-          "file": "apps/oeas/src/main.ts",
-          "hash": "12530990079120336302",
-          "deps": [
-            "npm:@angular/core",
-            "npm:@angular/platform-browser-dynamic"
-          ]
+          "file": "libs/data-models/src/lib/exam-state.ts",
+          "hash": "4631571717002359987"
         },
         {
-          "file": "apps/oeas/src/polyfills.ts",
-          "hash": "7176339394372785858",
-          "deps": [
-            "npm:zone.js"
-          ]
+          "file": "libs/data-models/src/lib/exam-taker-list.d.ts",
+          "hash": "1446368647138963227"
         },
         {
-          "file": "apps/oeas/src/styles.less",
-          "hash": "8461688624532444174"
+          "file": "libs/data-models/src/lib/exam-taker-result-list.d.ts",
+          "hash": "15224132536720267630"
         },
         {
-          "file": "apps/oeas/src/test-setup.ts",
+          "file": "libs/data-models/src/lib/exam.d.ts",
+          "hash": "4982393724271849931"
+        },
+        {
+          "file": "libs/data-models/src/lib/forgot-password.d.ts",
+          "hash": "14598533241564933313"
+        },
+        {
+          "file": "libs/data-models/src/lib/question-detail.d.ts",
+          "hash": "2162765652025916320"
+        },
+        {
+          "file": "libs/data-models/src/lib/question-list.d.ts",
+          "hash": "12660070247775796854"
+        },
+        {
+          "file": "libs/data-models/src/lib/response-wrapper.d.ts",
+          "hash": "2614400611731049472"
+        },
+        {
+          "file": "libs/data-models/src/lib/section.d.ts",
+          "hash": "12300093906164150181"
+        },
+        {
+          "file": "libs/data-models/src/lib/take-exam-control-state.ts",
+          "hash": "2924142564211169923"
+        },
+        {
+          "file": "libs/data-models/src/lib/taker-exam-detail.d.ts",
+          "hash": "6191519339027886558"
+        },
+        {
+          "file": "libs/data-models/src/lib/taker-exam-question.d.ts",
+          "hash": "2344651332439478133"
+        },
+        {
+          "file": "libs/data-models/src/lib/user-detail.d.ts",
+          "hash": "11085517439205446197"
+        },
+        {
+          "file": "libs/data-models/src/lib/user-form-location-enum.ts",
+          "hash": "16493997701560226451"
+        },
+        {
+          "file": "libs/data-models/src/lib/user-form-type.ts",
+          "hash": "16280563011768733541"
+        },
+        {
+          "file": "libs/data-models/src/lib/user-list.d.ts",
+          "hash": "286080054520134745"
+        },
+        {
+          "file": "libs/data-models/src/lib/user-type.d.ts",
+          "hash": "13836123835401464268"
+        },
+        {
+          "file": "libs/data-models/src/lib/user.d.ts",
+          "hash": "14966224508190078693"
+        },
+        {
+          "file": "libs/data-models/src/test-setup.ts",
           "hash": "9531801021999427605",
           "deps": [
             "npm:jest-preset-angular"
           ]
         },
         {
-          "file": "apps/oeas/tsconfig.app.json",
-          "hash": "16597005711142581326"
+          "file": "libs/data-models/tsconfig.json",
+          "hash": "12234414938733307145"
         },
         {
-          "file": "apps/oeas/tsconfig.editor.json",
-          "hash": "13708902743870995589"
+          "file": "libs/data-models/tsconfig.lib.json",
+          "hash": "14999110739244744162"
         },
         {
-          "file": "apps/oeas/tsconfig.json",
-          "hash": "17168068191646536033"
-        },
-        {
-          "file": "apps/oeas/tsconfig.spec.json",
+          "file": "libs/data-models/tsconfig.spec.json",
           "hash": "18121645209207210368"
+        }
+      ],
+      "oeas-e2e": [
+        {
+          "file": "apps/oeas-e2e/.eslintrc.json",
+          "hash": "15523834149352881398"
+        },
+        {
+          "file": "apps/oeas-e2e/cypress.json",
+          "hash": "16111852535868849693"
+        },
+        {
+          "file": "apps/oeas-e2e/project.json",
+          "hash": "5236375038323790024"
+        },
+        {
+          "file": "apps/oeas-e2e/src/fixtures/example.json",
+          "hash": "17341819486505642070"
+        },
+        {
+          "file": "apps/oeas-e2e/src/integration/app.spec.ts",
+          "hash": "3159758090357330128"
+        },
+        {
+          "file": "apps/oeas-e2e/src/support/app.po.ts",
+          "hash": "5364106453863571025"
+        },
+        {
+          "file": "apps/oeas-e2e/src/support/commands.ts",
+          "hash": "11031723810997510506"
+        },
+        {
+          "file": "apps/oeas-e2e/src/support/index.ts",
+          "hash": "15928825062325902088"
+        },
+        {
+          "file": "apps/oeas-e2e/tsconfig.json",
+          "hash": "11911316583761829540"
         }
       ],
       "videojs-record": [
@@ -2156,57 +2386,6 @@
           "hash": "18121645209207210368"
         }
       ],
-      "ng-zorro-antd": [
-        {
-          "file": "libs/ng-zorro-antd/.eslintrc.json",
-          "hash": "12382470233042240265"
-        },
-        {
-          "file": "libs/ng-zorro-antd/README.md",
-          "hash": "6040868290726481454"
-        },
-        {
-          "file": "libs/ng-zorro-antd/jest.config.ts",
-          "hash": "7383517874322228434"
-        },
-        {
-          "file": "libs/ng-zorro-antd/project.json",
-          "hash": "6270808370034621271"
-        },
-        {
-          "file": "libs/ng-zorro-antd/src/index.ts",
-          "hash": "7908840156285971112"
-        },
-        {
-          "file": "libs/ng-zorro-antd/src/lib/ng-zorro-antd.module.ts",
-          "hash": "721581504818098685",
-          "deps": [
-            "npm:@angular/core",
-            "npm:@angular/common",
-            "npm:ng-zorro-antd",
-            "npm:@ant-design/icons-angular"
-          ]
-        },
-        {
-          "file": "libs/ng-zorro-antd/src/test-setup.ts",
-          "hash": "9531801021999427605",
-          "deps": [
-            "npm:jest-preset-angular"
-          ]
-        },
-        {
-          "file": "libs/ng-zorro-antd/tsconfig.json",
-          "hash": "12234414938733307145"
-        },
-        {
-          "file": "libs/ng-zorro-antd/tsconfig.lib.json",
-          "hash": "14999110739244744162"
-        },
-        {
-          "file": "libs/ng-zorro-antd/tsconfig.spec.json",
-          "hash": "18121645209207210368"
-        }
-      ],
       "dashboard": [
         {
           "file": "libs/dashboard/.eslintrc.json",
@@ -2349,317 +2528,138 @@
           "hash": "18121645209207210368"
         }
       ],
-      "setting": [
+      "oeas": [
         {
-          "file": "libs/setting/.eslintrc.json",
+          "file": "apps/oeas/.eslintrc.json",
           "hash": "12382470233042240265"
         },
         {
-          "file": "libs/setting/README.md",
-          "hash": "2865438227101458"
+          "file": "apps/oeas/jest.config.ts",
+          "hash": "16177392743368122493"
         },
         {
-          "file": "libs/setting/jest.config.ts",
-          "hash": "16860240230245843030"
+          "file": "apps/oeas/project.json",
+          "hash": "10495913879229456691"
         },
         {
-          "file": "libs/setting/project.json",
-          "hash": "14007109170546895374"
+          "file": "apps/oeas/src/app/app.component.html",
+          "hash": "7815866351250246758"
         },
         {
-          "file": "libs/setting/src/index.ts",
-          "hash": "18235756963358298083"
+          "file": "apps/oeas/src/app/app.component.less",
+          "hash": "6404133042897308028"
         },
         {
-          "file": "libs/setting/src/lib/components/user-form-view/user-form-view.component.html",
-          "hash": "433686331577790083"
-        },
-        {
-          "file": "libs/setting/src/lib/components/user-form-view/user-form-view.component.less",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "libs/setting/src/lib/components/user-form-view/user-form-view.component.spec.ts",
-          "hash": "13770773956271536642",
+          "file": "apps/oeas/src/app/app.component.spec.ts",
+          "hash": "16288778182152829277",
           "deps": [
             "npm:@angular/core"
           ]
         },
         {
-          "file": "libs/setting/src/lib/components/user-form-view/user-form-view.component.ts",
-          "hash": "8544411132682006176",
-          "deps": [
-            "npm:@angular/core",
-            "npm:@angular/forms",
-            "npm:ng-zorro-antd"
-          ]
-        },
-        {
-          "file": "libs/setting/src/lib/components/user-list/user-list.component.html",
-          "hash": "14387618372882303662"
-        },
-        {
-          "file": "libs/setting/src/lib/components/user-list/user-list.component.less",
-          "hash": "1626611440315380779"
-        },
-        {
-          "file": "libs/setting/src/lib/components/user-list/user-list.component.spec.ts",
-          "hash": "5443336362345467657",
+          "file": "apps/oeas/src/app/app.component.ts",
+          "hash": "7695668521529911348",
           "deps": [
             "npm:@angular/core"
           ]
         },
         {
-          "file": "libs/setting/src/lib/components/user-list/user-list.component.ts",
-          "hash": "17025413257636786096",
+          "file": "apps/oeas/src/app/app.module.ts",
+          "hash": "14091918252114263965",
           "deps": [
             "npm:@angular/core",
-            "npm:ng-zorro-antd",
-            "data-models",
-            "npm:rxjs"
-          ]
-        },
-        {
-          "file": "libs/setting/src/lib/containers/user-form/user-form.component.html",
-          "hash": "1750156516991413482"
-        },
-        {
-          "file": "libs/setting/src/lib/containers/user-form/user-form.component.less",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "libs/setting/src/lib/containers/user-form/user-form.component.spec.ts",
-          "hash": "8571600175985246588",
-          "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "libs/setting/src/lib/containers/user-form/user-form.component.ts",
-          "hash": "1175790866637067012",
-          "deps": [
-            "npm:@angular/core",
-            "shared",
-            "data-models",
-            "npm:@ngrx/store",
-            "npm:ng-zorro-antd",
-            "npm:rxjs",
-            "auth",
-            "npm:@angular/router"
-          ]
-        },
-        {
-          "file": "libs/setting/src/lib/containers/users/users.component.html",
-          "hash": "11208429506692859582"
-        },
-        {
-          "file": "libs/setting/src/lib/containers/users/users.component.less",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "libs/setting/src/lib/containers/users/users.component.spec.ts",
-          "hash": "14362689794304939341",
-          "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "libs/setting/src/lib/containers/users/users.component.ts",
-          "hash": "17490322619007954060",
-          "deps": [
-            "npm:@angular/core",
-            "data-models",
-            "shared",
-            "npm:ng-zorro-antd",
-            "npm:rxjs"
-          ]
-        },
-        {
-          "file": "libs/setting/src/lib/setting.module.ts",
-          "hash": "5005590631211843068",
-          "deps": [
-            "npm:@angular/core",
-            "npm:@angular/common",
+            "npm:@angular/platform-browser",
             "npm:@angular/router",
-            "ng-zorro-antd",
-            "npm:@angular/forms",
-            "shared"
+            "auth",
+            "layout",
+            "npm:@ngrx/store",
+            "npm:@ngrx/effects",
+            "npm:@ngrx/store-devtools",
+            "npm:@ngrx/router-store",
+            "app-config",
+            "shared",
+            [
+              "dashboard",
+              "dynamic"
+            ],
+            [
+              "setting",
+              "dynamic"
+            ],
+            [
+              "exams",
+              "dynamic"
+            ],
+            [
+              "account",
+              "dynamic"
+            ]
           ]
         },
         {
-          "file": "libs/setting/src/test-setup.ts",
-          "hash": "9531801021999427605",
-          "deps": [
-            "npm:jest-preset-angular"
-          ]
+          "file": "apps/oeas/src/assets/.gitkeep",
+          "hash": "3244421341483603138"
         },
         {
-          "file": "libs/setting/tsconfig.json",
-          "hash": "12234414938733307145"
+          "file": "apps/oeas/src/environments/environment.dev.ts",
+          "hash": "2805363230067032323"
         },
         {
-          "file": "libs/setting/tsconfig.lib.json",
-          "hash": "14999110739244744162"
+          "file": "apps/oeas/src/environments/environment.prod.ts",
+          "hash": "17742862762098202561"
         },
         {
-          "file": "libs/setting/tsconfig.spec.json",
-          "hash": "18121645209207210368"
-        }
-      ],
-      "data-models": [
-        {
-          "file": "libs/data-models/.eslintrc.json",
-          "hash": "12382470233042240265"
+          "file": "apps/oeas/src/environments/environment.ts",
+          "hash": "14521450534601418167"
         },
         {
-          "file": "libs/data-models/README.md",
-          "hash": "3901852202689017711"
+          "file": "apps/oeas/src/favicon.ico",
+          "hash": "13614330678626473617"
         },
         {
-          "file": "libs/data-models/jest.config.ts",
-          "hash": "8189706077943405976"
+          "file": "apps/oeas/src/index.html",
+          "hash": "11729907626048439729"
         },
         {
-          "file": "libs/data-models/project.json",
-          "hash": "5808681276164822713"
-        },
-        {
-          "file": "libs/data-models/src/index.ts",
-          "hash": "14604064647354248153"
-        },
-        {
-          "file": "libs/data-models/src/lib/answer-form-model.d.ts",
-          "hash": "2568031836762466042"
-        },
-        {
-          "file": "libs/data-models/src/lib/authenticate.d.ts",
-          "hash": "12580355431653165197"
-        },
-        {
-          "file": "libs/data-models/src/lib/change-password.d.ts",
-          "hash": "898276619422937300"
-        },
-        {
-          "file": "libs/data-models/src/lib/data-models.module.ts",
-          "hash": "8433305049723976265",
+          "file": "apps/oeas/src/main.ts",
+          "hash": "12530990079120336302",
           "deps": [
             "npm:@angular/core",
-            "npm:@angular/common"
+            "npm:@angular/platform-browser-dynamic"
           ]
         },
         {
-          "file": "libs/data-models/src/lib/department.d.ts",
-          "hash": "15702137082912788035"
+          "file": "apps/oeas/src/polyfills.ts",
+          "hash": "7176339394372785858",
+          "deps": [
+            "npm:zone.js"
+          ]
         },
         {
-          "file": "libs/data-models/src/lib/exam-answer-list.d.ts",
-          "hash": "2609638250344370090"
+          "file": "apps/oeas/src/styles.less",
+          "hash": "8461688624532444174"
         },
         {
-          "file": "libs/data-models/src/lib/exam-answer.d.ts",
-          "hash": "16463167146919064468"
-        },
-        {
-          "file": "libs/data-models/src/lib/exam-card.d.ts",
-          "hash": "12975749935303259993"
-        },
-        {
-          "file": "libs/data-models/src/lib/exam-list.d.ts",
-          "hash": "3330402085033754012"
-        },
-        {
-          "file": "libs/data-models/src/lib/exam-recording-view-model.d.ts",
-          "hash": "2181991630181028576"
-        },
-        {
-          "file": "libs/data-models/src/lib/exam-state.ts",
-          "hash": "4631571717002359987"
-        },
-        {
-          "file": "libs/data-models/src/lib/exam-taker-list.d.ts",
-          "hash": "1446368647138963227"
-        },
-        {
-          "file": "libs/data-models/src/lib/exam-taker-result-list.d.ts",
-          "hash": "15224132536720267630"
-        },
-        {
-          "file": "libs/data-models/src/lib/exam.d.ts",
-          "hash": "4982393724271849931"
-        },
-        {
-          "file": "libs/data-models/src/lib/forgot-password.d.ts",
-          "hash": "14598533241564933313"
-        },
-        {
-          "file": "libs/data-models/src/lib/question-detail.d.ts",
-          "hash": "2162765652025916320"
-        },
-        {
-          "file": "libs/data-models/src/lib/question-list.d.ts",
-          "hash": "12660070247775796854"
-        },
-        {
-          "file": "libs/data-models/src/lib/response-wrapper.d.ts",
-          "hash": "2614400611731049472"
-        },
-        {
-          "file": "libs/data-models/src/lib/section.d.ts",
-          "hash": "12300093906164150181"
-        },
-        {
-          "file": "libs/data-models/src/lib/take-exam-control-state.ts",
-          "hash": "2924142564211169923"
-        },
-        {
-          "file": "libs/data-models/src/lib/taker-exam-detail.d.ts",
-          "hash": "6191519339027886558"
-        },
-        {
-          "file": "libs/data-models/src/lib/taker-exam-question.d.ts",
-          "hash": "2344651332439478133"
-        },
-        {
-          "file": "libs/data-models/src/lib/user-detail.d.ts",
-          "hash": "11085517439205446197"
-        },
-        {
-          "file": "libs/data-models/src/lib/user-form-location-enum.ts",
-          "hash": "16493997701560226451"
-        },
-        {
-          "file": "libs/data-models/src/lib/user-form-type.ts",
-          "hash": "16280563011768733541"
-        },
-        {
-          "file": "libs/data-models/src/lib/user-list.d.ts",
-          "hash": "286080054520134745"
-        },
-        {
-          "file": "libs/data-models/src/lib/user-type.d.ts",
-          "hash": "13836123835401464268"
-        },
-        {
-          "file": "libs/data-models/src/lib/user.d.ts",
-          "hash": "14966224508190078693"
-        },
-        {
-          "file": "libs/data-models/src/test-setup.ts",
+          "file": "apps/oeas/src/test-setup.ts",
           "hash": "9531801021999427605",
           "deps": [
             "npm:jest-preset-angular"
           ]
         },
         {
-          "file": "libs/data-models/tsconfig.json",
-          "hash": "12234414938733307145"
+          "file": "apps/oeas/tsconfig.app.json",
+          "hash": "16597005711142581326"
         },
         {
-          "file": "libs/data-models/tsconfig.lib.json",
-          "hash": "14999110739244744162"
+          "file": "apps/oeas/tsconfig.editor.json",
+          "hash": "13708902743870995589"
         },
         {
-          "file": "libs/data-models/tsconfig.spec.json",
+          "file": "apps/oeas/tsconfig.json",
+          "hash": "17168068191646536033"
+        },
+        {
+          "file": "apps/oeas/tsconfig.spec.json",
           "hash": "18121645209207210368"
         }
       ]
