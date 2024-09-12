@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { APP_CONFIG } from '@batstateu/app-config';
 import { ResponseWrapper, User, UserDetail } from '@batstateu/data-models';
 import { Store } from '@ngrx/store';
-import { map, Observable, tap, throwError } from 'rxjs';
+import { map, Observable, of, tap, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,45 +11,41 @@ export class UserService {
   save(userDetail: UserDetail): Observable<number> {
     if (userDetail.id > 0) {
       return this.httpClient
-        .put<number>(
-          `${this.appConfig.API_URL}/records/userDetails/${userDetail.id}`,
-          userDetail
-        )
+        .put<number>(`${this.appConfig.API_URL}/records/userDetails/${userDetail.id}`, userDetail)
         .pipe(
           map((res: number) => {
             return res;
-          })
+          }),
         );
     }
     return this.httpClient
-      .post<number>(`${this.appConfig.API_URL}/records/userDetails`,userDetail)
+      .post<number>(`${this.appConfig.API_URL}/records/userDetails`, userDetail)
       .pipe(
         map((res: number) => {
           if (res === undefined) {
             throw Error('User Detail not found!');
           }
           return res;
-        })
+        }),
       );
   }
-  constructor(
-    private httpClient: HttpClient,
-    @Inject(APP_CONFIG) private appConfig: any
-  ) {}
+  constructor(private httpClient: HttpClient, @Inject(APP_CONFIG) private appConfig: any) {}
 
   get(userId: number | undefined): Observable<UserDetail> {
-    return this.httpClient
-      .get<ResponseWrapper<UserDetail>>(
-        `${this.appConfig.API_URL}/records/userDetails?filter=user_id,eq,${userId}&join=sections&join=departments&join=users&join=user_types`
-      )
-      .pipe(
-        map((res: ResponseWrapper<any>) => {
-          const user = res.records[0];
-          if (user === undefined) {
-            throw Error('User Detail not found!');
-          }
-          return {...user, code: user.user_id.username, userType: user.user_type_id.name};
-        })
-      );
+    return of({ isActive: true } as UserDetail);
+    // return this.httpClient
+    //   .get<ResponseWrapper<UserDetail>>(
+    //     `${this.appConfig.API_URL}/records/userDetails?filter=user_id,eq,${userId}&join=sections&join=departments&join=users&join=user_types`,
+    //   )
+    //   .pipe(
+    //     map((res: ResponseWrapper<any>) => {
+    //       return { firstName: 'firstName' } as UserDetail;
+    //       // const user = res.records[0];
+    //       // if (user === undefined) {
+    //       //   throw Error('User Detail not found!');
+    //       // }
+    //       // return {...user, code: user.user_id.username, userType: user.user_type_id.name};
+    //     }),
+    //   );
   }
 }

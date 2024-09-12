@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -14,11 +14,13 @@ import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import * as fromAuth from '../../+state/auth.reducer';
 import * as authActions from './../../+state/auth.actions';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  private readonly modal = inject(NzNotificationService);
   constructor(
     private router: Router,
-    private modal: NzModalService,
+
     private store: Store<fromAuth.State>
   ) {}
   intercept(
@@ -39,37 +41,33 @@ export class AuthInterceptor implements HttpInterceptor {
             (this.router.url === '/account/profile' && err.error.code === 1003)
           ) {
             this.router.navigate(['/account/profile']);
-            this.modal.warning({
-              nzTitle: 'Update your profile now!',
-              nzContent: `Please update your profile now so administrator can review and activate it!`,
-            });
-          } 
-          else if (err.status === 0) {
-            this.modal.error({
-              nzTitle: 'Error',
-              nzContent: `Can't connect to server!`,
-            });
-          }
-          else if (err.error.code === 1010) {
-            this.modal.error({
-              nzTitle: 'Error',
-              nzContent: `Record is related to other record. Cannot delete!`,
-            });
-          }
-          else if (err.error.code === 1013) {
-            this.modal.error({
-              nzTitle: 'Error',
-              nzContent: `Invalid Input!`,
-            });
-          }
-           else {
-            this.modal.error({
-              nzTitle: 'Error',
-              nzContent: `Code: ${err.error.code} ${err.error.message}`,
-            });
+            this.showNotification(
+              'warning',
+              'Update your profile now!',
+              `Please update your profile now so administrator can review and activate it!`
+            );
+          } else if (err.status === 0) {
+            this.showNotification('error', 'Error', `Can't connect to server!`);
+          } else if (err.error.code === 1010) {
+            this.showNotification(
+              'error',
+              'Error',
+              `Record is related to other record. Cannot delete!`
+            );
+          } else if (err.error.code === 1013) {
+            this.showNotification('error', 'Error', `Invalid Input!`);
+          } else {
+            this.showNotification(
+              'error',
+              'Error',
+              `Code: ${err.error.code} ${err.error.message}`
+            );
           }
         },
       })
     );
+  }
+  private showNotification(type: string, title: string, message: string) {
+    this.modal.create(type, title, message);
   }
 }

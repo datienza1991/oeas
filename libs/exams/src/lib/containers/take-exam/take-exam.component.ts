@@ -25,7 +25,7 @@ import { APP_CONFIG } from '@batstateu/app-config';
 import { BehaviorSubject, interval, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromAuth from '@batstateu/auth';
-import { CdTimerComponent } from 'angular-cd-timer';
+// import { CdTimerComponent } from 'angular-cd-timer';
 import { TakeExamCameraViewComponent } from '../../components/take-exam-camera-view/take-exam-camera-view.component';
 @Component({
   selector: 'batstateu-take-exam',
@@ -33,13 +33,13 @@ import { TakeExamCameraViewComponent } from '../../components/take-exam-camera-v
   styleUrls: ['./take-exam.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TakeExamComponent implements OnInit, AfterViewInit {
+export class TakeExamComponent implements OnInit {
   @ViewChild(TakeExamRecordingComponent)
   takeExamRecording!: TakeExamRecordingComponent;
   @ViewChild(TakeExamCameraViewComponent)
   takeExamCameraView!: TakeExamCameraViewComponent;
   @ViewChild('cdTimer')
-  cdTimer!: CdTimerComponent;
+  // cdTimer!: CdTimerComponent;
   examDetail!: Exam;
   examTitle = '';
   TakeExamStateEnum = ExamState;
@@ -225,7 +225,7 @@ export class TakeExamComponent implements OnInit, AfterViewInit {
   onStartExam() {
     this.cameraVisible = true;
     this.videoVisibleSubject$.next(true);
-    this.cdTimer.start();
+    // this.cdTimer.start();
     this.getQuestions();
     this.takeExamState = ExamState.takeExamQuestionView;
   }
@@ -307,5 +307,4 @@ export class TakeExamComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     private zone: NgZone
   ) {}
-  ngAfterViewInit(): void {}
 }

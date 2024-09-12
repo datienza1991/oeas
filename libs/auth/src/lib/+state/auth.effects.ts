@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { fetch } from '@ngrx/router-store/data-persistence';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 import { AuthActionTypes } from './auth.actions';
 import * as authActions from './auth.actions';
 import { AuthService } from './../services/auth/auth.service';
 import { User } from '@batstateu/data-models';
-import { of } from 'rxjs';
+import { forkJoin, of, throwError } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State } from './auth.reducer';
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -16,43 +16,44 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Injectable()
 export class AuthEffects {
+  private store = inject(Store<State>)
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private userService: UserService,
+    private router: Router,
+    private modal: NzModalService
+  ) {}
+
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActionTypes.Login),
       fetch({
         run: (action) => {
-          const store = this.store;
+          const {payload} = action;
           const userService = this.userService;
-          this.authService.login(action['payload']).subscribe({
-            next(user: User) {
-              userService.get(user.id).subscribe({
-                next: (userDetail) => {
-                  if (userDetail !== undefined) {
-                    store.dispatch(
-                      authActions.loginSuccess({
-                        payload: {
-                          id: user.id,
-                          isActive: userDetail.isActive,
-                          username: user.username,
-                          firstName: userDetail.firstName,
-                          userDetailId: userDetail.id,
-                          sectionId: userDetail.sectionId?.id || null,
-                          userType: userDetail.userType,
-                        },
-                      })
-                    );
-                  }
+          this.authService.login(payload)
+          .pipe(
+            catchError(() => of({} as User)),
+            switchMap((user) => forkJoin([userService.get(user.id),of(user)])),
+            filter((userDetail) => !!userDetail),
+            map(([userDetail, user])=>{
+            this.store.dispatch(
+              authActions.loginSuccess({
+                payload: {
+                  id: user.id,
+                  isActive: userDetail.isActive,
+                  username: user.username,
+                  firstName: userDetail.firstName,
+                  userDetailId: userDetail.id,
+                  sectionId: userDetail.sectionId?.id || null,
+                  userType: userDetail.userType,
                 },
-                error: () =>
-                  store.dispatch(
-                    authActions.loginSuccessNewAccount({ payload: user })
-                  ),
-              });
-            },
-            error: (er) => {
-              console.log('[Auth Effects] Login user error', er);
-            },
-          });
+              }),
+              
+            );
+          })).subscribe();
+          
         },
         onError: (action, error) => {
           return authActions.loginFailure(error);
@@ -97,13 +98,4 @@ export class AuthEffects {
       ),
     { dispatch: false }
   );
-
-  constructor(
-    private actions$: Actions,
-    private authService: AuthService,
-    private userService: UserService,
-    private router: Router,
-    private store: Store<State>,
-    private modal: NzModalService
-  ) {}
 }

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ExamListComponent } from './components/exam-list/exam-list.component';
-
 import { ExamTakersListComponent } from './components/exam-takers-list/exam-takers-list.component';
 import { ExamRecordingViewComponent } from './components/exam-recording-view/exam-recording-view.component';
 import { ExamResultListComponent } from './components/exam-result-list/exam-result-list.component';
@@ -24,13 +23,15 @@ import { ExamInstructionViewComponent } from './components/exam-instruction-view
 import { TakeExamComponent } from './containers/take-exam/take-exam.component';
 import { TakeExamControlComponent } from './components/take-exam-control/take-exam-control.component';
 import { TakeExamRecordingComponent } from './containers/take-exam-recording/take-exam-recording.component';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { TakeExamQuestionViewComponent } from './components/take-exam-question-view/take-exam-question-view.component';
 import { DataModelsModule } from '@batstateu/data-models';
 import { TakeExamResultComponent } from './containers/take-exam-result/take-exam-result.component';
 import { TakeExamResultViewComponent } from './components/take-exam-result-view/take-exam-result-view.component';
-import { ExamGuard, SharedModule } from '@batstateu/shared';
-import { CdTimerModule } from 'angular-cd-timer';
+import { SharedModule } from '@batstateu/shared';
 import { TakeExamCameraViewComponent } from './components/take-exam-camera-view/take-exam-camera-view.component';
 import { NgxEditorModule } from 'ngx-editor';
 
@@ -39,29 +40,43 @@ import { NgxEditorModule } from 'ngx-editor';
     CommonModule,
     NgZorroAntdModule,
     ReactiveFormsModule,
-    HttpClientModule,
     DataModelsModule,
     FormsModule,
     SharedModule,
-    CdTimerModule,
     NgxEditorModule,
     RouterModule.forChild([
-      {path: '', component: ExamsComponent},
-      {path: ':examId/form', component: ExamFormComponent},
-      {path: 'form', component: ExamFormComponent},
-      {path: 'item-points', component: ExamItemPointsComponent},
-      {path: ':examId/takers/:takerId/recording', component: ExamRecordingComponent},
-      {path: ':examId/takers/:takerId/results', component: ExamResultComponent},
-      {path: ':examId/takers/:takerId/results/:examAnsId', component: ExamItemPointsComponent},
-      {path: ':examId/takers', component: ExamTakersComponent},
-      {path: ':examId/takers/:takerId/recording', component: ExamRecordingComponent},
-      {path: ':examId/take-exam', component: TakeExamComponent},
-      {path: ':examId/questions', component: QuestionsComponent},
-      {path: ':examId/questions/:questionId/edit', component: QuestionFormComponent},
-      {path: ':examId/questions/add', component: QuestionFormComponent},
-      {path: ':examId/result', component: TakeExamResultComponent},
+      { path: '', component: ExamsComponent },
+      { path: ':examId/form', component: ExamFormComponent },
+      { path: 'form', component: ExamFormComponent },
+      { path: 'item-points', component: ExamItemPointsComponent },
+      {
+        path: ':examId/takers/:takerId/recording',
+        component: ExamRecordingComponent,
+      },
+      {
+        path: ':examId/takers/:takerId/results',
+        component: ExamResultComponent,
+      },
+      {
+        path: ':examId/takers/:takerId/results/:examAnsId',
+        component: ExamItemPointsComponent,
+      },
+      { path: ':examId/takers', component: ExamTakersComponent },
+      {
+        path: ':examId/takers/:takerId/recording',
+        component: ExamRecordingComponent,
+      },
+      { path: ':examId/take-exam', component: TakeExamComponent },
+      { path: ':examId/questions', component: QuestionsComponent },
+      {
+        path: ':examId/questions/:questionId/edit',
+        component: QuestionFormComponent,
+      },
+      { path: ':examId/questions/add', component: QuestionFormComponent },
+      { path: ':examId/result', component: TakeExamResultComponent },
     ]),
   ],
+  providers: [provideHttpClient(withInterceptorsFromDi())],
   declarations: [
     ExamListComponent,
     ExamFormComponent,

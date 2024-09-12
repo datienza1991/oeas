@@ -5,8 +5,8 @@
       takeExamState === TakeExamStateEnum.instructionView ? '' : null
     "
     nzTitle="{{ (examDetail$ | async)?.name }}"
-    ><nz-page-header-extra
-      ><cd-timer
+    ><nz-page-header-extra>
+      <!-- <cd-timer
         style="font-size: 24px"
         #cdTimer
         [autoStart]="false"
@@ -14,8 +14,9 @@
         [countdown]="true"
         [startTime]="startCdCount"
         (onComplete)="onCompleteTimer()"
-      ></cd-timer></nz-page-header-extra
-  ></nz-page-header>
+      ></cd-timer> -->
+    </nz-page-header-extra></nz-page-header
+  >
   <batstateu-exam-instruction-view
     [examDetail]="examDetail"
     [hidden]="takeExamState !== TakeExamStateEnum.instructionView"
