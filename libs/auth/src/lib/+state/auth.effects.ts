@@ -7,7 +7,7 @@ import { AuthActionTypes } from './auth.actions';
 import * as authActions from './auth.actions';
 import { AuthService } from './../services/auth/auth.service';
 import { User } from '@batstateu/data-models';
-import { forkJoin, of, throwError } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State } from './auth.reducer';
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -25,7 +25,7 @@ export class AuthEffects {
     private modal: NzModalService
   ) {}
 
-  login$ = createEffect(() =>
+  x$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActionTypes.Login),
       fetch({

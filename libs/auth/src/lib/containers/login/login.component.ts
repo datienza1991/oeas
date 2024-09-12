@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Authenticate } from '@batstateu/data-models';
 import { Store } from '@ngrx/store';
 import * as fromAuth from '../../+state/auth.reducer';
@@ -8,7 +8,6 @@ import * as authActions from './../../+state/auth.actions';
   selector: 'batstateu-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.less'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
   constructor(private store: Store<fromAuth.State>) {}
