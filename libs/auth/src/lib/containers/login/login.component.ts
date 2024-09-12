@@ -11,7 +11,6 @@ import * as authActions from './../../+state/auth.actions';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
-  
   constructor(private store: Store<fromAuth.State>) {}
 
   ngOnInit(): void {
