@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  DepartmentService,
-  SectionService,
-  UserService,
-} from '@batstateu/shared';
+import { DepartmentService, SectionService, UserService } from '@batstateu/shared';
 import {
   Department,
   Section,
@@ -42,13 +38,12 @@ export class UserFormComponent implements OnInit {
     private modal: NzModalService,
     private route: ActivatedRoute,
     private departmentService: DepartmentService,
-    private sectionService: SectionService
+    private sectionService: SectionService,
   ) {
     this.user$ = this.store.select(fromAuth.getUser);
   }
 
   ngOnInit(): void {
-    console.log('user form init..');
     this.getValues();
     this.getDepartments();
     this.getSections();
@@ -75,7 +70,7 @@ export class UserFormComponent implements OnInit {
         nzTitle: 'Success',
         nzContent: 'Record has been saved',
         nzOkText: 'Ok',
-      })
+      }),
     );
   }
   getValues() {

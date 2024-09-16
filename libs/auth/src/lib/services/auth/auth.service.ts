@@ -4,7 +4,7 @@ import { Authenticate, User } from '@batstateu/data-models';
 import { Store } from '@ngrx/store';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import * as fromAuth from '@batstateu/auth';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { APP_CONFIG } from '@batstateu/app-config';
 
 @Injectable({
@@ -18,19 +18,7 @@ export class AuthService {
   ) {}
 
   login(authenticate: Authenticate): Observable<User> {
-    return of({
-      id: 1,
-      isActive: true,
-      username: 'username',
-      firstName: 'first name',
-      userDetailId: 1,
-      sectionId: 1,
-      userType: 'user',
-    } as User);
-    // return this.httpClient.post<User>(
-    //   `${this.appConfig.API_URL}/login`,
-    //   authenticate
-    // );
+    return this.httpClient.post<User>(`${this.appConfig.API_URL}/login`, authenticate);
   }
 
   register(authenticate: any): Observable<Authenticate> {

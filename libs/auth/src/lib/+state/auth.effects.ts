@@ -1,65 +1,51 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { fetch } from '@ngrx/router-store/data-persistence';
-import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, exhaustMap, filter, map, switchMap, tap } from 'rxjs/operators';
 import { AuthActionTypes } from './auth.actions';
 import * as authActions from './auth.actions';
 import { AuthService } from './../services/auth/auth.service';
 import { User } from '@batstateu/data-models';
 import { forkJoin, of } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { State } from './auth.reducer';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { UserService } from '@batstateu/account';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Injectable()
 export class AuthEffects {
-  private store = inject(Store<State>)
   constructor(
     private actions$: Actions,
     private authService: AuthService,
     private userService: UserService,
     private router: Router,
-    private modal: NzModalService
+    private modal: NzModalService,
   ) {}
 
-  x$ = createEffect(() =>
+  login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActionTypes.Login),
-      fetch({
-        run: (action) => {
-          const {payload} = action;
-          const userService = this.userService;
-          this.authService.login(payload)
-          .pipe(
-            catchError(() => of({} as User)),
-            switchMap((user) => forkJoin([userService.get(user.id),of(user)])),
-            filter((userDetail) => !!userDetail),
-            map(([userDetail, user])=>{
-            this.store.dispatch(
-              authActions.loginSuccess({
-                payload: {
-                  id: user.id,
-                  isActive: userDetail.isActive,
-                  username: user.username,
-                  firstName: userDetail.firstName,
-                  userDetailId: userDetail.id,
-                  sectionId: userDetail.sectionId?.id || null,
-                  userType: userDetail.userType,
-                },
-              }),
-              
-            );
-          })).subscribe();
-          
-        },
-        onError: (action, error) => {
-          return authActions.loginFailure(error);
-        },
-      })
-    )
+      exhaustMap((action) => {
+        const { payload } = action;
+        return this.authService.login(payload).pipe(
+          catchError(() => of({} as User)),
+          switchMap((user) => forkJoin([this.userService.get(user.id), of(user)])),
+          filter((userDetail) => !!userDetail),
+          map(([userDetail, user]) =>
+            authActions.loginSuccess({
+              payload: {
+                id: user.id,
+                isActive: userDetail.isActive,
+                username: user.username,
+                firstName: userDetail.firstName,
+                userDetailId: userDetail.id,
+                sectionId: userDetail.sectionId?.id || null,
+                userType: userDetail.userType,
+              },
+            }),
+          ),
+        );
+      }),
+    ),
   );
 
   navigateToDashboard$ = createEffect(
@@ -68,9 +54,9 @@ export class AuthEffects {
         ofType(AuthActionTypes.LoginSuccess),
         tap(() => {
           this.router.navigate([`/dashboard`]);
-        })
+        }),
       ),
-    { dispatch: false }
+    { dispatch: false },
   );
 
   navigateToProfile$ = createEffect(
@@ -83,9 +69,9 @@ export class AuthEffects {
             nzContent: `Please update your profile now so administrator can review and activate it!`,
           });
           this.router.navigate([`/account/profile`]);
-        })
+        }),
       ),
-    { dispatch: false }
+    { dispatch: false },
   );
 
   logout$ = createEffect(
@@ -94,8 +80,8 @@ export class AuthEffects {
         ofType(AuthActionTypes.Logout),
         tap(() => {
           this.router.navigate([`/auth/login`]);
-        })
+        }),
       ),
-    { dispatch: false }
+    { dispatch: false },
   );
 }

@@ -1,15 +1,8 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserDetail } from '@batstateu/data-models';
 import { UserService } from '@batstateu/shared';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import {
-  BehaviorSubject,
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  map,
-  Observable,
-} from 'rxjs';
+import { BehaviorSubject, debounceTime, distinctUntilChanged, map, switchMap, take } from 'rxjs';
 
 @Component({
   selector: 'batstateu-users',
@@ -21,27 +14,26 @@ export class UsersComponent implements OnInit {
   private searchSubject$ = new BehaviorSubject<string>('');
 
   onResetPassword({ userId, userDetailId }: any) {
-    this.userService.resetPassword(userId).subscribe(() => {
-      this.userService
-        .updateResetPasswordDefaultStatus(userDetailId)
-        .subscribe(() => {
-          this.getAll('');
-          this.modal.info({
-            nzTitle: 'Reset Password',
-            nzContent: `Password has been reset to default`,
-          });
+    this.userService
+      .resetPassword(userId)
+      .pipe(
+        switchMap(() => this.userService.updateResetPasswordDefaultStatus(userDetailId)),
+        take(1),
+      )
+      .subscribe(() => {
+        this.getAll('');
+        this.modal.info({
+          nzTitle: 'Reset Password',
+          nzContent: `Password has been reset to default`,
         });
-    });
+      });
   }
   onDelete(userDetail: UserDetail) {
     this.userService.deleteUser(userDetail.user_id).subscribe(() => {
       this.getAll('');
     });
   }
-  constructor(
-    private userService: UserService,
-    private modal: NzModalService
-  ) {}
+  constructor(private userService: UserService, private modal: NzModalService) {}
 
   ngOnInit(): void {
     this.getAll('');
@@ -51,7 +43,7 @@ export class UsersComponent implements OnInit {
       .pipe(
         map((val) => val.trim()),
         debounceTime(1000),
-        distinctUntilChanged()
+        distinctUntilChanged(),
       )
       .subscribe((val) => this.getAll(val));
   }

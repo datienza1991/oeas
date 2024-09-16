@@ -1,50 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { ChangePassword, User } from '@batstateu/data-models';
+import { Component, inject } from '@angular/core';
+import { ChangePassword } from '@batstateu/data-models';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { UserService } from '@batstateu/shared';
 import { NzModalService } from 'ng-zorro-antd/modal';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import * as fromAuth from '@batstateu/auth';
-import { Store } from '@ngrx/store';
-import { map, Observable } from 'rxjs';
+import { take } from 'rxjs';
+import { FormBuilder, Validators } from '@angular/forms';
+import { confirmationValidator } from './confimration-validator';
 @Component({
   selector: 'batstateu-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.less'],
 })
-export class ChangePasswordComponent implements OnInit {
-  user$!: Observable<User | null>;
-  user!: User | null;
-  constructor(
-    private modal: NzModalService,
-    private userService: UserService,
-    private store: Store<fromAuth.State>
-  ) {
-    this.user$ = this.store.select(fromAuth.getUser);
-  }
+export class ChangePasswordComponent {
+  private readonly fb = inject(FormBuilder);
 
-  ngOnInit(): void {
-    this.getUser();
-  }
+  private readonly form = this.fb.group({
+    newpassword: [null, [Validators.required]],
+    oldpassword: [null, [Validators.required]],
+    checkPassword: [null, [Validators.required, confirmationValidator]],
+  });
+
+  constructor(private modal: NzModalService, private userService: UserService) {}
 
   onSave(changePassword: ChangePassword) {
     this.userService
-      .changePassword(
-        this.user?.username || '',
-        changePassword.oldPass,
-        changePassword.newPass
-      )
+      .changePassword(changePassword.username || '', changePassword.oldPass, changePassword.newPass)
+      .pipe(take(1))
       .subscribe(() =>
-        // this.userService.changePassword();
         this.modal.success({
           nzTitle: 'Success Password Changed',
           nzContent: 'Your password has been changed.',
           nzOkText: 'Ok',
-        })
+        }),
       );
-  }
-
-  getUser() {
-    this.user$.subscribe((val) => (this.user = val));
   }
 }
