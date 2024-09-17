@@ -1,20 +1,15 @@
 <div class="main">
   <div class="login-container">
     <nz-card nzTitle="Login" [nzExtra]="extraTemplate" class="login-form">
-      <form nz-form [formGroup]="validateForm" (ngSubmit)="login()">
+      <form nz-form [formGroup]="form()" (ngSubmit)="login()">
         <nz-form-item>
           <nz-form-control nzErrorTip="Please input your username">
             <nz-input-group nzPrefixIcon="user">
-              <input
-                nz-input
-                formControlName="username"
-                placeholder="Username"
-                type="text"
-              />
+              <input nz-input formControlName="username" placeholder="Username" type="text" />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
-  
+
         <nz-form-item>
           <nz-form-control nzErrorTip="Please input your Password">
             <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
@@ -35,11 +30,9 @@
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
-  
+
         <nz-form-item>
-          <button class="login-form-button" nz-button nzType="primary">
-            Login
-          </button>
+          <button class="login-form-button" nz-button nzType="primary"> Login </button>
         </nz-form-item>
         <nz-divider></nz-divider>
         <a routerLink="/auth/register" class="login-form-register" href=""
@@ -51,5 +44,4 @@
       <a routerLink="/auth/forgot-password">Forgot Password?</a>
     </ng-template>
   </div>
-  
 </div>

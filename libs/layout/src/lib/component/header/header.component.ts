@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AuthService } from '@batstateu/auth';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { authApiActions } from '@batstateu/auth';
 import { User } from '@batstateu/data-models';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -8,20 +9,18 @@ import { Observable } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   @Input() user$!: Observable<User | null>;
   @Output() collapsed = new EventEmitter<boolean>();
   isCollapsed = false;
-  constructor(private authService : AuthService) {
 
-  }
-  ngOnInit(): void {}
+  private readonly store = inject(Store);
 
-  onCollapsed(){
-    this.isCollapsed = !this.isCollapsed
+  onCollapsed() {
+    this.isCollapsed = !this.isCollapsed;
     this.collapsed.emit(this.isCollapsed);
   }
-  logout(){
-    this.authService.logout();
+  logout() {
+    this.store.dispatch(authApiActions.logout());
   }
 }

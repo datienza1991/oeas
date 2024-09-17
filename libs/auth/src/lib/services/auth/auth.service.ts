@@ -1,9 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Authenticate, User } from '@batstateu/data-models';
-import { Store } from '@ngrx/store';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import * as fromAuth from '@batstateu/auth';
 import { Observable } from 'rxjs';
 import { APP_CONFIG } from '@batstateu/app-config';
 
@@ -11,11 +9,7 @@ import { APP_CONFIG } from '@batstateu/app-config';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(
-    private httpClient: HttpClient,
-    private store: Store<fromAuth.State>,
-    @Inject(APP_CONFIG) private appConfig: any,
-  ) {}
+  constructor(private httpClient: HttpClient, @Inject(APP_CONFIG) private appConfig: any) {}
 
   login(authenticate: Authenticate): Observable<User> {
     return this.httpClient.post<User>(`${this.appConfig.API_URL}/login`, authenticate);
@@ -23,9 +17,5 @@ export class AuthService {
 
   register(authenticate: any): Observable<Authenticate> {
     return this.httpClient.post<Authenticate>(`${this.appConfig.API_URL}/register`, authenticate);
-  }
-
-  logout() {
-    this.store.dispatch(fromAuth.authApiActions.logout());
   }
 }

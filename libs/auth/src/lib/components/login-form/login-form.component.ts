@@ -1,36 +1,22 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import {
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
-import { Authenticate } from '@batstateu/data-models';
+import { Component, input, output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'batstateu-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.less'],
 })
-export class LoginFormComponent implements OnInit {
-  constructor(private fb: UntypedFormBuilder) {}
+export class LoginFormComponent {
+  public form = input<FormGroup>({} as FormGroup);
+  public onSubmit = output<void>();
 
-  @Output() submitForm = new EventEmitter<Authenticate>();
   passwordVisible = false;
-  validateForm!: UntypedFormGroup;
-
-  ngOnInit(): void {
-    this.validateForm = this.fb.group({
-      username: [null, [Validators.required]],
-      password: [null, [Validators.required]],
-      remember: [true],
-    });
-  }
 
   login() {
-    if (this.validateForm.valid) {
-      this.submitForm.emit(this.validateForm.value);
+    if (this.form().valid) {
+      this.onSubmit.emit();
     } else {
-      Object.values(this.validateForm.controls).forEach((control) => {
+      Object.values(this.form().controls).forEach((control) => {
         if (control.invalid) {
           control.markAsDirty();
           control.updateValueAndValidity({ onlySelf: true });
