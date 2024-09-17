@@ -1,0 +1,127 @@
+<div class="exam-form-view-container">
+  <nz-page-header class="site-page-header" [nzTitle]="title">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+      <nz-breadcrumb-item>Exams</nz-breadcrumb-item>
+      <nz-breadcrumb-item>{{ title }}</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </nz-page-header>
+  <nz-card>
+    <form
+      nz-form
+      [formGroup]="validateForm"
+      (ngSubmit)="submitForm()"
+      [nzLayout]="'vertical'"
+    >
+      <div nz-row [nzGutter]="24">
+        <div nz-col [nzSpan]="24">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="name">Name</nz-form-label>
+            <nz-form-control nzErrorTip="The input is not valid name!">
+              <input nz-input formControlName="name" id="name" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="subject">Subject</nz-form-label>
+            <nz-form-control nzErrorTip="The input is not valid subject!">
+              <input nz-input formControlName="subject" id="subject" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzFor="startOn" nzRequired>
+              <span>Start On</span>
+            </nz-form-label>
+            <nz-form-control nzErrorTip="Please input your startOn!">
+              <nz-date-picker
+                style="width: 100%"
+                nzShowTime
+                formControlName="startOn"
+              ></nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzFor="duration" nzRequired>
+              <span>Duration</span>
+            </nz-form-label>
+            <nz-form-control nzErrorTip="Please input your duration!">
+              <nz-input-group nzAddOnAfter="mins">
+                <nz-input-number
+                  style="width: 100%"
+                  nz-input
+                  id="duration"
+                  formControlName="duration"
+                ></nz-input-number>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label nzFor="sectionId" nzRequired>Section</nz-form-label>
+            <nz-form-control nzErrorTip="Please input section!">
+              <nz-select
+                id="sectionId"
+                formControlName="sectionId"
+                nzPlaceHolder="Select section"
+              >
+                <nz-option
+                  *ngFor="let sec of sections"
+                  [nzValue]="sec?.id"
+                  nzLabel="{{ sec?.name }}"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="24">
+          <nz-form-item>
+            <nz-form-label nzFor="address" nzRequired>
+              <span>Instructions</span>
+            </nz-form-label>
+            <nz-form-control nzErrorTip="Please input your instruction!">
+              <div class="NgxEditor__Wrapper">
+                <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+                </ngx-editor-menu>
+                <ngx-editor
+                  formControlName="instructions"
+                  [editor]="editor"
+                  [placeholder]="'Type here...'"
+                ></ngx-editor>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]="24">
+          <nz-form-item
+            class="register-area"
+            style="
+              height: 100%;
+              display: flex;
+              flex-direction: row;
+              justify-content: flex-end;
+              align-items: center;
+            "
+          >
+            <nz-space>
+              <a
+                *nzSpaceItem
+                nz-button
+                style="width: 78px"
+                nzType="default"
+                (click)="onBack()"
+                >Cancel</a
+              >
+              <button *nzSpaceItem nz-button nzType="primary">Save</button>
+            </nz-space>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </nz-card>
+</div>

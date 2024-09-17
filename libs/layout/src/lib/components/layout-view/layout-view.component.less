@@ -1,0 +1,74 @@
+@sider-bg: url('../../../../../shared/src/lib/assets/images/sider-bg.jpg');
+@logo: url('../../../../../shared/src/lib/assets/images/logo.png');
+nz-avatar {
+  margin: 12px 16px;
+}
+
+nz-layout {
+  background: #fff;
+  min-height: calc(100vh);
+}
+
+.test {
+  background: @sider-bg no-repeat;
+  height: 100%;
+  opacity: calc(0.1);
+}
+.trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #800000;
+}
+.ant-layout-sider-children {
+  background-color: red;
+}
+.logo-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+.logo {
+  width: 72px;
+  height: 72px;
+  overflow: hidden;
+  background: @logo;
+  margin: 16px;
+}
+
+nz-header {
+  background: #fff;
+  box-shadow: 5px 3px 5px rgba(87, 87, 87, 0.87);
+  padding: 0;
+}
+
+nz-breadcrumb {
+  margin: 16px 0;
+}
+
+.inner-content {
+  padding: 24px;
+  background: #fff;
+  min-height: 360px;
+}
+
+nz-footer {
+  text-align: center;
+}
+.sider-background {
+  height: 100vh;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  opacity: calc(0.2);
+}
+.layout-right{
+  margin-left: 200px;
+}

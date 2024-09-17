@@ -1,0 +1,20 @@
+{
+  "name": "setting",
+  "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/setting/src",
+  "prefix": "batstateu",
+  "tags": [],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/setting"],
+      "options": {
+        "jestConfig": "libs/setting/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

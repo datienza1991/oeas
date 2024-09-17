@@ -1,0 +1,16 @@
+/* change player background color */
+@page-header-size: 98px;
+@page-footer-size: 66px;
+.video-js video {
+  padding: 20px;
+  background-color: #000;
+}
+nz-page-header {
+  background-color: #fafafa;
+}
+.video-container {
+  height: calc(100% - (@page-footer-size + @page-header-size));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

@@ -3,9 +3,17 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "types": [],
-    "target": "ES2017"
+    "target": "ES2022",
+    "useDefineForClassFields": false
   },
   "files": ["src/main.ts", "src/polyfills.ts"],
-  "include": ["src/**/*.d.ts"],
-  "exclude": ["**/*.test.ts", "**/*.spec.ts"]
+  "include": [
+    "src/**/*.d.ts",
+    "../../libs/products/src/index.ts",
+    "../../libs/dashboard/src/index.ts",
+    "../../libs/setting/src/index.ts",
+    "../../libs/exams/src/index.ts",
+    "../../libs/account/src/index.ts"
+  ],
+  "exclude": ["**/*.test.ts", "**/*.spec.ts", "jest.config.ts"]
 }

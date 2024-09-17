@@ -1,0 +1,20 @@
+{
+  "name": "data-models",
+  "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/data-models/src",
+  "prefix": "batstateu",
+  "tags": [],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/data-models"],
+      "options": {
+        "jestConfig": "libs/data-models/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

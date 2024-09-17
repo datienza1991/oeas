@@ -1,0 +1,20 @@
+{
+  "name": "ng-zorro-antd",
+  "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/ng-zorro-antd/src",
+  "prefix": "batstateu",
+  "tags": [],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/ng-zorro-antd"],
+      "options": {
+        "jestConfig": "libs/ng-zorro-antd/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

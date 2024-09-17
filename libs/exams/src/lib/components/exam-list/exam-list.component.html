@@ -1,0 +1,134 @@
+<div class="exam-list-container">
+  <nz-page-header class="site-page-header" nzTitle="Exams">
+    <nz-page-header-extra>
+      <button
+        *ngIf="!isStudent"
+        style="width: 72px"
+        nz-button
+        nzType="primary"
+        routerLink="form"
+      >
+        Add
+      </button>
+      <nz-input-group style="width: 240px" [nzSuffix]="suffixIconSearch">
+        <input
+          type="text"
+          nz-input
+          placeholder="Search"
+          [(ngModel)]="searchText"
+          (ngModelChange)="onSearchChange($event)"
+          id="search-box"
+        />
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i> </ng-template
+    ></nz-page-header-extra>
+  </nz-page-header>
+
+  <nz-table #basicTable nzBordered [nzData]="examList">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Subject</th>
+        <th>Start On</th>
+        <th>Durations</th>
+        <th>Department</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data?.name }}</td>
+        <td>{{ data?.subject }}</td>
+        <td>{{ data?.startOn }}</td>
+        <td>{{ data?.duration }} mins</td>
+        <td>{{ data?.department }}</td>
+        <td>
+          <button
+            *ngIf="!isStudent"
+            nz-button
+            nzType="default"
+            [nzSize]="'small'"
+            (click)="onChangeStatus(data?.id, data?.isActive)"
+          >
+            {{ data?.isActive || false | status }}
+          </button>
+          <div *ngIf="isStudent">{{ data?.isActive || false | status }}</div>
+        </td>
+        <td>
+          <a
+            *ngIf="isStudent"
+            nz-button
+            nzType="text"
+            nz-tooltip
+            nzTooltipTitle="Take Exam"
+            routerLink="{{ data?.id }}/take-exam"
+          >
+            <i
+              nz-icon
+              [nzType]="'folder-open'"
+              [nzTheme]="'twotone'"
+              [nzTwotoneColor]="'#fa541c'"
+            ></i>
+          </a>
+          <button
+            *ngIf="!isStudent"
+            nz-button
+            nzType="text"
+            nz-tooltip
+            nzTooltipTitle="Edit"
+            routerLink="{{ data?.id }}/form"
+          >
+            <i
+              nz-icon
+              [nzType]="'edit'"
+              [nzTheme]="'twotone'"
+              [nzTwotoneColor]="'#faad14'"
+            ></i>
+          </button>
+          <button
+            *ngIf="!isStudent"
+            nz-button
+            nzType="text"
+            nz-tooltip
+            nzTooltipTitle="Delete"
+            (click)="delete(data)"
+          >
+            <i
+              nz-icon
+              [nzType]="'delete'"
+              [nzTheme]="'twotone'"
+              [nzTwotoneColor]="'#f5222d'"
+            ></i>
+          </button>
+          <button
+            *ngIf="!isStudent"
+            nz-button
+            nzType="text"
+            nz-tooltip
+            nzTooltipTitle="More"
+            nz-dropdown
+            [nzDropdownMenu]="menu"
+          >
+            <i nz-icon [nzType]="'more'" [nzTheme]="'outline'"></i>
+          </button>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>
+                <a style="color: #8c8c8c" routerLink="{{ data?.id }}/questions"
+                  >Add Questions</a
+                >
+              </li>
+              <li nz-menu-item>
+                <a style="color: #8c8c8c" routerLink="{{ data?.id }}/takers"
+                  >View Takers</a
+                >
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
