@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, Observer, of } from 'rxjs';
+import { filter, Observable } from 'rxjs';
 import {
   Department,
   Section,
@@ -13,20 +13,16 @@ import {
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import * as fromAuth from '@batstateu/auth';
 
-import { ProfileFormComponent } from '../../components/profile-form/profile-form.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import {
-  DepartmentService,
-  SectionService,
-  UserService,
-} from '@batstateu/shared';
+import { DepartmentService, SectionService, UserService } from '@batstateu/shared';
 @Component({
   selector: 'batstateu-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.less'],
 })
 export class ProfileComponent implements OnInit {
+  private readonly store: Store = inject(Store);
   user$!: Observable<User | null>;
   userId!: number;
   id!: number;
@@ -39,18 +35,17 @@ export class ProfileComponent implements OnInit {
   userFormType = UserFormType.FACULTY_ADMIN;
   userFormLocation = UserFormLocation.PROFILE;
   isHideUserTypeList = false;
+  private readonly user = this.store.selectSignal(fromAuth.getUser);
   constructor(
-    private store: Store<fromAuth.State>,
     private userService: UserService,
     private modal: NzModalService,
     private departmentService: DepartmentService,
-    private sectionService: SectionService
+    private sectionService: SectionService,
   ) {
     this.user$ = this.store.select(fromAuth.getUser);
   }
 
   ngOnInit(): void {
-    console.log('profile init..');
     this.getValues();
     this.getDepartments();
     this.getSections();
@@ -84,20 +79,19 @@ export class ProfileComponent implements OnInit {
     });
   }
   getValues() {
-    this.user$.subscribe({
-      next: (user) => {
-        this.userId = user?.id || 0;
-        this.code = user?.username || '';
-        if (this.userId > 0) {
-          this.userService.get(user?.id).subscribe((val) => {
-            this.id = val.id;
-            this.userDetail = val;
-            this.isHideUserTypeList = true;
-          });
-        }
-      },
-    });
+    this.userId = this.user()?.id || 0;
+    this.code = this.user()?.username || '';
+
+    this.userService
+      .get(this.user()?.id)
+      .pipe(filter(() => this.userId > 0))
+      .subscribe((val) => {
+        this.id = val.id;
+        this.userDetail = val;
+        this.isHideUserTypeList = true;
+      });
   }
+
   getDepartments() {
     this.departmentService.getAll().subscribe((val) => {
       this.departments = val;

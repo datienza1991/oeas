@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Authenticate } from '@batstateu/data-models';
 import { Store } from '@ngrx/store';
-import * as fromAuth from '../../+state/auth.reducer';
 import * as authActions from './../../+state/auth.actions';
 
 @Component({
@@ -9,14 +8,10 @@ import * as authActions from './../../+state/auth.actions';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.less'],
 })
-export class LoginComponent implements OnInit {
-  constructor(private store: Store<fromAuth.State>) {}
-
-  ngOnInit(): void {
-    console.log('Login Init..');
-  }
+export class LoginComponent {
+  constructor(private store: Store) {}
 
   login(authenticate: Authenticate): void {
-    this.store.dispatch(authActions.login({ payload: authenticate }));
+    this.store.dispatch(authActions.authApiActions.login({ payload: authenticate }));
   }
 }

@@ -1,4 +1,4 @@
-import { createReducer, on, Action } from '@ngrx/store';
+import { createReducer, on, createFeature } from '@ngrx/store';
 import * as AuthActions from './auth.actions';
 import { User } from '@batstateu/data-models';
 export const AUTH_FEATURE_KEY = 'auth';
@@ -15,31 +15,37 @@ export const initialState: State = {
   loading: false,
 };
 //feature selector on index.ts
-const authReducer = createReducer(
-  initialState,
-  on(AuthActions.login, (state, action) => ({ ...state, auth: action.payload, loading: true })),
-  on(AuthActions.loginSuccess, (state,action) => ({
-    ...state,
-    user: action.payload,
-    loading: false,
-  })),
-  on(AuthActions.loginSuccessNewAccount, (state,action) => ({
-    ...state,
-    user: action.payload,
-    loading: false,
-  })),
-  on(AuthActions.loginFailure, (state) => ({
-    ...state,
-    user: null,
-    loading: false,
-  })),
-  on(AuthActions.logout, (state) => ({
-    ...state,
-    user: null,
-    loading: false,
-  })),
-);
+const authReducer = createFeature({
+  name: 'Auth',
+  reducer: createReducer(
+    initialState,
+    on(AuthActions.authApiActions.login, (state, action) => ({
+      ...state,
+      auth: action.payload,
+      loading: true,
+    })),
+    on(AuthActions.authApiActions.loginSuccess, (state, action) => ({
+      ...state,
+      user: action.payload,
+      loading: false,
+    })),
+    on(AuthActions.authApiActions.loginSuccessNewAccount, (state, action) => ({
+      ...state,
+      user: action.payload,
+      loading: false,
+    })),
+    on(AuthActions.authApiActions.loginFailure, (state) => ({
+      ...state,
+      user: null,
+      loading: false,
+    })),
+    on(AuthActions.authApiActions.logout, (state) => ({
+      ...state,
+      user: null,
+      loading: false,
+    })),
+  ),
+});
 
-export function reducer(state: State | undefined, action: Action) {
-  return authReducer(state, action);
-}
+export const { name, reducer, selectAuthState, selectUser, selectLoading, selectError } =
+  authReducer;

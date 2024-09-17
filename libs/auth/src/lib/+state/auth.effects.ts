@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, filter, map, switchMap, tap } from 'rxjs/operators';
-import { AuthActionTypes } from './auth.actions';
-import * as authActions from './auth.actions';
 import { AuthService } from './../services/auth/auth.service';
 import { User } from '@batstateu/data-models';
 import { forkJoin, of } from 'rxjs';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { UserService } from '@batstateu/account';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { authApiActions } from './auth.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -23,7 +22,7 @@ export class AuthEffects {
 
   login$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(AuthActionTypes.Login),
+      ofType(authApiActions.login),
       exhaustMap((action) => {
         const { payload } = action;
         return this.authService.login(payload).pipe(
@@ -31,7 +30,7 @@ export class AuthEffects {
           switchMap((user) => forkJoin([this.userService.get(user.id), of(user)])),
           filter((userDetail) => !!userDetail),
           map(([userDetail, user]) =>
-            authActions.loginSuccess({
+            authApiActions.loginSuccess({
               payload: {
                 id: user.id,
                 isActive: userDetail.isActive,
@@ -51,7 +50,7 @@ export class AuthEffects {
   navigateToDashboard$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(AuthActionTypes.LoginSuccess),
+        ofType(authApiActions.loginSuccess),
         tap(() => {
           this.router.navigate([`/dashboard`]);
         }),
@@ -62,7 +61,7 @@ export class AuthEffects {
   navigateToProfile$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(AuthActionTypes.LoginSuccessNewAccount),
+        ofType(authApiActions.loginSuccessNewAccount),
         tap(() => {
           this.modal.warning({
             nzTitle: 'Update your profile now!',
@@ -77,7 +76,7 @@ export class AuthEffects {
   logout$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(AuthActionTypes.Logout),
+        ofType(authApiActions.logout),
         tap(() => {
           this.router.navigate([`/auth/login`]);
         }),

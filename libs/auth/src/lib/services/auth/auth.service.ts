@@ -26,6 +26,6 @@ export class AuthService {
   }
 
   logout() {
-    this.store.dispatch(fromAuth.logout());
+    this.store.dispatch(fromAuth.authApiActions.logout());
   }
 }
